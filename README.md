@@ -81,3 +81,33 @@ Given list profile not empty
 - table head bold
 
 ## Developer
+
+### Write specification code for "ProfileListPageIntergrateDbTest" 
+
+1. Create tests/application/controller/ProfileListPageIntergrateDbTest.php
+2. When visit list profile page then
+- expected response content 
+    + contain table with thead tag
+    + contain thead > th with 'id'
+    + contain thead > th with 'fullname'
+    + contain thead > th with 'age'
+    + contain thead > th with 'email'
+### Run unittest
+
+***expected test failed***
+
+### Quick & dirty way to write production code 
+
+1. Add Application_Model_DbTable_Profile
+2. Fill code to index action 
+3. Fill code to index.phtml
+
+### Run unittest
+
+***expected test success***
+
+### Refactoring code
+
+1. in profile/index.phtml switch case to display message 'profile list empty' or display table profile.
+
+### Run unittest again

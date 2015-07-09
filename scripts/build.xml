@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<project name="ProfileManager"
+    description="Practical tdd - gitflow - markdown"
+    basedir="."
+    default="phpunit">
+
+    <!-- ============================================  -->
+    <!-- (DEFAULT) Target: phpunit                     -->
+    <!-- ============================================  -->
+    <target name="phpunit"
+        description="verify sepecification software">
+        <!-- <phpunit printsummary="true"
+            configuration="${project.basedir}/../tests/phpunit.xml" /> -->
+        <exec command="${project.basedir}/../vendor/bin/phpunit -c ${project.basedir}/../tests/phpunit.xml" passthru="true" />
+    </target>
+
+</project>

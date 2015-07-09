@@ -6,6 +6,8 @@ Practical TDD - gitflow - markdown
 
 ## Customer
 
+Given list profile empty
+
 1. When visit list profile page then 
 - i want to see page title 'list profile'
 2. When visit list profile with empty profile list then
@@ -59,3 +61,23 @@ add html layout
 ### Run unittest again
 
 ***expected test success***
+
+# Pharse 'ListNonEmptyProfile'
+
+## Customer
+
+### Requirements
+
+Given list profile not empty
+
+1. Profile info need display
+- Profile id
+- Profile fullname
+- Profile age
+- Profile email
+
+2. When visit list profile page then 
+- i want to see all profile list
+- table head bold
+
+## Developer

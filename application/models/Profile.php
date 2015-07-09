@@ -20,8 +20,7 @@ class Application_Model_Profile
      */
     public function getAge() {
         $current = new DateTime();
-        $dob = new DateTime($this->dob);
-        $dateInterval = $current->diff($dob);
+        $dateInterval = $current->diff($this->getBirthDay());
         return $dateInterval->y;
     }
 
@@ -49,6 +48,9 @@ class Application_Model_Profile
      * @return DateTime Birth day
      */
     public function getBirthDay() {
+        if (empty($this->dob)) {
+            throw new DomainException("Missing birth day");
+        }
         return new DateTime($this->dob);
     }
 }

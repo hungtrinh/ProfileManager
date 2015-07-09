@@ -1,4 +1,33 @@
 <?php
 $this->headTitle($this->translate('Profile list'));
 echo $this->translate('Empty profile list');
-;?>
+?>
+
+<table id="table-profile-list">
+    <thead id="able-list-profile-head">
+        <tr>
+            <th>
+                <?php echo $this->translate('id');?>
+            </th>
+            <th>
+                <?php echo $this->translate('fullname');?>
+            </th>
+            <th>
+                <?php echo $this->translate('age');?>
+            </th>
+            <th>
+                <?php echo $this->translate('email');?>
+            </th>
+        </tr>
+    </thead>
+
+    <tbody>
+
+    </tbody>
+
+    <tfoot>
+        <tr>
+            <td colspan="4">&nbsp</td>
+        </tr>
+    </tfoot>
+</table>

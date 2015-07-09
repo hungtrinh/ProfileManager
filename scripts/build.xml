@@ -9,7 +9,8 @@
     <!-- (DEFAULT) Target: phpunit                     -->
     <!-- ============================================  -->
     <target name="phpunit"
-        description="Verify sepecification software">
+        description="Verify sepecification software"
+        depends="db-testing-sync">
         <!-- <phpunit printsummary="true"
             configuration="${project.basedir}/../tests/phpunit.xml" /> -->
         <exec command="${project.basedir}/vendor/bin/phpunit -c ${project.basedir}/tests/phpunit.xml" passthru="true" />
@@ -19,8 +20,25 @@
     <!-- Target: web-server                            -->
     <!-- ============================================  -->
     <target name="web-server"
-        description="Start php build web server with enviroment 'development'">
+        description="Start php build web server with enviroment 'development'"
+        depends="db-dev-sync">
         <exec command="APPLICATION_ENV=development php -S 127.0.0.1:8888 -t ${project.basedir}/public " passthru="true"  />
+    </target>
+
+    <!-- ============================================  -->
+    <!-- Target: db-testing-sync                       -->
+    <!-- ============================================  -->
+    <target name="db-testing-sync"
+        description="Migrate database with enviroment 'testing'">
+        <exec command="${project.basedir}/vendor/bin/phinx migrate -c  ${project.basedir}/scripts/build/phinx.yml -e testing" passthru="true"  />
+    </target>
+
+    <!-- ============================================  -->
+    <!-- Target: db-dev-sync                           -->
+    <!-- ============================================  -->
+    <target name="db-dev-sync"
+        description="Migrate database with enviroment 'development'">
+        <exec command="${project.basedir}/vendor/bin/phinx migrate -c  ${project.basedir}/scripts/build/phinx.yml -e development" passthru="true"  />
     </target>
 
 </project>

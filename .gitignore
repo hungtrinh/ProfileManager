@@ -13,3 +13,6 @@ temp/
 
 # Local config
 application/configs/*.local.*
+
+# sublimetext ide
+.phpintel

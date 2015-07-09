@@ -11,9 +11,11 @@ defined('APPLICATION_ENV')
 // Ensure library/ is on include_path
 set_include_path(implode(PATH_SEPARATOR, array(
     realpath(APPLICATION_PATH . '/../library'),
+    realpath(APPLICATION_PATH . '/../vendor/zendframework/zendframework1/library'),
     get_include_path(),
 )));
 
-require_once "vendor/autoload.php";
+require_once realpath(APPLICATION_PATH . '/../vendor/autoload.php');
+
 require_once 'Zend/Loader/Autoloader.php';
 Zend_Loader_Autoloader::getInstance();

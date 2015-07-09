@@ -14,5 +14,8 @@ temp/
 # Local config
 application/configs/*.local.*
 
+# build file
+scripts/build/coverage/
+
 # sublimetext ide
 .phpintel

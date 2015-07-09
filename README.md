@@ -1,4 +1,35 @@
-# Profile manager
+<!-- MarkdownTOC -->
+
+- [Profile manager](#profile-manager)
+- [Pharse 'ListEmptyProfile'](#pharse-listemptyprofile)
+    - [Customer](#customer)
+        - [Given list profile empty](#given-list-profile-empty)
+            - [When visit list profile page then](#when-visit-list-profile-page-then)
+    - [Developer](#developer)
+        - [Make app skeleton](#make-app-skeleton)
+        - [Write specification code for "ListEmptyProfile"](#write-specification-code-for-listemptyprofile)
+        - [Run unittest](#run-unittest)
+        - [Quick & dirty way to write production code](#quick--dirty-way-to-write-production-code)
+        - [Run unittest](#run-unittest-1)
+        - [Refactoring code](#refactoring-code)
+        - [Run unittest again](#run-unittest-again)
+- [Pharse 'ListNonEmptyProfile'](#pharse-listnonemptyprofile)
+    - [Customer](#customer-1)
+        - [Given list profile not empty](#given-list-profile-not-empty)
+            - [Profile info need display](#profile-info-need-display)
+            - [When visit list profile page then](#when-visit-list-profile-page-then-1)
+    - [Developer](#developer-1)
+        - [Write specification code for "ProfileListPageIntergrateDbTest"](#write-specification-code-for-profilelistpageintergratedbtest)
+        - [Run unittest](#run-unittest-2)
+        - [Quick & dirty way to write production code](#quick--dirty-way-to-write-production-code-1)
+        - [Run unittest](#run-unittest-3)
+        - [Refactoring code](#refactoring-code-1)
+        - [Run unittest again](#run-unittest-again-1)
+
+<!-- /MarkdownTOC -->
+
+Profile manager
+===============
 
 Practical TDD - gitflow - markdown
 
@@ -6,16 +37,15 @@ Practical TDD - gitflow - markdown
 
 ## Customer
 
-Given list profile empty
+### Given list profile empty
 
-1. When visit list profile page then 
-- i want to see page title 'list profile'
-2. When visit list profile with empty profile list then
-- i wan to see web page display "Empty list profile"
+#### When visit list profile page then
+1. I want to see page title 'list profile'
+2. I want to see web page display "Empty list profile"
 
 ## Developer
 
-### Make app sekeleton
+### Make app skeleton
 
 1. Install automation tool
 2. Download composer phar
@@ -25,17 +55,17 @@ Given list profile empty
 - zend framework 1
 4. Write phing task phpunit
 
-### Write specification code for "ListEmptyProfile" 
+### Write specification code for "ListEmptyProfile"
 
 1. Create tests/application/controller/ProfileListPageTest.php
 2. When visit list profile page then
 
 - expected response code equals 200
-- expected request handler by 
+- expected request handler by
     + index action
     + profile controller
     + default module
-- expected response content 
+- expected response content
     + contain title 'Profile list'
     + contain 'empty profile list'
 
@@ -43,7 +73,7 @@ Given list profile empty
 
 ***expected test failed***
 
-### Quick & dirty way to write production code 
+### Quick & dirty way to write production code
 
 1. Create ProductController
 2. Create index action
@@ -66,27 +96,26 @@ add html layout
 
 ## Customer
 
-### Requirements
+### Given list profile not empty
 
-Given list profile not empty
+#### Profile info need display
 
-1. Profile info need display
 - Profile id
 - Profile fullname
 - Profile age
 - Profile email
 
-2. When visit list profile page then 
+#### When visit list profile page then
 - i want to see all profile list
 - table head bold
 
 ## Developer
 
-### Write specification code for "ProfileListPageIntergrateDbTest" 
+### Write specification code for "ProfileListPageIntergrateDbTest"
 
 1. Create tests/application/controller/ProfileListPageIntergrateDbTest.php
 2. When visit list profile page then
-- expected response content 
+- expected response content
     + contain table with thead tag
     + contain thead > th with 'id'
     + contain thead > th with 'fullname'
@@ -96,11 +125,14 @@ Given list profile not empty
 
 ***expected test failed***
 
-### Quick & dirty way to write production code 
+### Quick & dirty way to write production code
 
-1. Add Application_Model_DbTable_Profile
-2. Fill code to index action 
-3. Fill code to index.phtml
+1. Find and add phinx to composer.json (require-dev)
+2. Create scripts/build/sql/create-database.sql
+3. Create script CreateProfileTable in scripts/build/migrations by phinx
+4. Add Application_Model_DbTable_Profile
+5. Fill code to index action
+6. Fill code to index.phtml
 
 ### Run unittest
 

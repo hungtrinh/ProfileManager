@@ -1,0 +1,15 @@
+# Composer
+composer.phar
+vendor/
+
+
+# Data
+data/cache/
+data/indexes/
+data/logs/
+data/sessions/
+data/tmp/
+temp/
+
+# Local config
+application/configs/*.local.*

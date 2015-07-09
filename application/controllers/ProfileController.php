@@ -10,6 +10,7 @@ class ProfileController extends Zend_Controller_Action
 
     public function indexAction()
     {
+        $this->view->profiles = (new Application_Model_DbTable_Profile())->fetchAll();
     }
 
 }

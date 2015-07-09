@@ -7,7 +7,7 @@ class ProfileListPageIntegrateDbTest extends ControllerIntegrateDbTestCase
     private function mysqlDateYearAgo($yearAgo)
     {
         $yearAgo = (int) $yearAgo;
-        return (new DateTime())->modify("- $yearAgo years")->format('Y-m-d');
+        return (new DateTime("- $yearAgo years"))->format('Y-m-d');
     }
 
     protected function getDataSet()
@@ -48,10 +48,10 @@ class ProfileListPageIntegrateDbTest extends ControllerIntegrateDbTestCase
             ['id' => 2, 'fullname' => 'Trinh An Binh', 'age' => 25, 'email' => 'binh@gmail.com'],
             ['id' => 3, 'fullname' => 'Trinh An Thai', 'age' => 24, 'email' => 'thai@gmail.com'],
         ] as $profile) {
-            $this->assertQueryContentContains('#table-list-profile-body th', $profile['id']);
-            $this->assertQueryContentContains('#table-list-profile-body th', $profile['fullname']);
-            $this->assertQueryContentContains('#table-list-profile-body th', $profile['age']);
-            $this->assertQueryContentContains('#table-list-profile-body th', $profile['email']);
+            $this->assertQueryContentContains('#table-list-profile-body td', $profile['id']);
+            $this->assertQueryContentContains('#table-list-profile-body td', $profile['fullname']);
+            $this->assertQueryContentContains('#table-list-profile-body td', $profile['age']);
+            $this->assertQueryContentContains('#table-list-profile-body td', $profile['email']);
         }
     }
 }

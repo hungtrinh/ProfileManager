@@ -4,13 +4,19 @@
 
 class ProfileListPageIntegrateDbTest extends ControllerIntegrateDbTestCase
 {
+    private function mysqlDateYearAgo($yearAgo)
+    {
+        $yearAgo = (int) $yearAgo;
+        return (new DateTime())->modify("- $yearAgo years")->format('Y-m-d');
+    }
+
     protected function getDataSet()
     {
         return new PHPUnit_Extensions_Database_DataSet_ArrayDataSet(array(
             'profile' => [
-                ['id' => 1, 'fullname' => 'Trinh An An', 'age' => 26, 'email' => 'an@gmail.com'],
-                ['id' => 2, 'fullname' => 'Trinh An Binh', 'age' => 25, 'email' => 'binh@gmail.com'],
-                ['id' => 1, 'fullname' => 'Trinh An Thai', 'age' => 24, 'email' => 'thai@gmail.com'],
+                ['id' => 1, 'fullname' => 'Trinh An An', 'dob' => $this->mysqlDateYearAgo(26), 'email' => 'an@gmail.com'],
+                ['id' => 2, 'fullname' => 'Trinh An Binh', 'dob' => $this->mysqlDateYearAgo(25), 'email' => 'binh@gmail.com'],
+                ['id' => 3, 'fullname' => 'Trinh An Thai', 'dob' => $this->mysqlDateYearAgo(24), 'email' => 'thai@gmail.com'],
             ],
         ));
     }

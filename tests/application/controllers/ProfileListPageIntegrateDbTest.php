@@ -38,9 +38,9 @@ class ProfileListPageIntegrateDbTest extends ControllerIntegrateDbTestCase
         $this->assertQuery('#table-list-profile-head');
         $this->assertQuery('#table-list-profile-body');
 
-        $this->assertQueryContentContains('#table-list-profile-head > th', 'id');
-        $this->assertQueryContentContains('#table-list-profile-head > th', 'fullname');
-        $this->assertQueryContentContains('#table-list-profile-head > th', 'age');
-        $this->assertQueryContentContains('#table-list-profile-head > th', 'email');
+        $this->assertQueryContentContains('#table-list-profile-head th', 'id');
+        $this->assertQueryContentContains('#table-list-profile-head th', 'fullname');
+        $this->assertQueryContentContains('#table-list-profile-head th', 'age');
+        $this->assertQueryContentContains('#table-list-profile-head th', 'email');
     }
 }

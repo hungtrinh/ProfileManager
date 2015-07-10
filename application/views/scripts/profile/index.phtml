@@ -1,13 +1,9 @@
 <?php
 $this->headTitle($this->translate('Profile list'));
 $profileCollection = $this->profiles; /* @var $profileCollection Application_Model_ProfileCollectionInterface */
-?>
-<?php
 if (0 == $profileCollection->count()):
-?>
-<?php echo $this->translate('Empty profile list');?>
-<?php
-return;
+    echo $this->translate('Empty profile list');
+    return;
 endif; //if (0==$profileCollection->count())
 ?>
 
@@ -15,35 +11,36 @@ endif; //if (0==$profileCollection->count())
     <thead id="table-list-profile-head">
         <tr>
             <th>
-                <?php echo $this->translate('id');?>
+                <?php echo $this->translate('id'); ?>
             </th>
             <th>
-                <?php echo $this->translate('fullname');?>
+                <?php echo $this->translate('fullname'); ?>
             </th>
             <th>
-                <?php echo $this->translate('age');?>
+                <?php echo $this->translate('age'); ?>
             </th>
             <th>
-                <?php echo $this->translate('email');?>
+                <?php echo $this->translate('email'); ?>
             </th>
         </tr>
     </thead>
 
     <tbody id="table-list-profile-body">
-    <?php foreach ($profileCollection as $profile):
-        /* @var $profile Application_Model_ProfileInterface */
-        $id = $this->escape($profile->getId());
-        $fullname = $this->escape($profile->getFullname());
-        $age = $this->escape($profile->getAge());
-        $email = $this->escape($profile->getEmail());
-    ?>
-        <tr>
-            <td><?php echo $id;?></td>
-            <td><?php echo $fullname;?></td>
-            <td><?php echo $age;?></td>
-            <td><?php echo $email;?></td>
-        </tr>
-    <?php endforeach;?>
+        <?php
+        foreach ($profileCollection as $profile):
+            /* @var $profile Application_Model_ProfileInterface */
+            $id       = $this->escape($profile->getId());
+            $fullname = $this->escape($profile->getFullname());
+            $age      = $this->escape($profile->getAge());
+            $email    = $this->escape($profile->getEmail());
+            ?>
+            <tr>
+                <td><?php echo $id; ?></td>
+                <td><?php echo $fullname; ?></td>
+                <td><?php echo $age; ?></td>
+                <td><?php echo $email; ?></td>
+            </tr>
+        <?php endforeach; ?>
     </tbody>
 
     <tfoot>

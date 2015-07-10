@@ -5,7 +5,7 @@
  *
  * @implements Application_Model_ProfileCollectionInterface
  */
-interface Application_Model_ProfileCollectionInterface
+interface Application_Model_ProfileCollectionInterface extends SeekableIterator, Countable, ArrayAccess
 {
     /**
      * Get list profile ids

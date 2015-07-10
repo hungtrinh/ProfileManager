@@ -1,9 +1,16 @@
 <?php
 $this->headTitle($this->translate('Profile list'));
+$profileCollection = $this->profiles; /* @var $profileCollection Application_Model_ProfileCollectionInterface */
 ?>
-<?php if (0 == $this->profiles->count()): ?>
+<?php
+if (0 == $profileCollection->count()):
+?>
 <?php echo $this->translate('Empty profile list');?>
-<?php else: ?>
+<?php
+return;
+endif; //if (0==$profileCollection->count())
+?>
+
 <table id="table-list-profile">
     <thead id="table-list-profile-head">
         <tr>
@@ -23,13 +30,13 @@ $this->headTitle($this->translate('Profile list'));
     </thead>
 
     <tbody id="table-list-profile-body">
-    <?php foreach ($this->profiles as $profile /* @var $profile Application_Model_ProfileInterface */): ?>
-        <?php
-            $id = $this->escape($profile->getId());
-            $fullname = $this->escape($profile->getFullname());
-            $age = $this->escape($profile->getAge());
-            $email = $this->escape($profile->getEmail());
-        ?>
+    <?php foreach ($profileCollection as $profile):
+        /* @var $profile Application_Model_ProfileInterface */
+        $id = $this->escape($profile->getId());
+        $fullname = $this->escape($profile->getFullname());
+        $age = $this->escape($profile->getAge());
+        $email = $this->escape($profile->getEmail());
+    ?>
         <tr>
             <td><?php echo $id;?></td>
             <td><?php echo $fullname;?></td>
@@ -45,4 +52,4 @@ $this->headTitle($this->translate('Profile list'));
         </tr>
     </tfoot>
 </table>
-<?php endif; //if (0==$this->profiles->count())?>
+

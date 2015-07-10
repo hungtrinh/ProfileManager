@@ -56,6 +56,7 @@ class Application_Model_ProfileCollection extends Zend_Db_Table_Rowset_Abstract 
     public function getIdentifyMap()
     {
         if (null === $this->identifyMap) {
+            $this->identifyMap = new ArrayObject();
             foreach ($this as $profile /* @var $profile Application_Model_ProfileInterface */) {
                 $this->identifyMap[$profile->getId()] = $profile;
             }

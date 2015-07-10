@@ -1,34 +1,46 @@
 <?php
 
-class Application_Model_ProfileCollection
- extends Zend_Db_Table_Rowset_Abstract
- implements Application_Model_ProfileCollectionInterface {
+/**
+ * Hold profile list and business logic relative profile list
+ *
+ * @implements Application_Model_ProfileCollectionInterface
+ */
+class Application_Model_ProfileCollection extends Zend_Db_Table_Rowset_Abstract implements Application_Model_ProfileCollectionInterface
+{
     /**
-     * Zend_Db_Table_Row_Abstract class name.
+     * Indicates type of item in collection
      *
      * @var string
      */
     protected $_rowClass = 'Application_Model_Profile';
 
     /**
+     * Internal cache indicate list profile id in current collection
+     * 
      * @var int []
      */
     protected $ids;
 
     /**
+     * Internal cache indicates map (associative arrays) with key is profile id
+     * and value is an item of Application_Model_ProfileInterface
+     *
+     * [profile id => Application_Model_ProfileInterface]
+     *
      * @var Application_Model_ProfileInterface []
      */
     protected $identifyMap;
 
     /**
-     * Get list profile ids
-     * @return int[]
+     * @inherit
+     * {@inherit}
+     * {@inheritdoc}
      */
     public function getIds()
     {
-        if (null == $this->ids) {
+        if (null === $this->ids) {
             $this->ids = [];
-            foreach($this as $profile /* @var $profile Application_Model_ProfileInterface */) {
+            foreach ($this as $profile /* @var $profile Application_Model_ProfileInterface */) {
                 $this->ids[] = $profile->getId();
             }
         }
@@ -37,15 +49,14 @@ class Application_Model_ProfileCollection
     }
 
     /**
-     * Get array with struct
-     * [profile id => Application_Model_ProfileInterface]
-     *
-     * @return Application_Model_ProfileInterface[]
+     * @inherit
+     * {@inherit}
+     * {@inheritdoc}
      */
     public function getIdentifyMap()
     {
-        if (null == $this->identifyMap) {
-            foreach($this as $profile /* @var $profile Application_Model_ProfileInterface */) {
+        if (null === $this->identifyMap) {
+            foreach ($this as $profile /* @var $profile Application_Model_ProfileInterface */) {
                 $this->identifyMap[$profile->getId()] = $profile;
             }
         }

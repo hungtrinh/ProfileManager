@@ -19,3 +19,6 @@ scripts/build/coverage/
 
 # sublimetext ide
 .phpintel
+
+# netbean project
+nbproject/

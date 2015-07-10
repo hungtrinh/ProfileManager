@@ -25,7 +25,7 @@ interface Application_Model_ProfileCollectionInterface extends SeekableIterator,
      * ?>
      * </code>
      *
-     * @return ArrayObject | Application_Model_ProfileInterface[] map profile id to profile entity
+     * @return \ArrayObject | Application_Model_ProfileInterface[] map profile id to profile entity
      */
     public function getIdentifyMap();
 }

@@ -3,7 +3,7 @@ composer.phar
 vendor/
 
 
-# Data
+# Application data
 data/cache/
 data/indexes/
 data/logs/

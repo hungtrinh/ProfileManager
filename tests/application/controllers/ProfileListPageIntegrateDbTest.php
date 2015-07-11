@@ -1,5 +1,8 @@
 <?php
 
+/**
+ * @group page-intergrate-db
+ */
 class ProfileListPageIntegrateDbTest extends ControllerIntegrateDbTestCase
 {
     private function mysqlDateYearAgo($yearAgo)
@@ -75,5 +78,20 @@ class ProfileListPageIntegrateDbTest extends ControllerIntegrateDbTestCase
         $this->assertQueryContentContains('#table-list-profile-body td', $profile['fullname']);
         $this->assertQueryContentContains('#table-list-profile-body td', $profile['age']);
         $this->assertQueryContentContains('#table-list-profile-body td', $profile['email']);
+    }
+
+    /**
+     * @test
+     */
+    public function visitWhenHasManyProfileThenShowPaginationRegion()
+    {
+        $this->visitListProfilePage(1,1);
+        
+        $this->assertQueryCount('.paginator', 1);
+        $this->assertQueryCount('.paginator .next', 1);
+        $this->assertQueryCount('.paginator .prev', 1);
+        $this->assertQueryCount('.paginator .first', 1);
+        $this->assertQueryCount('.paginator .last', 1);
+        $this->assertQueryCount('.paginator .number', 3);
     }
 }

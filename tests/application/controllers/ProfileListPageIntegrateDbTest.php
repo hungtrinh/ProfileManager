@@ -68,7 +68,6 @@ class ProfileListPageIntegrateDbTest extends ControllerIntegrateDbTestCase
     public function visitFirstPageWithPageSizeOneThenShowOnlyFirstRecord()
     {
         $this->visitListProfilePage(1,1);
-        echo $this->getResponse()->getBody();
         $this->assertQueryCount('#table-list-profile-body tr', 1);
 
         $profile = ['id' => 1, 'fullname' => 'Trinh An An', 'age' => 26, 'email' => 'an@gmail.com'];

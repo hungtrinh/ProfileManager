@@ -10,6 +10,12 @@ class ProfileController extends Zend_Controller_Action
 
     public function indexAction()
     {
-        $this->view->profiles = (new Application_Model_DbTable_Profile())->fetchAll();
+        $page     = (int) $this->getParam('page', 1);
+        $pageSize = (int) $this->getParam('size', 25);
+
+        $profileTable = new Application_Model_DbTable_Profile();
+        $select       = $profileTable->select()->limitPage($page, $pageSize);
+
+        $this->view->profiles = $profileTable->fetchAll($select);
     }
 }

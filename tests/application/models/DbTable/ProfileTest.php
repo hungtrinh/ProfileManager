@@ -1,8 +1,7 @@
 <?php
 
 /**
- * @group db-intergation
- * @group db-table
+ * @group db-intergration
  */
 class Application_Model_DbTable_ProfileTest extends Zend_Test_PHPUnit_DatabaseTestCase
 {

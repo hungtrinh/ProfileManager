@@ -1,5 +1,14 @@
 <?php
 
+/**
+ * Management user profile
+ *
+ * Group page relative with profile manage
+ * - paginator profile by page and page size
+ * - add new profile
+ * - edit exist profile
+ * - delete exist profile
+ */
 class ProfileController extends Zend_Controller_Action
 {
 

@@ -46,7 +46,8 @@ class Application_Model_DbTable_ProfileTest extends Zend_Test_PHPUnit_DatabaseTe
 
     protected function getDataSet()
     {
-        $current = (new DateTime())->format('Y-m-d');
+        $currentDate = new DateTime();
+        $current = $currentDate->format('Y-m-d');
         return $this->createArrayDataSet([
                 'profile' => [
                     ['id' => 1, 'fullname' => 'Quang A', 'dob' => $current, 'email' => 'a@mail.com'],
@@ -82,6 +83,9 @@ class Application_Model_DbTable_ProfileTest extends Zend_Test_PHPUnit_DatabaseTe
     public function paginatorWillReturnInstanceOfZendPaginator()
     {
         $profiles = $this->profileTable->paginator(1,1);
+        $totalPage = $profiles->count();
+        
         $this->assertInstanceOf('Zend_Paginator', $profiles);
+        $this->assertEquals(3, $totalPage);
     }
 }

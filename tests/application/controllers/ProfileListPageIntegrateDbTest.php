@@ -1,13 +1,12 @@
 <?php
 
-// require_once "ControllerIntegrateDbTestCase.php";
-
 class ProfileListPageIntegrateDbTest extends ControllerIntegrateDbTestCase
 {
     private function mysqlDateYearAgo($yearAgo)
     {
-        $yearAgo = (int) $yearAgo;
-        return (new DateTime("- $yearAgo years"))->format('Y-m-d');
+        $number = (int) $yearAgo; /* @var $number int*/
+        $oneYearAge = new DateTime("- $number years");
+        return $oneYearAge->format('Y-m-d');
     }
 
     protected function getDataSet()
@@ -69,8 +68,8 @@ class ProfileListPageIntegrateDbTest extends ControllerIntegrateDbTestCase
     public function visitFirstPageWithPageSizeOneThenShowOnlyFirstRecord()
     {
         $this->visitListProfilePage(1,1);
-        
-        $this->assertQueryCount('#table-list-profile-body > tr', 1);
+        echo $this->getResponse()->getBody();
+        $this->assertQueryCount('#table-list-profile-body tr', 1);
 
         $profile = ['id' => 1, 'fullname' => 'Trinh An An', 'age' => 26, 'email' => 'an@gmail.com'];
         $this->assertQueryContentContains('#table-list-profile-body td', $profile['id']);

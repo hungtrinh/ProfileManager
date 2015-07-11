@@ -3,7 +3,7 @@ composer.phar
 vendor/
 
 
-# Data
+# Application data
 data/cache/
 data/indexes/
 data/logs/
@@ -17,5 +17,11 @@ application/configs/*.local.*
 # build file
 scripts/build/coverage/
 
+# phpunit coverage
+tests/log/
+
 # sublimetext ide
 .phpintel
+
+# netbean project
+nbproject/

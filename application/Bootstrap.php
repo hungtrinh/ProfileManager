@@ -2,7 +2,7 @@
 
 class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
 {
-    protected function _initLoaderResources()
+    protected function _initResourceLoader()
     {
         $this->getResourceLoader()->addResourceType('repository', 'repositories/', 'Repository');
     }

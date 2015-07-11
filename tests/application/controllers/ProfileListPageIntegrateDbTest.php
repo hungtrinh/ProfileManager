@@ -21,10 +21,16 @@ class ProfileListPageIntegrateDbTest extends ControllerIntegrateDbTestCase
         ));
     }
 
-    private function visitListProfilePage()
+    private function visitListProfilePage($page=null,$pageSize=null)
     {
-        $listProfileUrl = $this->url(['action' => 'index', 'controller' => 'profile', 'module' => 'default']);
-        $this->dispatch($listProfileUrl);
+        $urlOptions = ['action' => 'index', 'controller' => 'profile', 'module' => 'default'];
+        if ($page) {
+            $urlOptions['page'] = $page;
+        }
+        if ($pageSize) {
+            $urlOptions['size'] = $pageSize;
+        }
+        $this->dispatch($this->url($urlOptions));
     }
 
     /**
@@ -43,6 +49,8 @@ class ProfileListPageIntegrateDbTest extends ControllerIntegrateDbTestCase
         $this->assertQueryContentContains('#table-list-profile-head th', 'age');
         $this->assertQueryContentContains('#table-list-profile-head th', 'email');
 
+        $this->assertQueryCount('#table-list-profile-body > tr', 3);
+
         foreach ([
             ['id' => 1, 'fullname' => 'Trinh An An', 'age' => 26, 'email' => 'an@gmail.com'],
             ['id' => 2, 'fullname' => 'Trinh An Binh', 'age' => 25, 'email' => 'binh@gmail.com'],
@@ -53,5 +61,21 @@ class ProfileListPageIntegrateDbTest extends ControllerIntegrateDbTestCase
             $this->assertQueryContentContains('#table-list-profile-body td', $profile['age']);
             $this->assertQueryContentContains('#table-list-profile-body td', $profile['email']);
         }
+    }
+
+    /**
+     * @test
+     */
+    public function visitFirstPageWithPageSizeOneThenShowOnlyFirstRecord()
+    {
+        $this->visitListProfilePage(1,1);
+        
+        $this->assertQueryCount('#table-list-profile-body > tr', 1);
+
+        $profile = ['id' => 1, 'fullname' => 'Trinh An An', 'age' => 26, 'email' => 'an@gmail.com'];
+        $this->assertQueryContentContains('#table-list-profile-body td', $profile['id']);
+        $this->assertQueryContentContains('#table-list-profile-body td', $profile['fullname']);
+        $this->assertQueryContentContains('#table-list-profile-body td', $profile['age']);
+        $this->assertQueryContentContains('#table-list-profile-body td', $profile['email']);
     }
 }

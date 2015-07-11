@@ -11,12 +11,14 @@
  */
 class ProfileController extends Zend_Controller_Action
 {
-
-    public function init()
-    {
-        /* Initialize action controller here */
-    }
-
+    /**
+     * Page paginator profile
+     *
+     * Handler GET request only
+     * 
+     * @param int $page page number
+     * @param int $size item per page
+     */
     public function indexAction()
     {
         $page     = (int) $this->getParam('page', 1);

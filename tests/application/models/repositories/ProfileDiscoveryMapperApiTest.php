@@ -22,7 +22,7 @@ class Application_Repository_ProfileDiscoveryMapperApiTest extends PHPUnit_Frame
     protected function setUp()
     {
         $this->autoloadResource();
-        $this->profileMapperMock = $this->getMockBuilder('Application_Model_ProfileMapperInterface')
+        $this->profileMapperMock = $this->getMockBuilder('Application_Model_Mapper_ProfileInterface')
             ->disableOriginalConstructor()
             ->getMock();
         $this->profileRepo       = new Application_Repository_Profile($this->profileMapperMock);

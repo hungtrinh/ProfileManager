@@ -2,6 +2,7 @@
 
 /**
  * @group db-intergration
+ * @group mapper
  */
 class Application_Model_DbTable_ProfileTest extends Zend_Test_PHPUnit_DatabaseTestCase
 {
@@ -73,5 +74,14 @@ class Application_Model_DbTable_ProfileTest extends Zend_Test_PHPUnit_DatabaseTe
                 $profileEntity);
             $this->assertEquals($profileEntity->getId(), $profileId);
         }
+    }
+
+    /**
+     * @test
+     */
+    public function paginatorWillReturnInstanceOfZendPaginator()
+    {
+        $profiles = $this->profileTable->paginator(1,1);
+        $this->assertInstanceOf('Zend_Paginator', $profiles);
     }
 }

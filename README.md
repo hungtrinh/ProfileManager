@@ -25,6 +25,17 @@
         - [Run unit-test](#run-unit-test-3)
         - [Refactoring code](#refactoring-code-1)
         - [Run unit-test again](#run-unit-test-again-1)
+- [Phrase 'Pagination list profile'](#phrase-pagination-list-profile)
+    - [Customer](#customer-2)
+        - [Given list has many profile](#given-list-has-many-profile)
+            - [When visit list profile page then](#when-visit-list-profile-page-then-2)
+    - [Developer](#developer-2)
+        - [Write specification code for "ProfileListPageIntergrateDbTest"](#write-specification-code-for-profilelistpageintergratedbtest-1)
+            - [Specification verify paging logic right](#specification-verify-paging-logic-right)
+            - [Specification verify paging area displayed](#specification-verify-paging-area-displayed)
+        - [Run unit-test](#run-unit-test-4)
+        - [Quick & dirty way to write production code](#quick--dirty-way-to-write-production-code-2)
+        - [Refactoring code](#refactoring-code-2)
 
 <!-- /MarkdownTOC -->
 
@@ -121,6 +132,7 @@ add html layout
     + contain thead > th with 'fullname'
     + contain thead > th with 'age'
     + contain thead > th with 'email'
+
 ### Run unit-test
 
 ***expected test failed***
@@ -143,3 +155,41 @@ add html layout
 1. in profile/index.phtml switch case to display message 'profile list empty' or display table profile.
 
 ### Run unit-test again
+
+# Phrase 'Pagination list profile'
+
+## Customer
+
+### Given list has many profile
+
+#### When visit list profile page then
+- i want to see 25 profile per page
+- i want to see pagination region, has next,back, number to support switch all other page
+
+## Developer
+
+### Write specification code for "ProfileListPageIntergrateDbTest"
+
+#### Specification verify paging logic right
+
+When visit first page with page size equal one then show only first record base on list profile prepaired (mark test incomplete)
+
+1. Write spec Profile Repository Interface
+2. To be continue
+    
+#### Specification verify paging area displayed
+
+1. To be continue
+
+When visit when has many profile prepaired then show pagination region (mark test incomplete)
+
+### Run unit-test 
+
+***expected test failed***
+
+### Quick & dirty way to write production code
+
+***expected test success***
+
+### Refactoring code
+

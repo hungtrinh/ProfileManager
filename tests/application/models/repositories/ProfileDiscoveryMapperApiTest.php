@@ -39,7 +39,7 @@ class Application_Repository_ProfileDiscoveryMapperApiTest extends PHPUnit_Frame
     /**
      * @test
      */
-    public function discoveryMapperPaginatorInterface()
+    public function paginatorWillDelegateCallMethodToProfileMapperInterface()
     {
         $profileCollection = new Application_Model_ProfileCollection([new Application_Model_Profile()]);
         $page              = 1;

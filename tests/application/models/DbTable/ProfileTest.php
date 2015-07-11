@@ -1,5 +1,9 @@
 <?php
 
+/**
+ * @group db-intergation
+ * @group db-table
+ */
 class Application_Model_DbTable_ProfileTest extends Zend_Test_PHPUnit_DatabaseTestCase
 {
     /**
@@ -16,8 +20,17 @@ class Application_Model_DbTable_ProfileTest extends Zend_Test_PHPUnit_DatabaseTe
 
     protected function setUp()
     {
+        $this->runAutoloadResources();
         parent::setUp();
         $this->profileTable = new Application_Model_DbTable_Profile();
+    }
+
+    public function runAutoloadResources()
+    {
+        $app = new Zend_Application(
+            APPLICATION_ENV, APPLICATION_PATH."/configs/application.ini"
+        );
+        $app->bootstrap('db');
     }
 
     protected function getConnection()

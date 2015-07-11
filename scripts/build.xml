@@ -10,10 +10,10 @@
     <!-- ============================================  -->
     <target name="phpunit"
         description="Verify sepecification software"
-        depends="db-testing-sync">
+        depends="clean,prepaire,db-testing-sync">
         <!-- <phpunit printsummary="true"
             configuration="${project.basedir}/../tests/phpunit.xml" /> -->
-        <exec command="${project.basedir}/vendor/bin/phpunit -c ${project.basedir}/tests/phpunit.xml" passthru="true" />
+        <exec command="${project.basedir}/vendor/bin/phpunit --testdox -c ${project.basedir}/tests/phpunit.xml" passthru="true" />
     </target>
 
     <!-- ============================================  -->
@@ -40,5 +40,14 @@
         description="Migrate database with enviroment 'development'">
         <exec command="${project.basedir}/vendor/bin/phinx migrate -c  ${project.basedir}/scripts/build/phinx.yml -e development" passthru="true"  />
     </target>
-
+    
+    <target name="clean"
+            description="Clean temp folder">
+        <delete dir="${project.basedir}/tests/log/"/>
+    </target>
+    
+    <target name="prepaire" 
+            description="Prepaire folder for build">
+        <mkdir dir="${project.basedir}/tests/log/" />
+    </target>
 </project>

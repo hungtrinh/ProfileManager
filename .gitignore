@@ -17,6 +17,9 @@ application/configs/*.local.*
 # build file
 scripts/build/coverage/
 
+# phpunit coverage
+tests/log/
+
 # sublimetext ide
 .phpintel
 

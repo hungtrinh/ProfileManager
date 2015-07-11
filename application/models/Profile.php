@@ -1,35 +1,40 @@
 <?php
 
-class Application_Model_Profile
- extends Zend_Db_Table_Row_abstract
- implements Application_Model_ProfileInterface {
+/**
+ * Hold data and business logic relate profile in app
+ */
+class Application_Model_Profile extends Zend_Db_Table_Row_abstract implements Application_Model_ProfileInterface
+{
 
     /**
      * Get profile id
      *
      * @return int profile id
      */
-    public function getId() {
+    public function getId()
+    {
         return $this->id;
     }
 
     /**
-     * Get age
+     * Get age of profile
      *
      * @return int age
      */
-    public function getAge() {
-        $current = new DateTime();
+    public function getAge()
+    {
+        $current      = new DateTime();
         $dateInterval = $current->diff($this->getBirthDay());
         return $dateInterval->y;
     }
 
     /**
-     * Get fullname
+     * Get fullname of profile
      *
      * @return string fullname
      */
-    public function getFullname() {
+    public function getFullname()
+    {
         return $this->fullname;
     }
 
@@ -38,7 +43,8 @@ class Application_Model_Profile
      *
      * @return string email
      */
-    public function getEmail() {
+    public function getEmail()
+    {
         return $this->email;
     }
 
@@ -47,7 +53,8 @@ class Application_Model_Profile
      *
      * @return DateTime Birth day
      */
-    public function getBirthDay() {
+    public function getBirthDay()
+    {
         if (empty($this->dob)) {
             throw new DomainException("Missing birth day");
         }

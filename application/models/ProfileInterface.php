@@ -1,7 +1,11 @@
 <?php
 
+/**
+ * Hold data and business logic relate profile in app
+ */
 interface Application_Model_ProfileInterface
 {
+
     /**
      * Get profile id
      *
@@ -10,7 +14,7 @@ interface Application_Model_ProfileInterface
     public function getId();
 
     /**
-     * Get age
+     * Get age of profile
      *
      * @return int age
      */
@@ -36,6 +40,4 @@ interface Application_Model_ProfileInterface
      * @return DateTime Birth day
      */
     public function getBirthDay();
-
-
 }

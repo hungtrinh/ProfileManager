@@ -42,11 +42,11 @@ endif; //if (0==$profileCollection->count())
             </tr>
         <?php endforeach; ?>
     </tbody>
-
-    <tfoot>
-        <tr>
-            <td colspan="4">&nbsp</td>
-        </tr>
-    </tfoot>
 </table>
+
+<?php
+echo $this->paginationControl(
+    $this->profiles, 'Sliding', 'partial/search-pagination.phtml'
+);
+?>
 

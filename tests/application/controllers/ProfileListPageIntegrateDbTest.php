@@ -86,12 +86,9 @@ class ProfileListPageIntegrateDbTest extends ControllerIntegrateDbTestCase
     public function visitWhenHasManyProfileThenShowPaginationRegion()
     {
         $this->visitListProfilePage(1,1);
-        
-        $this->assertQueryCount('.paginator', 1);
-        $this->assertQueryCount('.paginator .next', 1);
-        $this->assertQueryCount('.paginator .prev', 1);
-        $this->assertQueryCount('.paginator .first', 1);
-        $this->assertQueryCount('.paginator .last', 1);
-        $this->assertQueryCount('.paginator .number', 3);
+        $this->assertQueryCount('.paginationControl', 1);
+        $this->assertQueryCount('.paginationControl .next', 1);
+        $this->assertQueryCount('.paginationControl .prev', 1);
+        $this->assertQueryCount('.paginationControl .number', 2);
     }
 }

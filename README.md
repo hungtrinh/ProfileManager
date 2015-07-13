@@ -25,6 +25,13 @@
         - [Run unit-test](#run-unit-test-3)
         - [Refactoring code](#refactoring-code-1)
         - [Run unit-test again](#run-unit-test-again-1)
+    - [Customer](#customer-2)
+        - [Need Create Profile Page](#need-create-profile-page)
+        - [Show form profile when visit](#show-form-profile-when-visit)
+    - [Developer](#developer-2)
+        - [Write spect code for 'create-profile-page'](#write-spect-code-for-create-profile-page)
+            - [When use visit create profile page then show form profile](#when-use-visit-create-profile-page-then-show-form-profile)
+            - [Run Unit-test](#run-unit-test-4)
 
 <!-- /MarkdownTOC -->
 
@@ -143,3 +150,28 @@ add html layout
 1. in profile/index.phtml switch case to display message 'profile list empty' or display table profile.
 
 ### Run unit-test again
+
+## Customer
+
+### Need Create Profile Page
+
+### Show form profile when visit
+
+## Developer
+
+### Write spect code for 'create-profile-page'
+
+#### When use visit create profile page then show form profile
+
+- Expected response code 200
+- Expected request handler by create action, profile controller, default module
+- Expected response content containts:
+    + Hidden field name=id with value blank
+    + Text field name=fullname with value blank
+    + Text field name=age with value blank
+    + Text field name=email with value blank
+#### Run Unit-test 
+
+***expected test failed***
+
+

@@ -25,9 +25,9 @@ class Application_Form_ProfileTest extends PHPUnit_Framework_TestCase
     public function invalidProfileProvider()
     {
         return [
-            [['fullname' => '$#!', 'age' => 'four', 'email' => 'email']],
+            [['fullname' => '$#!', 'dob' => 'four', 'email' => 'email']],
             [['fullname' => '$#!']],
-            [['age' => 'four']],
+            [['dob' => 'four']],
             [['email' => 'email']],
         ];
     }
@@ -43,11 +43,11 @@ class Application_Form_ProfileTest extends PHPUnit_Framework_TestCase
 
     public function testWhenInjectInvalidProfileThenGetMessagesWillReturnAllErrorsMessage()
     {
-        $invalidProfile = ['fullname' => '$#!', 'age' => 'four', 'email' => 'email'];
+        $invalidProfile = ['fullname' => '$#!', 'dob' => 'four', 'email' => 'email'];
 
         $expectedErrorMessage = [
             'fullname' => [ 'regexNotMatch' => "'$#!' contains characters which are non word character"],
-            'age' => ['notDigits' => "'four' must contain only digits"],
+            'dob' => [Zend_Validate_Date::FALSEFORMAT => "'four' does not fit the date format 'yyyy-MM-dd'"],
             'email' => ['emailAddressInvalidFormat' => "'email' is not a valid email address in the basic format local-part@hostname"],
         ];
 

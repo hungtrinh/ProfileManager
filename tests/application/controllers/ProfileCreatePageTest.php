@@ -50,7 +50,7 @@ class ProfileCreatePageTest extends Zend_Test_PHPUnit_ControllerTestCase
 
         $this->assertQueryCount('form#create-profile', 1);
         $this->assertQueryCount('input#fullname', 1);
-        $this->assertQueryCount('input#age', 1);
+        $this->assertQueryCount('input#dob', 1);
         $this->assertQueryCount('input#email', 1);
         $this->assertQueryCount('input#submit', 1);
 
@@ -59,7 +59,7 @@ class ProfileCreatePageTest extends Zend_Test_PHPUnit_ControllerTestCase
         $this->assertQueryCount("form[method='post'][action='$createProfileUrl']", 1);
         $this->assertQueryCount('input[name="id"][type="hidden"]', 1);
         $this->assertQueryCount('input[name="fullname"][type="text"]', 1);
-        $this->assertQueryCount('input[name="age"][type="text"]', 1);
+        $this->assertQueryCount('input[name="dob"][type="text"]', 1);
         $this->assertQueryCount('input[name="email"][type="text"]', 1);
         $this->assertQueryCount('input[name="submit"][type="submit"][value="submit"]', 1);
     }
@@ -68,7 +68,7 @@ class ProfileCreatePageTest extends Zend_Test_PHPUnit_ControllerTestCase
     {
         $invalidProfile = [
             'fullname' => $invalidFullname='$#!',
-            'age' => $invalidAge='four',
+            'dob' => $invalidDob='four',
             'email' => $invalidEmail='email',
         ];
 
@@ -78,7 +78,7 @@ class ProfileCreatePageTest extends Zend_Test_PHPUnit_ControllerTestCase
         $this->assertQueryCount("form[method='post'][action='$createProfileUrl']", 1);
         $this->assertQueryCount('input[name="id"][type="hidden"]', 1);
         $this->assertQueryCount("input[name='fullname'][type='text'][value='$invalidFullname']", 1);
-        $this->assertQueryCount("input[name='age'][type='text'][value='$invalidAge']", 1);
+        $this->assertQueryCount("input[name='dob'][type='text'][value='$invalidDob']", 1);
         $this->assertQueryCount("input[name='email'][type='text'][value='$invalidEmail']", 1);
         $this->assertQueryCount('input[name="submit"][type="submit"][value="submit"]', 1);
     }
@@ -87,13 +87,13 @@ class ProfileCreatePageTest extends Zend_Test_PHPUnit_ControllerTestCase
     {
         $invalidProfile = [
             'fullname' => $invalidFullname='$#!',
-            'age' => $invalidAge='four',
+            'dob' => $invalidDob='four',
             'email' => $invalidEmail='email',
         ];
         $this->submitProfileForm($invalidProfile);
 
         $this->assertQueryContentContains('body', "'$invalidFullname' contains characters which are non word character");
-        $this->assertQueryContentContains('body', "'$invalidAge' must contain only digits");
+        $this->assertQueryContentContains('body', "'$invalidDob' does not fit the date format 'yyyy-MM-dd'");
         $this->assertQueryContentContains('body', "'$invalidEmail' is not a valid email address in the basic format local-part@hostname");
     }
 }

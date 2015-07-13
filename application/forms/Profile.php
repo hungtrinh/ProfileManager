@@ -29,18 +29,21 @@ class Application_Form_Profile extends Zend_Form
     }
 
     /**
-     * Make age element
+     * Make dob element
      *
      * @return \Zend_Form_Element_Text
      */
-    private function factoryAgeElement()
+    private function factoryDateOfBirthElement()
     {
         return [
-            'name' => 'age',
+            'name' => 'dob',
             'type' => 'text',
             'options' => [
                 'validators' => [
-                    ['validator' => 'Digits', 'breakChainOnFailure' => false,], //Zend_Validate_Digits
+                    [
+                        'validator' => 'Date',
+                        'breakChainOnFailure' => false,
+                    ], //Zend_Validate_Date
                 ]
             ]
         ];
@@ -85,7 +88,7 @@ class Application_Form_Profile extends Zend_Form
         $this->addElements([
             $this->factoryIdElement(),
             $this->factoryFullnameElement(),
-            $this->factoryAgeElement(),
+            $this->factoryDateOfBirthElement(),
             $this->factoryEmailElement(),
             $this->factorySubmitElement()
         ]);

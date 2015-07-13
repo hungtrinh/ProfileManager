@@ -34,6 +34,8 @@
             - [Run Unit-test](#run-unit-test-4)
         - [Quick & dirty way to write production code](#quick--dirty-way-to-write-production-code-2)
             - [Run Unit-test again](#run-unit-test-again-2)
+        - [Refactoring code](#refactoring-code-2)
+            - [Run Unit-test again](#run-unit-test-again-3)
 
 <!-- /MarkdownTOC -->
 
@@ -181,6 +183,12 @@ add html layout
 1. add method createAction to ProfileController
 2. create file view/scripts/profile/create.phtml
 3. make html form in file view/scripts/profile/create.phtml
+
+#### Run Unit-test again 
+
+***expected test success***
+
+### Refactoring code
 
 #### Run Unit-test again 
 

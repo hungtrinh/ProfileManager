@@ -13,8 +13,8 @@ class ProfileCreatePageTest extends Zend_Test_PHPUnit_ControllerTestCase
 
     private function visitCreateProfilePage()
     {
-        $listProfileUrl = $this->url(['action' => 'create', 'controller' => 'profile']);
-        $this->dispatch($listProfileUrl);
+        $createProfileUrl = $this->url(['action' => 'create', 'controller' => 'profile']);
+        $this->dispatch($createProfileUrl);
     }
 
     public function testWhenVisitThenResponseSuccess()
@@ -44,6 +44,9 @@ class ProfileCreatePageTest extends Zend_Test_PHPUnit_ControllerTestCase
         $this->assertQueryCount('input#email', 1);
         $this->assertQueryCount('input#submit', 1);
 
+        $createProfileUrl = $this->url(['action' => 'create', 'controller' => 'profile']);
+
+        $this->assertQueryCount("form[method='post'][action='$createProfileUrl']", 1);
         $this->assertQueryCount('input[name="id"][type="hidden"]', 1);
         $this->assertQueryCount('input[name="fullname"][type="text"]', 1);
         $this->assertQueryCount('input[name="age"][type="text"]', 1);

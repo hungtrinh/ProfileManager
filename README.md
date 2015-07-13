@@ -32,6 +32,8 @@
         - [Write spect code for 'create-profile-page'](#write-spect-code-for-create-profile-page)
             - [When use visit create profile page then show form profile](#when-use-visit-create-profile-page-then-show-form-profile)
             - [Run Unit-test](#run-unit-test-4)
+        - [Quick & dirty way to write production code](#quick--dirty-way-to-write-production-code-2)
+            - [Run Unit-test again](#run-unit-test-again-2)
 
 <!-- /MarkdownTOC -->
 
@@ -174,4 +176,12 @@ add html layout
 
 ***expected test failed***
 
+### Quick & dirty way to write production code
 
+1. add method createAction to ProfileController
+2. create file view/scripts/profile/create.phtml
+3. make html form in file view/scripts/profile/create.phtml
+
+#### Run Unit-test again 
+
+***expected test success***

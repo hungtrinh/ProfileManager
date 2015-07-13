@@ -9,7 +9,6 @@
  * - edit exist profile
  * - delete exist profile
  */
-
 class ProfileController extends Zend_Controller_Action
 {
 
@@ -40,7 +39,7 @@ class ProfileController extends Zend_Controller_Action
         $page        = (int) $this->getParam('page', 1);
         $pageSize    = (int) $this->getParam('size', 25);
         $profileRepo = $this->factoryProfileRepo();
-        
+
         $this->view->profiles = $profileRepo->paginator($page, $pageSize);
     }
 
@@ -56,15 +55,14 @@ class ProfileController extends Zend_Controller_Action
     public function createAction()
     {
         $profileForm = new Application_Form_Profile(['id' => 'create-profile']);
-        
-        $this->view->profileForm = $profileForm;
-        $requestShowForm = !$this->getRequest()->isPost() ;
-        $postInvalidProfile = !$profileForm->isValid($this->getRequest()->getPost());
 
-        if ( $requestShowForm || $postInvalidProfile) {
+        $this->view->profileForm = $profileForm;
+
+        if (!$this->getRequest()->isPost() || !$profileForm->isValid($this->getRequest()->getPost())) {
             return;
         }
 
         //TODO Request post valid profile
+        $this->_helper->redirector('index', 'profile', 'default');
     }
 }

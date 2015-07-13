@@ -13,7 +13,7 @@
         depends="clean,prepaire,db-testing-sync">
         <!-- <phpunit printsummary="true"
             configuration="${project.basedir}/../tests/phpunit.xml" /> -->
-        <exec command="${project.basedir}/vendor/bin/phpunit --testdox -c ${project.basedir}/tests/phpunit.xml" passthru="true" />
+        <exec command="${project.basedir}/vendor/bin/phpunit -c ${project.basedir}/tests/phpunit.xml" passthru="true" />
     </target>
 
     <!-- ============================================  -->

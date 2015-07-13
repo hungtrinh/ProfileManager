@@ -2,6 +2,7 @@
 
 /**
  * @group page-intergrate-db
+ * @group controller
  */
 class ProfileListPageIntegrateDbTest extends ControllerIntegrateDbTestCase
 {

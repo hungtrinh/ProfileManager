@@ -1,5 +1,8 @@
 <?php
 
+/**
+ * @group controller
+ */
 class ProfileCreatePageTest extends Zend_Test_PHPUnit_ControllerTestCase
 {
 
@@ -89,7 +92,7 @@ class ProfileCreatePageTest extends Zend_Test_PHPUnit_ControllerTestCase
         ];
         $this->submitProfileForm($invalidProfile);
 
-        $this->assertQueryContentContains('body', "'$invalidFullname' contains characters which are non alphabetic and no digits");
+        $this->assertQueryContentContains('body', "'$invalidFullname' contains characters which are non word character");
         $this->assertQueryContentContains('body', "'$invalidAge' must contain only digits");
         $this->assertQueryContentContains('body', "'$invalidEmail' is not a valid email address in the basic format local-part@hostname");
     }

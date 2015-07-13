@@ -46,7 +46,7 @@ class Application_Form_ProfileTest extends PHPUnit_Framework_TestCase
         $invalidProfile = ['fullname' => '$#!', 'age' => 'four', 'email' => 'email'];
 
         $expectedErrorMessage = [
-            'fullname' => [ 'notAlnum' => "'$#!' contains characters which are non alphabetic and no digits"],
+            'fullname' => [ 'regexNotMatch' => "'$#!' contains characters which are non word character"],
             'age' => ['notDigits' => "'four' must contain only digits"],
             'email' => ['emailAddressInvalidFormat' => "'email' is not a valid email address in the basic format local-part@hostname"],
         ];

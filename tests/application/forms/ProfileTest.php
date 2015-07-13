@@ -1,5 +1,4 @@
 <?php
-
 class Application_Form_ProfileTest extends PHPUnit_Framework_TestCase
 {
     /**
@@ -10,8 +9,8 @@ class Application_Form_ProfileTest extends PHPUnit_Framework_TestCase
 
     protected function setUp()
     {
-        $app = new Zend_Application(APPLICATION_ENV, APPLICATION_PATH . "/configs/application.ini");
-        $app->bootstrap();
+        //Autoload resource by init Zend_Application
+        new Zend_Application(APPLICATION_ENV, APPLICATION_PATH . "/configs/application.ini");
         $this->form = new Application_Form_Profile();
     }
 
@@ -21,7 +20,7 @@ class Application_Form_ProfileTest extends PHPUnit_Framework_TestCase
             [['fullname' => '$#!', 'age' => 'four', 'email' => 'email']],
             [['fullname' => '$#!']],
             [['age' => 'four']],
-            [['email' => 'email']]
+            [['email' => 'email']],
         ];
     }
 
@@ -32,5 +31,19 @@ class Application_Form_ProfileTest extends PHPUnit_Framework_TestCase
     public function testWhenInjectInvalidProfileThenIsValidReturnFalse($invalidProfile)
     {
         $this->assertFalse($this->form->isValid($invalidProfile));
+    }
+    
+    public function testWhenInjectInvalidProfileThenGetMessagesWillReturnAllErrorsMessage()
+    {
+        $invalidProfile = ['fullname' => '$#!', 'age' => 'four', 'email' => 'email'];
+
+        $expectedErrorMessage = [
+            'fullname' => [ 'notAlnum' => "'$#!' contains characters which are non alphabetic and no digits"],
+            'age' => ['notDigits' => "'four' must contain only digits"],
+            'email' => ['emailAddressInvalidFormat' => "'email' is not a valid email address in the basic format local-part@hostname"],
+        ];
+
+        $this->form->isValid($invalidProfile);
+        $this->assertEquals($expectedErrorMessage, $this->form->getMessages());
     }
 }

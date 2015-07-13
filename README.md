@@ -172,16 +172,21 @@ add html layout
 
 #### Specification verify paging logic right
 
-When visit first page with page size equal one then show only first record base on list profile prepaired (mark test incomplete)
+When visit first page with page size equal one then show only first record base on list profile prepaired
 
 1. Write spec Profile Repository Interface
-2. To be continue
+    * When call paginator with some params on Profile Repository Then expected delegate call method same name with same params on Profile Mapper 
+
+2. Write spec Profile Mapper Interface
+    * When call paginator with page, pageSize params on profile mapper then return Zend_Paginator instance (contains Profile Collection Interface)
+
+##### Quick add production code
+1. Done spec Profile Mapper Interface
+2. Done spec Profile Repository Interface
     
 #### Specification verify paging area displayed
 
-1. To be continue
-
-When visit when has many profile prepaired then show pagination region (mark test incomplete)
+When visit when has many profile prepaired then show pagination region
 
 ### Run unit-test 
 

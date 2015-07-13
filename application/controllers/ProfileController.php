@@ -45,7 +45,7 @@ class ProfileController extends Zend_Controller_Action
 
     public function createAction()
     {
-        // action body
+        $this->view->profileForm = new Application_Form_Profile(['id' => 'create-profile']);
     }
 
 

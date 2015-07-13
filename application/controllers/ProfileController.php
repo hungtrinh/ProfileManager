@@ -8,13 +8,15 @@
  * - add new profile
  * - edit exist profile
  * - delete exist profile
+ *
  */
+
 class ProfileController extends Zend_Controller_Action
 {
 
     /**
-     *
      * @return Application_Repository_Profile
+     *
      */
     private function factoryProfileRepo()
     {
@@ -27,9 +29,10 @@ class ProfileController extends Zend_Controller_Action
      * Page paginator profile
      *
      * Handler GET request only
-     * 
+     *
      * @param int $page page number
      * @param int $size item per page
+     *
      */
     public function indexAction()
     {
@@ -39,4 +42,12 @@ class ProfileController extends Zend_Controller_Action
         
         $this->view->profiles = $profileRepo->paginator($page, $pageSize);
     }
+
+    public function createAction()
+    {
+        // action body
+    }
+
+
 }
+

@@ -8,7 +8,6 @@
  * - add new profile
  * - edit exist profile
  * - delete exist profile
- *
  */
 
 class ProfileController extends Zend_Controller_Action
@@ -29,7 +28,9 @@ class ProfileController extends Zend_Controller_Action
      * Page paginator profile
      *
      * Handler GET request only
-     *
+     * GET /profile
+     * GET /profile/index/[:page/pageValue/][:size/sizeValue]
+     * 
      * @param int $page page number
      * @param int $size item per page
      *
@@ -43,11 +44,27 @@ class ProfileController extends Zend_Controller_Action
         $this->view->profiles = $profileRepo->paginator($page, $pageSize);
     }
 
+    /**
+     * Show profile form when user visit page
+     * Persit profile when user post valid profile
+     *
+     * Handler GET, POST request
+     * @link GET /profile/create display form profile
+     * @link POST /profile/create persit profile
+     * 
+     */
     public function createAction()
     {
-        $this->view->profileForm = new Application_Form_Profile(['id' => 'create-profile']);
+        $profileForm = new Application_Form_Profile(['id' => 'create-profile']);
+        
+        $this->view->profileForm = $profileForm;
+        $requestShowForm = !$this->getRequest()->isPost() ;
+        $postInvalidProfile = !$profileForm->isValid($this->getRequest()->getPost());
+
+        if ( $requestShowForm || $postInvalidProfile) {
+            return;
+        }
+
+        //TODO Request post valid profile
     }
-
-
 }
-

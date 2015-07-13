@@ -1,4 +1,10 @@
 <?php
+/**
+ * Test profile form when call method
+ * - isValid
+ * - getMessage
+ * - getValues (get filtered data)
+ */
 class Application_Form_ProfileTest extends PHPUnit_Framework_TestCase
 {
     /**

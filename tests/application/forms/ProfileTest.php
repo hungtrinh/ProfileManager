@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Test profile form when call method
  * - isValid
@@ -16,7 +17,8 @@ class Application_Form_ProfileTest extends PHPUnit_Framework_TestCase
     protected function setUp()
     {
         //Autoload resource by init Zend_Application
-        new Zend_Application(APPLICATION_ENV, APPLICATION_PATH . "/configs/application.ini");
+        new Zend_Application(APPLICATION_ENV,
+            APPLICATION_PATH."/configs/application.ini");
         $this->form = new Application_Form_Profile();
     }
 
@@ -38,7 +40,7 @@ class Application_Form_ProfileTest extends PHPUnit_Framework_TestCase
     {
         $this->assertFalse($this->form->isValid($invalidProfile));
     }
-    
+
     public function testWhenInjectInvalidProfileThenGetMessagesWillReturnAllErrorsMessage()
     {
         $invalidProfile = ['fullname' => '$#!', 'age' => 'four', 'email' => 'email'];

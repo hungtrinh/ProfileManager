@@ -166,17 +166,18 @@ add html layout
 
 ## Developer
 
-### Write spect code for 'create-profile-page'
+### Write specification code for 'create-profile-page'
 
 #### When use visit create profile page then show form profile
 
 - Expected response code 200
 - Expected request handler by create action, profile controller, default module
-- Expected response content containts:
+- Expected response content contains:
     + Hidden field name=id with value blank
     + Text field name=fullname with value blank
     + Text field name=age with value blank
     + Text field name=email with value blank
+
 #### Run Unit-test 
 
 ***expected test failed***
@@ -196,3 +197,33 @@ add html layout
 #### Run Unit-test again 
 
 ***expected test success***
+
+## Customer
+    
+### User submit invalid profile to system
+
+When user submit invalid profile  
+Then re populate profile form 
+And show error message
+
+Profile form validation requirement
+- age contains digit only
+- email contains valid email only
+- full-name contain alpha characters only
+
+### User submit valid profile to system
+
+When user submit valid profile
+Then system persist profile 
+And system redirect to list profile page
+
+## Developer
+
+### Write specification submit bad profile to 'create-profile-page'
+
+1. Setup post request, inject invalid data
+2. Expected response content contains error area
+3. Expected response content contains Profile Form full fill
+
+### Write inject invalid profile form Then isValid() return false
+### Write inject invalid profile form Then getMessages() return all invalid message

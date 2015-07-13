@@ -17,6 +17,13 @@ class ProfileCreatePageTest extends Zend_Test_PHPUnit_ControllerTestCase
         $this->dispatch($createProfileUrl);
     }
 
+    private function submitProfileForm(array $profile)
+    {
+        $createProfileUrl = $this->url(['action' => 'create', 'controller' => 'profile']);
+        $this->getRequest()->setMethod('POST')->setPost($profile);
+        $this->dispatch($createProfileUrl);
+    }
+
     public function testWhenVisitThenResponseSuccess()
     {
         $this->visitCreateProfilePage();
@@ -51,6 +58,24 @@ class ProfileCreatePageTest extends Zend_Test_PHPUnit_ControllerTestCase
         $this->assertQueryCount('input[name="fullname"][type="text"]', 1);
         $this->assertQueryCount('input[name="age"][type="text"]', 1);
         $this->assertQueryCount('input[name="email"][type="text"]', 1);
+        $this->assertQueryCount('input[name="submit"][type="submit"][value="submit"]', 1);
+    }
+
+    public function testWhenSubmitInvalidProfileThenRePresentFormProfile()
+    {
+        $invalidProfile = [
+            'fullname' => $invalidFullname='$#!',
+            'age' => $invalidAge='four',
+            'email' => $invalidEmail='email',
+        ];
+        $this->submitProfileForm($invalidProfile);
+        
+        $createProfileUrl = $this->url(['action' => 'create', 'controller' => 'profile']);
+        $this->assertQueryCount("form[method='post'][action='$createProfileUrl']", 1);
+        $this->assertQueryCount('input[name="id"][type="hidden"]', 1);
+        $this->assertQueryCount("input[name='fullname'][type='text'][value='$invalidFullname']", 1);
+        $this->assertQueryCount("input[name='age'][type='text'][value='$invalidAge']", 1);
+        $this->assertQueryCount("input[name='email'][type='text'][value='$invalidEmail']", 1);
         $this->assertQueryCount('input[name="submit"][type="submit"][value="submit"]', 1);
     }
 }

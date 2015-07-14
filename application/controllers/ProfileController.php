@@ -64,16 +64,31 @@ class ProfileController extends Zend_Controller_Action
     public function createAction()
     {
         $profileForm = $this->factoryProfileForm();
-
-        $this->view->profileForm = $profileForm;
-
-        if (!$this->getRequest()->isPost() || !$profileForm->isValid($this->getRequest()->getPost())) {
-            return;
+        
+        /**
+         * GET handler request
+         */
+        $userVisitCreateProfilePage = !$this->getRequest()->isPost();
+        if ($userVisitCreateProfilePage) {
+            $this->view->profileForm = $profileForm;
+            return; //show profile form now
         }
 
-        //TODO Request post valid profile
+        /**
+         * POST handler request
+         */
+        $profileSubmited        = $this->getRequest()->getPost();
+        $invalidProfileSubmited = !$profileForm->isValid($profileSubmited);
+        if ($invalidProfileSubmited) {
+            $this->view->profileForm = $profileForm;
+            return; //show profile form with errors messages
+        }
+
+        /**
+         * Persit valid profile after filtered
+         */
         $profile = $profileForm->getValues();
-        $this->factoryProfileRepo()->save(new Application_Model_Profile(['data'=>$profile]));
+        $this->factoryProfileRepo()->save(new Application_Model_Profile(['data' => $profile]));
         return $this->_helper->redirector('index', 'profile', 'default');
     }
 }

@@ -28,32 +28,37 @@ class ProfileCreatePageIntergrateDbTest extends ControllerIntegrateDbTestCase
         $this->dispatch($createProfileUrl);
     }
 
-    public function testWhenPostValidProfileThenRedirectToProfileList()
+    public function validProfileProvider()
+    {
+        $bornYear = new DateTime('-30 years');
+        return [
+            [['fullname' => 'Trinh Duc Hung','dob' => $bornYear->format('Y-m-d') ,'email' => 'email@gmail.com']]
+        ];
+    }
+
+    /**
+     * @dataProvider validProfileProvider
+     * @param [] | array $validProfile
+     */
+    public function testWhenPostValidProfileThenRedirectToProfileList($validProfile)
     {
         $profileListUrl = $this->url(['action'=>'index','controller'=>'profile']);
-        $validProfile = [
-            'fullname' => 'Trinh Duc Hung',
-            'age' => 30,
-            'email' => 'email@gmail.com'
-        ];
         
         $this->submitProfileForm($validProfile);
-
+        
         $this->assertRedirect();
         $this->assertRedirectTo($profileListUrl);
     }
 
-    public function testWhenPostValidProfileThenPersitProfileToDb()
+    /**
+     * @dataProvider validProfileProvider
+     * @param [] | array $validProfile
+     */
+    public function testWhenPostValidProfileThenPersitProfileToDb($validProfile)
     {
-        $validProfile = [
-            'fullname' => 'Trinh Duc Hung',
-            'age' => 30,
-            'email' => 'email@gmail.com'
-        ];
-
-        $profileListUrl = $this->url(['action'=>'index','controller'=>'profile']);
         $this->submitProfileForm($validProfile);
-
-        $this->assertRedirectTo($profileListUrl);
+        $expectedRow = $validProfile;
+        $expectedRow['id'] = 1;
+        $this->assertTableContains($expectedRow, $this->databaseTester->getConnection()->createDataSet()->getTable('profile'));
     }
 }

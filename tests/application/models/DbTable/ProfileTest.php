@@ -9,7 +9,7 @@ class Application_Model_DbTable_ProfileTest extends Zend_Test_PHPUnit_DatabaseTe
     /**
      * Database connection
      *
-     * @var PHPUnit_Extensions_Database_DB_IDatabaseConnection
+     * @var Zend_Test_PHPUnit_Db_Connection
      */
     private $connection;
 
@@ -33,6 +33,10 @@ class Application_Model_DbTable_ProfileTest extends Zend_Test_PHPUnit_DatabaseTe
         $app->bootstrap('db');
     }
 
+    /**
+     *
+     * @return Zend_Test_PHPUnit_Db_Connection
+     */
     protected function getConnection()
     {
         if ($this->connection == null) {
@@ -47,7 +51,7 @@ class Application_Model_DbTable_ProfileTest extends Zend_Test_PHPUnit_DatabaseTe
     protected function getDataSet()
     {
         $currentDate = new DateTime();
-        $current = $currentDate->format('Y-m-d');
+        $current     = $currentDate->format('Y-m-d');
         return $this->createArrayDataSet([
                 'profile' => [
                     ['id' => 1, 'fullname' => 'Quang A', 'dob' => $current, 'email' => 'a@mail.com'],
@@ -77,15 +81,36 @@ class Application_Model_DbTable_ProfileTest extends Zend_Test_PHPUnit_DatabaseTe
         }
     }
 
-    /**
-     * @test
-     */
-    public function paginatorWillReturnInstanceOfZendPaginator()
+    public function testPaginatorWillReturnInstanceOfZendPaginator()
     {
-        $profiles = $this->profileTable->paginator(1,1);
+        $profiles  = $this->profileTable->paginator(1, 1);
         $totalPage = $profiles->count();
-        
+
         $this->assertInstanceOf('Zend_Paginator', $profiles);
         $this->assertEquals(3, $totalPage);
+    }
+
+    /**
+     * @group save
+     */
+    public function testSaveWillInsertWithProfileDoesNotExistProfileId()
+    {
+        $expectedRow = [
+            'fullname' => "Trinh Nha Uyen",
+            'dob' => '2018-01-18',
+            'email' => 'nhauyen@gmail.com'
+        ];
+
+        $profile = $this->profileTable->createRow($expectedRow);
+        $this->profileTable->save($profile);
+
+        $this->assertEquals(4,
+            (int) $this->getConnection()->getConnection()->query("SELECT COUNT(*) FROM profile")->fetchColumn());
+
+        $insertedId = 4;
+        $ds         = new Zend_Test_PHPUnit_Db_DataSet_QueryDataSet($this->getConnection());
+        $ds->addTable('profile', "SELECT * FROM PROFILE WHERE ID=$insertedId");
+        $this->assertDataSetsEqual($this->createArrayDataSet(['profile' => [['id' => $insertedId]
+                    + $expectedRow]]), $ds);
     }
 }

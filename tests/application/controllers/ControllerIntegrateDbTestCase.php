@@ -97,4 +97,55 @@ abstract class ControllerIntegrateDbTestCase extends Zend_Test_PHPUnit_Controlle
      * ));
      */
     abstract protected function getDataSet();
+
+        /**
+     * Asserts that two given tables are equal.
+     *
+     * @param PHPUnit_Extensions_Database_DataSet_ITable $expected
+     * @param PHPUnit_Extensions_Database_DataSet_ITable $actual
+     * @param string                                     $message
+     */
+    public static function assertTablesEqual(PHPUnit_Extensions_Database_DataSet_ITable $expected, PHPUnit_Extensions_Database_DataSet_ITable $actual, $message = '')
+    {
+        $constraint = new PHPUnit_Extensions_Database_Constraint_TableIsEqual($expected);
+        self::assertThat($actual, $constraint, $message);
+    }
+    /**
+     * Asserts that two given datasets are equal.
+     *
+     * @param PHPUnit_Extensions_Database_DataSet_ITable $expected
+     * @param PHPUnit_Extensions_Database_DataSet_ITable $actual
+     * @param string                                     $message
+     */
+    public static function assertDataSetsEqual(PHPUnit_Extensions_Database_DataSet_IDataSet $expected, PHPUnit_Extensions_Database_DataSet_IDataSet $actual, $message = '')
+    {
+        $constraint = new PHPUnit_Extensions_Database_Constraint_DataSetIsEqual($expected);
+        self::assertThat($actual, $constraint, $message);
+    }
+    
+    /**
+     * Assert that a given table has a given amount of rows
+     *
+     * @param string $tableName Name of the table
+     * @param int    $expected  Expected amount of rows in the table
+     * @param string $message   Optional message
+     */
+    public function assertTableRowCount($tableName, $expected, $message = '')
+    {
+        $constraint = new PHPUnit_Extensions_Database_Constraint_TableRowCount($tableName, $expected);
+        $actual     = $this->databaseTester->getConnection()->getRowCount($tableName);
+        self::assertThat($actual, $constraint, $message);
+    }
+    
+    /**
+     * Asserts that a given table contains a given row
+     *
+     * @param array                                      $expectedRow Row expected to find
+     * @param PHPUnit_Extensions_Database_DataSet_ITable $table       Table to look into
+     * @param string                                     $message     Optional message
+     */
+    public function assertTableContains(array $expectedRow, PHPUnit_Extensions_Database_DataSet_ITable $table, $message = '')
+    {
+        self::assertThat($table->assertContainsRow($expectedRow), self::isTrue(), $message);
+    }
 }

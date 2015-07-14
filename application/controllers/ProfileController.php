@@ -24,6 +24,15 @@ class ProfileController extends Zend_Controller_Action
     }
 
     /**
+     *
+     * @return \Application_Form_Profile
+     */
+    private function factoryProfileForm()
+    {
+        return new Application_Form_Profile(['id' => 'create-profile']);
+    }
+
+    /**
      * Page paginator profile
      *
      * Handler GET request only
@@ -54,7 +63,7 @@ class ProfileController extends Zend_Controller_Action
      */
     public function createAction()
     {
-        $profileForm = new Application_Form_Profile(['id' => 'create-profile']);
+        $profileForm = $this->factoryProfileForm();
 
         $this->view->profileForm = $profileForm;
 
@@ -63,6 +72,8 @@ class ProfileController extends Zend_Controller_Action
         }
 
         //TODO Request post valid profile
-        $this->_helper->redirector('index', 'profile', 'default');
+        $profile = $profileForm->getValues();
+        $this->factoryProfileRepo()->save(new Application_Model_Profile(['data'=>$profile]));
+        return $this->_helper->redirector('index', 'profile', 'default');
     }
 }

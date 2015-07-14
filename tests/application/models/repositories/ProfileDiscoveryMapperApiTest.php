@@ -36,10 +36,7 @@ class Application_Repository_ProfileDiscoveryMapperApiTest extends PHPUnit_Frame
         $app->bootstrap('ResourceLoader');
     }
 
-    /**
-     * @test
-     */
-    public function paginatorWillDelegateCallMethodToProfileMapperInterface()
+    public function testPaginatorWillDelegateCallMethodToProfileMapperInterface()
     {
         $profileCollection = new Application_Model_ProfileCollection([new Application_Model_Profile()]);
         $page              = 1;
@@ -53,5 +50,23 @@ class Application_Repository_ProfileDiscoveryMapperApiTest extends PHPUnit_Frame
 
         $result = $this->profileRepo->paginator($page, $pageSize);
         $this->assertSame($profileCollection, $result);
+    }
+
+    public function testSaveWillDelegateCallMethodToProfileMapperInterface()
+    {
+        $profile = new Application_Model_Profile(['data' => [
+            'fullname' => 'Trinh Lam Tuyen',
+            'dob' => '2018-1-18',
+            'email' => 'lamtuyen@gmail.com'
+        ]]);
+        
+        $this->profileMapperMock
+            ->expects($this->once())
+            ->method('save')
+            ->with($profile)
+            ->will($this->returnArgument(0));
+
+        $this->profileRepo->save($profile);
+//        $this->assertNotEmpty($profile->getId());
     }
 }

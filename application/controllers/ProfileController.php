@@ -11,15 +11,33 @@
  */
 class ProfileController extends Zend_Controller_Action
 {
+    /**
+     * 
+     * @param array $profile
+     * @return \Application_Model_Profile
+     */
+    private function factoryProfileEntity(array $profile)
+    {
+        return new Application_Model_Profile(['data' => $profile]);
+    }
 
     /**
-     * @return Application_Repository_Profile
      *
+     * @return \Application_Model_DbTable_Profile
+     */
+    private function factoryProfileDbTable()
+    {
+        return new Application_Model_DbTable_Profile();
+    }
+
+    /**
+     *
+     * @return \Application_Repository_Profile
      */
     private function factoryProfileRepo()
     {
         return new Application_Repository_Profile(
-            new Application_Model_DbTable_Profile()
+            $this->factoryProfileDbTable()
         );
     }
 
@@ -64,7 +82,7 @@ class ProfileController extends Zend_Controller_Action
     public function createAction()
     {
         $profileForm = $this->factoryProfileForm();
-        
+
         /**
          * GET handler request
          */
@@ -88,7 +106,9 @@ class ProfileController extends Zend_Controller_Action
          * Persit valid profile after filtered
          */
         $profile = $profileForm->getValues();
-        $this->factoryProfileRepo()->save(new Application_Model_Profile(['data' => $profile]));
+        $profileEntity = $this->factoryProfileEntity($profile);
+        $this->factoryProfileRepo()->save($profileEntity);
+        
         return $this->_helper->redirector('index', 'profile', 'default');
     }
 }

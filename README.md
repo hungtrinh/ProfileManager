@@ -214,7 +214,7 @@ Then re populate profile form
 And show error message
 
 Profile form validation requirement
-- age contains digit only
+- dob contains date time (yyyy-MM-dd)
 - email contains valid email only
 - full-name contain alpha characters only
 

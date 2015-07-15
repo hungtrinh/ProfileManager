@@ -4,6 +4,7 @@
  * Discovery api of lower layer using by Application_Repository_Profile
  * 
  * @group discovery-mapper-api
+ * @coversDefaultClass Application_Repository_Profile
  */
 class Application_Repository_ProfileDiscoveryMapperApiTest extends PHPUnit_Framework_TestCase
 {
@@ -52,6 +53,9 @@ class Application_Repository_ProfileDiscoveryMapperApiTest extends PHPUnit_Frame
         $this->assertSame($profileCollection, $result);
     }
 
+    /**
+     * @covers ::save
+     */
     public function testSaveWillDelegateCallMethodToProfileMapperInterface()
     {
         $profile = new Application_Model_Profile(['data' => [

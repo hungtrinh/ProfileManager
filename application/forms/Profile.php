@@ -2,6 +2,11 @@
 
 class Application_Form_Profile extends Zend_Form
 {
+    const ELEMENT_ID       = 'id';
+    const ELEMENT_FULLNAME = 'fullname';
+    const ELEMENT_DOB      = 'dob';
+    const ELEMENT_EMAIL    = 'email';
+    const ELEMENT_SUBMIT   = 'submit';
 
     /**
      * Make fullname element
@@ -11,7 +16,7 @@ class Application_Form_Profile extends Zend_Form
     private function factoryFullnameElement()
     {
         return [
-            'name' => 'fullname',
+            'name' => self::ELEMENT_FULLNAME,
             'type' => 'text',
             'options' => [
                 'validators' => [
@@ -22,9 +27,9 @@ class Application_Form_Profile extends Zend_Form
                             'pattern' => '/\w/',
                             'messages' => [Zend_Validate_Regex::NOT_MATCH => "'%value%' contains characters which are non word character"],
                         ]
-                    ], //Zend_Validate_Regex
-                ], //validators
-            ]
+                    ], // Zend_Validate_Regex
+                ], // validators
+            ] // options
         ];
     }
 
@@ -35,29 +40,26 @@ class Application_Form_Profile extends Zend_Form
      */
     private function factoryDateOfBirthElement()
     {
-        return [
-            'name' => 'dob',
-            'type' => 'text',
-            'options' => [
+        return $this->createElement('text', self::ELEMENT_DOB,
+                [
                 'validators' => [
                     [
                         'validator' => 'Date',
                         'breakChainOnFailure' => false,
                     ], //Zend_Validate_Date
                 ]
-            ]
-        ];
+        ]);
     }
 
     /**
      * Make email element
      *
-     * @return \Zend_Form_Element_Text
+     * @return []
      */
     private function factoryEmailElement()
     {
         return [
-            'name' => 'email',
+            'name' => self::ELEMENT_EMAIL,
             'type' => 'text',
             'options' => [
                 'validators' => [
@@ -67,18 +69,28 @@ class Application_Form_Profile extends Zend_Form
         ];
     }
 
+    /**
+     * Make id element
+     *
+     * @return []
+     */
     private function factoryIdElement()
     {
         return [
-            'name' => 'id',
+            'name' => self::ELEMENT_ID,
             'type' => 'hidden'
         ];
     }
 
+    /**
+     * Make submit button
+     *
+     * @return []
+     */
     private function factorySubmitElement()
     {
         return [
-            'name' => 'submit',
+            'name' => self::ELEMENT_SUBMIT,
             'type' => 'submit'
         ];
     }

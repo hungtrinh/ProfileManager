@@ -22,6 +22,11 @@ class Application_Form_ProfileTest extends PHPUnit_Framework_TestCase
         $this->form = new Application_Form_Profile();
     }
 
+    /**
+     * Invalid profile submited
+     * 
+     * @return []
+     */
     public function invalidProfileProvider()
     {
         return [
@@ -32,16 +37,35 @@ class Application_Form_ProfileTest extends PHPUnit_Framework_TestCase
         ];
     }
 
+
+    /**
+     * Invalid date profider
+     *
+     * @return []
+     */
+    public function invalidDateProvider()
+    {
+        return [
+            ['2015-01-30 123'],
+            ['01-30-2015'],
+            ['30-01-2015'],
+            ['30012015'],
+        ];
+    }
+    
     /**
      * @dataProvider invalidProfileProvider
      * @param array $invalidProfile
      */
-    public function testWhenInjectInvalidProfileThenIsValidReturnFalse($invalidProfile)
+    public function testIsValidWillReturnFalseWhenInputInvalidProfile($invalidProfile)
     {
-        $this->assertFalse($this->form->isValid($invalidProfile));
+        $this->assertFalse(
+            $this->form->isValid($invalidProfile),
+            print_r($this->form->getMessages(),true)
+        );
     }
 
-    public function testWhenInjectInvalidProfileThenGetMessagesWillReturnAllErrorsMessage()
+    public function testGetMessagesWillReturnAllErrorsMessageWhenInputInvalidProfile()
     {
         $invalidProfile = ['fullname' => '$#!', 'dob' => 'four', 'email' => 'email'];
 
@@ -53,5 +77,26 @@ class Application_Form_ProfileTest extends PHPUnit_Framework_TestCase
 
         $this->form->isValid($invalidProfile);
         $this->assertEquals($expectedErrorMessage, $this->form->getMessages());
+    }
+
+    public function testIsValidWillReturnTrueWhenInjectValidDobFormat()
+    {
+        $this->assertTrue(
+            $this->form->isValid(['dob' => '2015-01-30']),
+            print_r($this->form->getMessages('dob'),true)
+        );
+    }
+
+    /**
+     * @dataProvider invalidDateProvider
+     * 
+     * @param string $invalidDate
+     */
+    public function testIsValidWillReturnFalseWhenInjectInValidDobFormat($invalidDate)
+    {
+        $this->assertFalse(
+            $this->form->isValid(['dob' => $invalidDate]),
+            print_r($this->form->getMessages('dob'),true)
+        );
     }
 }

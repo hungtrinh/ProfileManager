@@ -56,7 +56,7 @@ class Application_Model_Profile extends Zend_Db_Table_Row_abstract implements Ap
     public function getBirthDay()
     {
         if (empty($this->dob)) {
-            throw new DomainException("Missing birth day");
+            throw new DomainException("Missing 'dob' domain field");
         }
         return new DateTime($this->dob);
     }

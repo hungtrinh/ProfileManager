@@ -96,7 +96,9 @@ class ProfileController extends Zend_Controller_Action
         /**
          * POST handler request
          */
-        $invalidProfileSubmited = !$profileForm->isValid($this->getRequest()->getPost());
+        $invalidProfileSubmited = !$profileForm->isValid(
+                $this->getRequest()->getPost()
+        );
         if ($invalidProfileSubmited) {
             $this->view->profileForm = $profileForm;
             return; //show profile form with errors messages
@@ -105,8 +107,7 @@ class ProfileController extends Zend_Controller_Action
         /**
          * Persit valid profile after filtered
          */
-        $profileFiltered = $profileForm->getValues();
-        $profileEntity   = $this->factoryProfileEntity($profileFiltered);
+        $profileEntity = $this->factoryProfileEntity($profileForm->getValues());
         $this->factoryProfileRepo()->save($profileEntity);
 
         return $this->_helper->redirector('index', 'profile', 'default');

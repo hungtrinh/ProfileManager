@@ -11,6 +11,7 @@
  */
 class ProfileController extends Zend_Controller_Action
 {
+
     /**
      * 
      * @param array $profile
@@ -86,8 +87,8 @@ class ProfileController extends Zend_Controller_Action
         /**
          * GET handler request
          */
-        $userVisitCreateProfilePage = !$this->getRequest()->isPost();
-        if ($userVisitCreateProfilePage) {
+        $requestShowProfileFormOnly = !$this->getRequest()->isPost();
+        if ($requestShowProfileFormOnly) {
             $this->view->profileForm = $profileForm;
             return; //show profile form now
         }
@@ -95,8 +96,7 @@ class ProfileController extends Zend_Controller_Action
         /**
          * POST handler request
          */
-        $profileSubmited        = $this->getRequest()->getPost();
-        $invalidProfileSubmited = !$profileForm->isValid($profileSubmited);
+        $invalidProfileSubmited = !$profileForm->isValid($this->getRequest()->getPost());
         if ($invalidProfileSubmited) {
             $this->view->profileForm = $profileForm;
             return; //show profile form with errors messages
@@ -105,10 +105,10 @@ class ProfileController extends Zend_Controller_Action
         /**
          * Persit valid profile after filtered
          */
-        $profile = $profileForm->getValues();
-        $profileEntity = $this->factoryProfileEntity($profile);
+        $profileFiltered = $profileForm->getValues();
+        $profileEntity   = $this->factoryProfileEntity($profileFiltered);
         $this->factoryProfileRepo()->save($profileEntity);
-        
+
         return $this->_helper->redirector('index', 'profile', 'default');
     }
 }

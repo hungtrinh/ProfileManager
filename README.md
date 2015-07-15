@@ -30,13 +30,20 @@
         - [Need Create Profile Page](#need-create-profile-page)
         - [Show form profile when visit](#show-form-profile-when-visit)
     - [Developer](#developer-2)
-        - [Write spect code for 'create-profile-page'](#write-spect-code-for-create-profile-page)
+        - [Write specification code for 'create-profile-page'](#write-specification-code-for-create-profile-page)
             - [When use visit create profile page then show form profile](#when-use-visit-create-profile-page-then-show-form-profile)
             - [Run Unit-test](#run-unit-test-4)
         - [Quick & dirty way to write production code](#quick--dirty-way-to-write-production-code-2)
             - [Run Unit-test again](#run-unit-test-again-2)
         - [Refactoring code](#refactoring-code-2)
             - [Run Unit-test again](#run-unit-test-again-3)
+    - [Customer](#customer-3)
+        - [User submit invalid profile to system](#user-submit-invalid-profile-to-system)
+        - [User submit valid profile to system](#user-submit-valid-profile-to-system)
+    - [Developer](#developer-3)
+        - [Write specification submit bad profile to 'create-profile-page'](#write-specification-submit-bad-profile-to-create-profile-page)
+        - [Write inject invalid profile form Then isValid() return false](#write-inject-invalid-profile-form-then-isvalid-return-false)
+        - [Write inject invalid profile form Then getMessages() return all invalid message](#write-inject-invalid-profile-form-then-getmessages-return-all-invalid-message)
 
 <!-- /MarkdownTOC -->
 
@@ -227,3 +234,4 @@ And system redirect to list profile page
 
 ### Write inject invalid profile form Then isValid() return false
 ### Write inject invalid profile form Then getMessages() return all invalid message
+    

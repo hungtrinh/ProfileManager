@@ -2,7 +2,7 @@
 
 <project name="ProfileManager"
     description="Practical tdd - gitflow - markdown"
-    basedir="./../"
+    basedir="./../../"
     default="phpunit">
 
     <!-- ============================================  -->

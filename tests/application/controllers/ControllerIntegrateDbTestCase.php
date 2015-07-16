@@ -148,4 +148,11 @@ abstract class ControllerIntegrateDbTestCase extends Zend_Test_PHPUnit_Controlle
     {
         self::assertThat($table->assertContainsRow($expectedRow), self::isTrue(), $message);
     }
+    
+    protected function mysqlDateYearAgo($yearAgo)
+    {
+        $number = (int) $yearAgo; /* @var $number int*/
+        $oneYearAge = new DateTime("- $number years");
+        return $oneYearAge->format('Y-m-d');
+    }
 }

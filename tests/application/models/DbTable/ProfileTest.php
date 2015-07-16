@@ -50,7 +50,7 @@ class Application_Model_DbTable_ProfileTest extends Zend_Test_PHPUnit_DatabaseTe
 
     protected function getDataSet()
     {
-        $currentDate = new DateTime();
+        $currentDate = new DateTime('2015-07-16');
         $current     = $currentDate->format('Y-m-d');
         return $this->createArrayDataSet([
                 'profile' => [
@@ -112,5 +112,25 @@ class Application_Model_DbTable_ProfileTest extends Zend_Test_PHPUnit_DatabaseTe
         $ds->addTable('profile', "SELECT * FROM PROFILE WHERE ID=$insertedId");
         $this->assertDataSetsEqual($this->createArrayDataSet(['profile' => [['id' => $insertedId]
                     + $expectedRow]]), $ds);
+    }
+
+    public function testFindByIdWillReturnModelProfileInterface()
+    {
+        $profileIdExisted = 1;
+        $profile = $this->profileTable->findById($profileIdExisted);
+        /* @var $profile Application_Model_ProfileInterface */
+        
+        $this->assertEquals([
+            'id' => 1,
+            'fullname' => 'Quang A',
+            'email' => 'a@mail.com',
+            'dob' => new DateTime('2015-07-16')
+        ], [
+            'id' => $profile->getId(),
+            'fullname' => $profile->getFullname(),
+            'email' => $profile->getEmail(),
+            'dob' => $profile->getBirthDay()
+        ]);
+
     }
 }

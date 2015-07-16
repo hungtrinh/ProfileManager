@@ -44,6 +44,6 @@ class PageEditProfileTest extends Zend_Test_PHPUnit_ControllerTestCase
     public function testWhenVisitThenPageTitleIsEditProfile()
     {
         $this->visitEditProfilePage($profileId=1);
-        $this->assertQueryContentContains('title', "Edit Profile");
+        $this->assertQueryContentContains('title', "Profile Edit");
     }
 }

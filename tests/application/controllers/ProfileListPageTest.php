@@ -1,5 +1,8 @@
 <?php
 
+/**
+ * @group controller
+ */
 class ProfileListPageTest extends Zend_Test_PHPUnit_ControllerTestCase
 {
 

@@ -45,4 +45,17 @@ class Application_Model_DbTable_Profile extends Zend_Db_Table_Abstract implement
         $paginator->setItemCountPerPage($size);
         return $paginator;
     }
+
+    public function save(Application_Model_ProfileInterface $profile)
+    {
+        if (!$profile->getId()) {
+            $id = $this->insert([
+                'fullname' => $profile->getFullname(),
+                'email' => $profile->getEmail(),
+                'dob' => $profile->getBirthDay()->format('Y-m-d'),
+            ]);
+            $profile->id = $id;
+        }
+    }
+
 }

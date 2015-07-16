@@ -27,4 +27,15 @@ class Application_Repository_Profile implements Application_Repository_ProfileIn
     {
         return $this->profileMapper->paginator($page, $size);
     }
+
+    /**
+     * Persit profile model to persitent layer
+     *
+     * @param Application_Model_ProfileInterface $profile
+     */
+    public function save(Application_Model_ProfileInterface $profile)
+    {
+        $this->profileMapper->save($profile);
+    }
+
 }

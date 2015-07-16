@@ -14,4 +14,11 @@ interface Application_Model_Mapper_ProfileInterface
      * @return Zend_Paginator
      */
     public function paginator($page = 1, $size = 25);
+
+    /**
+     * Persit profile model to persitent layer
+     * 
+     * @param Application_Model_ProfileInterface $profile
+     */
+    public function save(Application_Model_ProfileInterface $profile);
 }

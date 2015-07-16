@@ -38,4 +38,18 @@ class Application_Repository_Profile implements Application_Repository_ProfileIn
         $this->profileMapper->save($profile);
     }
 
+    /**
+     * Find profile by profile id
+     *
+     * @param int $profileId profile id
+     * @throw Application_Repository_NotFoundException
+     */
+    public function findById($profileId)
+    {
+        $profile = $this->profileMapper->findById($profileId);
+        if ($profile) {
+            return $profile;
+        }
+        throw new Application_Repository_Exception('Not found profile',404);
+    }
 }

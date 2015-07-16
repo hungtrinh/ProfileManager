@@ -46,6 +46,11 @@ class Application_Model_DbTable_Profile extends Zend_Db_Table_Abstract implement
         return $paginator;
     }
 
+    /**
+     * Persit profile model to persitent layer
+     *
+     * @param Application_Model_ProfileInterface $profile
+     */
     public function save(Application_Model_ProfileInterface $profile)
     {
         if (!$profile->getId()) {
@@ -58,4 +63,14 @@ class Application_Model_DbTable_Profile extends Zend_Db_Table_Abstract implement
         }
     }
 
+    /**
+     * Find profile by profile id
+     *
+     * @param int $profileId profile id
+     * @return Application_Model_ProfileInterface
+     */
+    public function findById($profileId)
+    {
+        return $this->find($profileId)->current();
+    }
 }

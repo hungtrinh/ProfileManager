@@ -25,6 +25,28 @@ class ProfileEditPageIntergrateDbTest extends ControllerIntegrateDbTestCase
         $this->dispatch($editProfileUrl);
     }
 
+    public function testWhenVisitThenResponseSuccess()
+    {
+        $this->visitEditProfilePage(1);
+        $this->assertResponseCode(200, $this->getResponse()->getBody());
+    }
+
+    public function testWhenVisitThenRequestHandlerByEditActionProfileControllerDefaultModule()
+    {
+        $this->visitEditProfilePage($profileId=1);
+
+        $this->assertModule('default');
+        $this->assertController('profile');
+        $this->assertAction('edit');
+        $this->assertEquals($profileId, $this->getRequest()->getParam('id'));
+    }
+
+    public function testWhenVisitThenPageTitleIsEditProfile()
+    {
+        $this->visitEditProfilePage($profileId=1);
+        $this->assertQueryContentContains('title', "Profile Edit");
+    }
+
     public function testWhenVisitThenShowProfileForm()
     {
         $this->visitEditProfilePage($profileId = 1);
@@ -36,11 +58,9 @@ class ProfileEditPageIntergrateDbTest extends ControllerIntegrateDbTestCase
         $this->assertQuery('input#email', $html);
         $this->assertQuery('input#submit', $html);
 
-        $editProfileUrl = $this->url(['action' => 'edit', 'controller' => 'profile']);
-
-
-        $this->assertQuery("form[method='post'][action='$editProfileUrl']",
-            $html);
+        $editProfileUrl = $this->url(['action' => 'edit', 'controller' => 'profile'],'default',true);
+        
+        $this->assertQuery("form[method='post'][action='$editProfileUrl']",$html);
         $this->assertQuery('input[name="id"][type="hidden"]', $html);
         $this->assertQuery('input[name="fullname"][type="text"]', $html);
         $this->assertQuery('input[name="dob"][type="text"]', $html);

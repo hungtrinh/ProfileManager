@@ -10,7 +10,6 @@
  * - delete exist profile
  *
  */
-
 class ProfileController extends Zend_Controller_Action
 {
 
@@ -48,9 +47,9 @@ class ProfileController extends Zend_Controller_Action
      * @return \Application_Form_Profile
      *
      */
-    private function factoryProfileForm()
+    private function factoryProfileForm($formOptions = ['id' => 'create-profile'])
     {
-        return new Application_Form_Profile(['id' => 'create-profile']);
+        return new Application_Form_Profile($formOptions);
     }
 
     /**
@@ -119,9 +118,16 @@ class ProfileController extends Zend_Controller_Action
 
     public function editAction()
     {
-        // action body
+        $profileId = (int) $this->getParam('id', 0);
+        $profileRepo = $this->factoryProfileRepo();
+        $profileEntity = $profileRepo->findById($profileId);
+        /* @var $profileEntity Application_Model_ProfileInterface */
+
+        $profileForm = $this->factoryProfileForm(['id' => 'edit-profile']);
+
+        $profileForm->bindFromProfile($profileEntity);
+        $profileForm->submit->setLabel("Save");
+
+        $this->view->profileForm = $profileForm;
     }
-
-
 }
-

@@ -23,4 +23,14 @@ interface Application_Repository_ProfileInterface
      * @param Application_Model_ProfileInterface $profile
      */
     public function save(Application_Model_ProfileInterface $profile);
+
+    /**
+     * Find profile by profile id
+     *
+     * @param int $profileId profile id
+     * @return Application_Model_ProfileInterface
+     *
+     * @throw Application_Repository_NotFoundException
+     */
+    public function findById($profileId);
 }

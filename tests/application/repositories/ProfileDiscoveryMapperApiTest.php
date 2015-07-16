@@ -59,11 +59,11 @@ class Application_Repository_ProfileDiscoveryMapperApiTest extends PHPUnit_Frame
     public function testSaveWillDelegateCallMethodToProfileMapperInterface()
     {
         $profile = new Application_Model_Profile(['data' => [
-            'fullname' => 'Trinh Lam Tuyen',
-            'dob' => '2018-1-18',
-            'email' => 'lamtuyen@gmail.com'
+                'fullname' => 'Trinh Lam Tuyen',
+                'dob' => '2018-1-18',
+                'email' => 'lamtuyen@gmail.com'
         ]]);
-        
+
         $this->profileMapperMock
             ->expects($this->once())
             ->method('save')
@@ -72,5 +72,38 @@ class Application_Repository_ProfileDiscoveryMapperApiTest extends PHPUnit_Frame
 
         $this->profileRepo->save($profile);
 //        $this->assertNotEmpty($profile->getId());
+    }
+
+    public function testFindByIdWillDeleteCallToMapperProfileMapperInterface()
+    {
+        $profile = new Application_Model_Profile(['data' => [
+                'id' => $profileId = 1,
+                'fullname' => 'Trinh Lam Tuyen',
+                'dob' => '2018-1-18',
+                'email' => 'lamtuyen@gmail.com'
+        ]]);
+
+        $this->profileMapperMock->expects($this->once())
+            ->method('findById')
+            ->with($profileId)
+            ->willReturn($profile);
+
+        $profileActual = $this->profileRepo->findById($profileId);
+        $this->assertSame($profile, $profileActual);
+    }
+
+
+    public function testFindByIdWillThrowExceptionWhenNotFoundProfile()
+    {
+        $this->setExpectedException('Application_Repository_Exception', 'Not found profile', 404);
+        
+        $profileId = 1 ;
+        $this->profileMapperMock->expects($this->once())
+            ->method('findById')
+            ->with($profileId)
+            ->willReturn(null);
+
+        $profileActual = $this->profileRepo->findById($profileId);
+        $this->assertSame($profile, $profileActual);
     }
 }

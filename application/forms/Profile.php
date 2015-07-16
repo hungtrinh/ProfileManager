@@ -105,4 +105,14 @@ class Application_Form_Profile extends Zend_Form
             $this->factorySubmitElement()
         ]);
     }
+
+    public function bindFromProfile(Application_Model_ProfileInterface $profile)
+    {
+        $this->populate([
+            self::ELEMENT_ID => $profile->getId() ? $profile->getId() : null,
+            self::ELEMENT_DOB => $profile->getBirthDay()->format('Y-m-d'),
+            self::ELEMENT_EMAIL => $profile->getEmail(),
+            self::ELEMENT_FULLNAME => $profile->getFullname()
+        ]);
+    }
 }

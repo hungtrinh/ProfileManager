@@ -99,4 +99,19 @@ class Application_Form_ProfileTest extends PHPUnit_Framework_TestCase
             print_r($this->form->getMessages('dob'),true)
         );
     }
+
+    public function testBindFromProfileWillPopulateDataFromProfileEntity()
+    {
+        $profileRaw = [
+            'id' => 1,
+            'fullname' => "Trinh Thanh Tam",
+            'dob' => '2018-06-18',
+            'email' => 'TrinhThanhTam@gmail.com'
+        ];
+        
+        $profile = new Application_Model_Profile(['data' => $profileRaw]);
+            
+        $this->form->bindFromProfile($profile);
+        $this->assertEquals($profileRaw, $this->form->getValues());
+    }
 }

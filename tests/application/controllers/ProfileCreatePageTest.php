@@ -47,21 +47,22 @@ class ProfileCreatePageTest extends Zend_Test_PHPUnit_ControllerTestCase
     public function testWhenVisitThenShowBlankProfileForm()
     {
         $this->visitCreateProfilePage();
+        $body = $this->getResponse()->getBody();
 
-        $this->assertQueryCount('form#create-profile', 1);
-        $this->assertQueryCount('input#fullname', 1);
-        $this->assertQueryCount('input#dob', 1);
-        $this->assertQueryCount('input#email', 1);
-        $this->assertQueryCount('input#submit', 1);
+        $this->assertQuery('form#create-profile', $body);
+        $this->assertQuery('input#fullname', $body);
+        $this->assertQuery('input#dob', $body);
+        $this->assertQuery('input#email', $body);
+        $this->assertQuery('input#submit', $body);
 
         $createProfileUrl = $this->url(['action' => 'create', 'controller' => 'profile']);
 
-        $this->assertQueryCount("form[method='post'][action='$createProfileUrl']", 1);
-        $this->assertQueryCount('input[name="id"][type="hidden"]', 1);
-        $this->assertQueryCount('input[name="fullname"][type="text"]', 1);
-        $this->assertQueryCount('input[name="dob"][type="text"]', 1);
-        $this->assertQueryCount('input[name="email"][type="text"]', 1);
-        $this->assertQueryCount('input[name="submit"][type="submit"][value="submit"]', 1);
+        $this->assertQuery("form[method='post'][action='$createProfileUrl']", $body);
+        $this->assertQuery('input[name="id"][type="hidden"]', $body);
+        $this->assertQuery('input[name="fullname"][type="text"]', $body);
+        $this->assertQuery('input[name="dob"][type="text"]', $body);
+        $this->assertQuery('input[name="email"][type="text"]', $body);
+        $this->assertQuery('input[name="submit"][type="submit"][value="Add"]', $body);
     }
 
     public function testWhenSubmitInvalidProfileThenRePresentFormProfile()
@@ -73,14 +74,15 @@ class ProfileCreatePageTest extends Zend_Test_PHPUnit_ControllerTestCase
         ];
 
         $this->submitProfileForm($invalidProfile);
-        
+        $body = $this->getResponse()->getBody();
+
         $createProfileUrl = $this->url(['action' => 'create', 'controller' => 'profile']);
-        $this->assertQueryCount("form[method='post'][action='$createProfileUrl']", 1);
-        $this->assertQueryCount('input[name="id"][type="hidden"]', 1);
-        $this->assertQueryCount("input[name='fullname'][type='text'][value='$invalidFullname']", 1);
-        $this->assertQueryCount("input[name='dob'][type='text'][value='$invalidDob']", 1);
-        $this->assertQueryCount("input[name='email'][type='text'][value='$invalidEmail']", 1);
-        $this->assertQueryCount('input[name="submit"][type="submit"][value="submit"]', 1);
+        $this->assertQuery("form[method='post'][action='$createProfileUrl']", $body);
+        $this->assertQuery('input[name="id"][type="hidden"]', $body);
+        $this->assertQuery("input[name='fullname'][type='text'][value='$invalidFullname']", $body);
+        $this->assertQuery("input[name='dob'][type='text'][value='$invalidDob']", $body);
+        $this->assertQuery("input[name='email'][type='text'][value='$invalidEmail']", $body);
+        $this->assertQuery('input[name="submit"][type="submit"][value="Add"]',$body);
     }
 
     public function testWhenSubmitInvalidProfileThenDisplayFormErrorMessage()

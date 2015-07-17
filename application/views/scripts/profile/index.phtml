@@ -1,7 +1,7 @@
 <?php
 $this->headTitle($this->translate('Profile list'));
 $profileCollection = $this->profiles; /* @var $profileCollection Application_Model_ProfileCollectionInterface */
-echo $profileCollection->count();
+
 if (0 == $profileCollection->count()):
     echo $this->translate('Empty profile list');
     return;
@@ -49,5 +49,4 @@ endif; //if (0==$profileCollection->count())
 echo $this->paginationControl(
     $profileCollection, 'Sliding', 'partial/search-pagination.phtml'
 );
-?>
 

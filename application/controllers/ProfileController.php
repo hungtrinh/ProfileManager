@@ -11,18 +11,6 @@
  */
 class ProfileController extends Zend_Controller_Action
 {
-
-    /**
-     * Create profile entity from
-     *
-     * @param array $profile
-     * @return \Application_Model_Profile
-     */
-    private function factoryProfileEntity(array $profile)
-    {
-        return new Application_Model_Profile(['data' => $profile]);
-    }
-
     /**
      * Page paginator profile
      *
@@ -55,8 +43,8 @@ class ProfileController extends Zend_Controller_Action
     public function createAction()
     {
         $profileForm = new Application_Form_Profile(['id' => 'create-profile']);
-
         $this->view->profileForm    = $profileForm;
+        
         /**
          * GET handler request
          */
@@ -64,21 +52,22 @@ class ProfileController extends Zend_Controller_Action
         if ($requestShowProfileFormOnly) {
             return; //show profile form now
         }
+       
         /**
          * POST handler request
          */
-        $invalidProfileSubmited = !$profileForm->isValid(
-                $this->getRequest()->getPost()
-        );
+        $invalidProfileSubmited = !$profileForm->isValid($this->getRequest()->getPost());
         if ($invalidProfileSubmited) {
             return; //show profile form with errors messages
         }
 
-        $profileRepoFactory = new Application_Factory_ProfileRepository();
         /**
          * Persit valid profile after filtered
          */
-        $profileEntity = $this->factoryProfileEntity($profileForm->getValues());
+        $profileRepoFactory = new Application_Factory_ProfileRepository();
+        $profileModelFactory = new Application_Factory_ProfileModel();
+        
+        $profileEntity = $profileModelFactory->createService($profileForm->getValues());
         $profileRepo   = $profileRepoFactory->createService();
         $profileRepo->save($profileEntity);
 

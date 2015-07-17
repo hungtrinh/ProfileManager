@@ -53,7 +53,7 @@ abstract class Application_Factory_AbstractCreateService
      * Create an instance of service by service name indicated
      * by $this->serviceName
      *
-     * @return mixed
+     * @return Application_Repository_ProfileInterface
      */
     public function createService()
     {

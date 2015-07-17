@@ -40,7 +40,7 @@ class ProfileEditPageIntergrateDbTest extends ControllerIntegrateDbTestCase
 
     public function testWhenVisitThenRequestHandlerByEditActionProfileControllerDefaultModule()
     {
-        $this->visitEditProfilePage($profileId=1);
+        $this->visitEditProfilePage($profileId = 1);
 
         $this->assertModule('default');
         $this->assertController('profile');
@@ -50,7 +50,7 @@ class ProfileEditPageIntergrateDbTest extends ControllerIntegrateDbTestCase
 
     public function testWhenVisitThenPageTitleIsEditProfile()
     {
-        $this->visitEditProfilePage($profileId=1);
+        $this->visitEditProfilePage($profileId = 1);
         $this->assertQueryContentContains('title', "Profile Edit");
     }
 
@@ -65,34 +65,65 @@ class ProfileEditPageIntergrateDbTest extends ControllerIntegrateDbTestCase
         $this->assertQuery('input#email', $html);
         $this->assertQuery('input#submit', $html);
 
-        $editProfileUrl = $this->url(['action' => 'edit', 'controller' => 'profile'],'default',true);
-        
-        $this->assertQuery("form[method='post'][action='$editProfileUrl']",$html);
+        $editProfileUrl = $this->url(['action' => 'edit', 'controller' => 'profile'],
+            'default', true);
+
+        $this->assertQuery("form[method='post'][action='$editProfileUrl']",
+            $html);
         $this->assertQuery('input[name="id"][type="hidden"]', $html);
         $this->assertQuery('input[name="fullname"][type="text"]', $html);
         $this->assertQuery('input[name="dob"][type="text"]', $html);
         $this->assertQuery('input[name="email"][type="text"]', $html);
-        $this->assertQuery('input[name="submit"][type="submit"][value="Save"]', $html);
+        $this->assertQuery('input[name="submit"][type="submit"][value="Save"]',
+            $html);
     }
 
     public function testWhenPostInvalidProfileThenRepesenterProfileFormWithErrorMessage()
     {
         $invalidProfile = [
             'id' => 1,
-            'fullname' => $invalidFullname='$#!',
-            'dob' => $invalidDob='four',
-            'email' => $invalidEmail='email',
+            'fullname' => $invalidFullname = '$#!',
+            'dob' => $invalidDob      = 'four',
+            'email' => $invalidEmail    = 'email',
         ];
 
         $this->submitProfileForm($invalidProfile);
         $body = $this->getResponse()->getBody();
-        
+
         $editProfileUrl = $this->url(['action' => 'edit', 'controller' => 'profile']);
-        $this->assertQuery("form[method='post'][action='$editProfileUrl']", $body);
+        $this->assertQuery("form[method='post'][action='$editProfileUrl']",
+            $body);
         $this->assertQuery('input[name="id"][type="hidden"]', $body);
-        $this->assertQuery("input[name='fullname'][type='text'][value='$invalidFullname']", $body);
-        $this->assertQuery("input[name='dob'][type='text'][value='$invalidDob']", $body);
-        $this->assertQuery("input[name='email'][type='text'][value='$invalidEmail']", $body);
-        $this->assertQuery('input[name="submit"][type="submit"][value="Save"]', $body);
+        $this->assertQuery("input[name='fullname'][type='text'][value='$invalidFullname']",
+            $body);
+        $this->assertQuery("input[name='dob'][type='text'][value='$invalidDob']",
+            $body);
+        $this->assertQuery("input[name='email'][type='text'][value='$invalidEmail']",
+            $body);
+        $this->assertQuery('input[name="submit"][type="submit"][value="Save"]',
+            $body);
     }
+
+    public function testWhenPostValidProfileThenRedirectToProfileList()
+    {
+        $profileListUrl = $this->url(['action' => 'index', 'controller' => 'profile']);
+        $validProfile   = ['id' => 1, 'fullname' => 'Trinh An An edited', 'dob' => $this->mysqlDateYearAgo(27),
+            'email' => 'anEdited@gmail.com'];
+        
+        $this->submitProfileForm($validProfile);
+
+        $this->assertRedirect();
+        $this->assertRedirectTo($profileListUrl);
+    }
+    /**
+     * @dataProvider validProfileProvider
+     * @param [] | array $validProfile
+     */
+//    public function testWhenPostValidProfileThenPersitProfileToDb($validProfile)
+//    {
+//        $this->submitProfileForm($validProfile);
+//        $expectedRow = $validProfile;
+//        $expectedRow['id'] = 1;
+//        $this->assertTableContains($expectedRow, $this->databaseTester->getConnection()->createDataSet()->getTable('profile'));
+//    }
 }

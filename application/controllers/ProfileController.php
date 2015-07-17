@@ -107,7 +107,7 @@ class ProfileController extends Zend_Controller_Action
         }
 
         //TODO: persit filtered profile to persistent
-        
+        $this->_helper->redirector('index','profile','default');
 
     }
 }

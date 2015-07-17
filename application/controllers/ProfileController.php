@@ -85,6 +85,7 @@ class ProfileController extends Zend_Controller_Action
     public function editAction()
     {
         $profileRepoFactory = new Application_Factory_ProfileRepository();
+        $profileModelFactory = new Application_Factory_ProfileModel();
         $profileRepo        = $profileRepoFactory->createService();
         $profileForm        = new Application_Form_Profile(['id' => 'edit-profile']);
         $profileForm->submit->setLabel("Save");
@@ -107,6 +108,7 @@ class ProfileController extends Zend_Controller_Action
         }
 
         //TODO: persit filtered profile to persistent
+        $profileRepo->save($profileModelFactory->createService($profileForm->getValues()));
         $this->_helper->redirector('index','profile','default');
 
     }

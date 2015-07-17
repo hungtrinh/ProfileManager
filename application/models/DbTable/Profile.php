@@ -54,13 +54,11 @@ class Application_Model_DbTable_Profile extends Zend_Db_Table_Abstract implement
     public function save(Application_Model_ProfileInterface $profile)
     {
         if (!$profile->getId()) {
-            $id = $this->insert([
-                'fullname' => $profile->getFullname(),
-                'email' => $profile->getEmail(),
-                'dob' => $profile->getBirthDay()->format('Y-m-d'),
-            ]);
+            $id = $this->insert($this->mapFromEntity($profile));
             $profile->id = $id;
+            return;
         }
+        $this->update($this->mapFromEntity($profile), ['id=?'=>$profile->getId()]);
     }
 
     /**
@@ -72,5 +70,28 @@ class Application_Model_DbTable_Profile extends Zend_Db_Table_Abstract implement
     public function findById($profileId)
     {
         return $this->find($profileId)->current();
+    }
+
+    /**
+     * Map profile from persit to profile entity
+     * 
+     * @param Application_Model_ProfileInterface $profile
+     * @return []
+     */
+    private function mapFromEntity(Application_Model_ProfileInterface $profile) {
+        $profilePersit = [];
+        if ($profile->getId()) {
+            $profilePersit['id'] = $profile->getId();
+        }
+        if ($profile->getBirthDay()) {
+            $profilePersit['dob'] = $profile->getBirthDay()->format('Y-m-d');
+        }
+        if ($profile->getEmail()) {
+            $profilePersit['email'] = $profile->getEmail();
+        }
+        if ($profile->getFullname()) {
+            $profilePersit['fullname'] = $profile->getFullname();
+        }
+        return $profilePersit;
     }
 }

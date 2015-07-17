@@ -109,21 +109,20 @@ class ProfileEditPageIntergrateDbTest extends ControllerIntegrateDbTestCase
         $profileListUrl = $this->url(['action' => 'index', 'controller' => 'profile']);
         $validProfile   = ['id' => 1, 'fullname' => 'Trinh An An edited', 'dob' => $this->mysqlDateYearAgo(27),
             'email' => 'anEdited@gmail.com'];
-        
+
         $this->submitProfileForm($validProfile);
 
         $this->assertRedirect();
         $this->assertRedirectTo($profileListUrl);
     }
-    /**
-     * @dataProvider validProfileProvider
-     * @param [] | array $validProfile
-     */
-//    public function testWhenPostValidProfileThenPersitProfileToDb($validProfile)
-//    {
-//        $this->submitProfileForm($validProfile);
-//        $expectedRow = $validProfile;
-//        $expectedRow['id'] = 1;
-//        $this->assertTableContains($expectedRow, $this->databaseTester->getConnection()->createDataSet()->getTable('profile'));
-//    }
+
+    public function testWhenPostValidProfileThenPersitProfileToDb()
+    {
+        $validProfile = ['id' => 1, 'fullname' => 'Trinh An An edited', 'dob' => $this->mysqlDateYearAgo(27),
+            'email' => 'anEdited@gmail.com'];
+
+        $this->submitProfileForm($validProfile);
+        $this->assertTableContains($validProfile,
+            $this->databaseTester->getConnection()->createDataSet()->getTable('profile'));
+    }
 }

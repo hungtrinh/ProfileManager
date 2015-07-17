@@ -30,7 +30,7 @@ class Application_Model_DbTable_ProfileTest extends Zend_Test_PHPUnit_DatabaseTe
         $app = new Zend_Application(
             APPLICATION_ENV, APPLICATION_PATH."/configs/application.ini"
         );
-        $app->bootstrap('db');
+        $app->bootstrap(['db','ResourceLoader']);
     }
 
     /**
@@ -88,6 +88,30 @@ class Application_Model_DbTable_ProfileTest extends Zend_Test_PHPUnit_DatabaseTe
 
         $this->assertInstanceOf('Zend_Paginator', $profiles);
         $this->assertEquals(3, $totalPage);
+    }
+
+    /**
+     * @group save
+     */
+    public function testSaveWillReplaceExistingRecord()
+    {
+        $expectedRow = [
+            'id' => 1,
+            'fullname' => "Trinh Nha Uyen",
+            'dob' => '2018-01-18',
+            'email' => 'nhauyen@gmail.com'
+        ];
+
+        $entityFactory = new Application_Factory_ProfileModel();
+        $profile = $entityFactory->createService($expectedRow);
+        $this->profileTable->save($profile);
+
+        $this->assertEquals(3,
+            (int) $this->getConnection()->getConnection()->query("SELECT COUNT(*) FROM profile")->fetchColumn());
+
+        $ds         = new Zend_Test_PHPUnit_Db_DataSet_QueryDataSet($this->getConnection());
+        $ds->addTable('profile', "SELECT * FROM PROFILE WHERE ID=1");
+        $this->assertDataSetsEqual($this->createArrayDataSet(['profile' => [$expectedRow]]), $ds);
     }
 
     /**

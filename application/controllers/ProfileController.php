@@ -13,60 +13,22 @@ class ProfileController extends Zend_Controller_Action
 {
 
     /**
-     * 
-     * @param array $profile
-     * @return \Application_Model_Profile
-     */
-    private function factoryProfileEntity(array $profile)
-    {
-        return new Application_Model_Profile(['data' => $profile]);
-    }
-
-    /**
-     *
-     * @return \Application_Model_DbTable_Profile
-     */
-    private function factoryProfileDbTable()
-    {
-        return new Application_Model_DbTable_Profile();
-    }
-
-    /**
-     *
-     * @return \Application_Repository_Profile
-     */
-    private function factoryProfileRepo()
-    {
-        return new Application_Repository_Profile(
-            $this->factoryProfileDbTable()
-        );
-    }
-
-    /**
-     *
-     * @return \Application_Form_Profile
-     */
-    private function factoryProfileForm()
-    {
-        return new Application_Form_Profile(['id' => 'create-profile']);
-    }
-
-    /**
      * Page paginator profile
      *
      * Handler GET request only
      * GET /profile
      * GET /profile/index/[:page/pageValue/][:size/sizeValue]
-     * 
+     *
      * @param int $page page number
      * @param int $size item per page
-     *
      */
     public function indexAction()
     {
-        $page        = (int) $this->getParam('page', 1);
-        $pageSize    = (int) $this->getParam('size', 25);
-        $profileRepo = $this->factoryProfileRepo();
+        $page     = (int) $this->getParam('page', 1);
+        $pageSize = (int) $this->getParam('size', 25);
+
+        $profileRepoFactory = new Application_Factory_ProfileRepository();
+        $profileRepo        = $profileRepoFactory->createService();
 
         $this->view->profiles = $profileRepo->paginator($page, $pageSize);
     }
@@ -78,38 +40,76 @@ class ProfileController extends Zend_Controller_Action
      * Handler GET, POST request
      * @link GET /profile/create display form profile
      * @link POST /profile/create persit profile
-     * 
      */
     public function createAction()
     {
-        $profileForm = $this->factoryProfileForm();
+        $profileForm             = new Application_Form_Profile(['id' => 'create-profile']);
+        $this->view->profileForm = $profileForm;
 
         /**
          * GET handler request
          */
         $requestShowProfileFormOnly = !$this->getRequest()->isPost();
         if ($requestShowProfileFormOnly) {
-            $this->view->profileForm = $profileForm;
             return; //show profile form now
         }
 
         /**
          * POST handler request
          */
-        $invalidProfileSubmited = !$profileForm->isValid(
-                $this->getRequest()->getPost()
-        );
+        $invalidProfileSubmited = !$profileForm->isValid($this->getRequest()->getPost());
         if ($invalidProfileSubmited) {
-            $this->view->profileForm = $profileForm;
             return; //show profile form with errors messages
         }
 
         /**
          * Persit valid profile after filtered
          */
-        $profileEntity = $this->factoryProfileEntity($profileForm->getValues());
-        $this->factoryProfileRepo()->save($profileEntity);
+        $profileRepoFactory  = new Application_Factory_ProfileRepository();
+        $profileModelFactory = new Application_Factory_ProfileModel();
+
+        $profileEntity = $profileModelFactory->createService($profileForm->getValues());
+        $profileRepo   = $profileRepoFactory->createService();
+        $profileRepo->save($profileEntity);
 
         return $this->_helper->redirector('index', 'profile', 'default');
+    }
+
+    /**
+     * Edit existed profile
+     *
+     * Handler GET, POST request
+     * @link GET /profile/edit/:id display form profile populated 
+     * @link POST /profile/edit persit profile
+     */
+    public function editAction()
+    {
+        $profileRepoFactory = new Application_Factory_ProfileRepository();
+        $profileModelFactory = new Application_Factory_ProfileModel();
+        $profileRepo        = $profileRepoFactory->createService();
+        $profileForm        = new Application_Form_Profile(['id' => 'edit-profile']);
+        $profileForm->submit->setLabel("Save");
+
+        $this->view->profileForm = $profileForm;
+
+        //GET request handler
+        $visitEditProfilePage    = !$this->getRequest()->isPost();
+        if ($visitEditProfilePage) {
+            $profileId     = (int) $this->getParam('id', 0);
+            $profileEntity = $profileRepo->findById($profileId);
+            $profileForm->bindFromProfile($profileEntity);
+            return; //render edit profile form
+        }
+
+        //POST request handler
+        $postInvalidProfile = !$profileForm->isValid($this->getRequest()->getPost());
+        if ($postInvalidProfile) {
+            return; //represent profile form with error messages
+        }
+
+        //TODO: persit filtered profile to persistent
+        $profileRepo->save($profileModelFactory->createService($profileForm->getValues()));
+        $this->_helper->redirector('index','profile','default');
+
     }
 }

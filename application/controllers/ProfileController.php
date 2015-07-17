@@ -24,15 +24,6 @@ class ProfileController extends Zend_Controller_Action
     }
 
     /**
-     * @return \Application_Model_DbTable_Profile
-     *
-     */
-    private function factoryProfileDbTable()
-    {
-        return new Application_Model_DbTable_Profile();
-    }
-
-    /**
      * @return \Application_Form_Profile
      *
      */

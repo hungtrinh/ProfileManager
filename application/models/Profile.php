@@ -23,6 +23,9 @@ class Application_Model_Profile extends Zend_Db_Table_Row_abstract implements Ap
      */
     public function getAge()
     {
+        if (empty($this->getBirthDay())) {
+            return NULL;
+        }
         $current      = new DateTime();
         $dateInterval = $current->diff($this->getBirthDay());
         return $dateInterval->y;
@@ -51,12 +54,12 @@ class Application_Model_Profile extends Zend_Db_Table_Row_abstract implements Ap
     /**
      * Get birth day
      *
-     * @return DateTime Birth day
+     * @return DateTime | NULL
      */
     public function getBirthDay()
     {
         if (empty($this->dob)) {
-            throw new DomainException("Missing 'dob' domain field");
+            return NULL;
         }
         return new DateTime($this->dob);
     }

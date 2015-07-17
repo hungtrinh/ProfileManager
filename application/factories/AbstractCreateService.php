@@ -3,8 +3,6 @@
 /**
  * Create an instance of service by service name
  * Service name can @see Application_Factory_ServiceName
- *
- * @abstract
  */
 abstract class Application_Factory_AbstractCreateService
 {
@@ -53,7 +51,7 @@ abstract class Application_Factory_AbstractCreateService
      * Create an instance of service by service name indicated
      * by $this->serviceName
      *
-     * @return Application_Repository_ProfileInterface
+     * @return mixed
      */
     public function createService()
     {

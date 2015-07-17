@@ -21,4 +21,12 @@ interface Application_Model_Mapper_ProfileInterface
      * @param Application_Model_ProfileInterface $profile
      */
     public function save(Application_Model_ProfileInterface $profile);
+
+    /**
+     * Find profile by profile id
+     *
+     * @param int $profileId profile id
+     * @return Application_Model_ProfileInterface
+     */
+    public function findById($profileId);
 }

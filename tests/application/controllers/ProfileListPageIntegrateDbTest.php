@@ -6,13 +6,6 @@
  */
 class ProfileListPageIntegrateDbTest extends ControllerIntegrateDbTestCase
 {
-    private function mysqlDateYearAgo($yearAgo)
-    {
-        $number = (int) $yearAgo; /* @var $number int*/
-        $oneYearAge = new DateTime("- $number years");
-        return $oneYearAge->format('Y-m-d');
-    }
-
     protected function getDataSet()
     {
         return new PHPUnit_Extensions_Database_DataSet_ArrayDataSet(array(

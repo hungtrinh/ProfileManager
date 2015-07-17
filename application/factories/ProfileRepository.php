@@ -3,7 +3,7 @@
 /**
  * Create an instance of Application_Repository_Interface
  *
- * @method Application_Repository_Profile createService() Create instance of Application_Repository_ProfileInterface
+ * @method Application_Repository_ProfileInterface createService() Create instance of Application_Repository_ProfileInterface
  */
 class Application_Factory_ProfileRepository extends Application_Factory_AbstractCreateService
 {

@@ -109,8 +109,8 @@ class Application_Form_Profile extends Zend_Form
     public function bindFromProfile(Application_Model_ProfileInterface $profile)
     {
         $this->populate([
-            self::ELEMENT_ID => $profile->getId() ? $profile->getId() : null,
-            self::ELEMENT_DOB => $profile->getBirthDay()->format('Y-m-d'),
+            self::ELEMENT_ID => $profile->getId() ? $profile->getId() : NULL,
+            self::ELEMENT_DOB => $profile->getBirthDay() ? $profile->getBirthDay()->format('Y-m-d') : NULL,
             self::ELEMENT_EMAIL => $profile->getEmail(),
             self::ELEMENT_FULLNAME => $profile->getFullname()
         ]);

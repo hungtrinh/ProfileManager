@@ -50,6 +50,6 @@ class Application_Repository_Profile implements Application_Repository_ProfileIn
         if ($profile) {
             return $profile;
         }
-        throw new Application_Repository_Exception('Not found profile',404);
+        throw new Application_Repository_Exception('Not found profile', 404);
     }
 }

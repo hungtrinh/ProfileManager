@@ -4,7 +4,7 @@
  * Create an instance of service by service name
  * Service name can @see Application_Factory_ServiceName
  */
-abstract class Application_Factory_AbstractCreateService
+abstract class Application_Factory_Abstractcreateservice
 {
     /**
      * Service need resolve get from constant @see Application_Factory_ServiceName
@@ -21,7 +21,7 @@ abstract class Application_Factory_AbstractCreateService
 
     /**
      * Check service existing
-     * 
+     *
      * @return bool
      */
     private function existingSharedInstanceOfService()
@@ -33,16 +33,16 @@ abstract class Application_Factory_AbstractCreateService
      * Retrieve service from shared store
      *
      * @return Application_Repository_ProfileInterface
-     * @throws Application_Repository_Exception
+     * @throws Application_Factory_Exception
      */
     private function getSharedInstanceOfService()
     {
         $cachedInstance = Zend_Registry::get($this->serviceName);
         if (!$cachedInstance instanceof $this->serviceName) {
-            throw new Application_Repository_Exception(
+            throw new Application_Factory_Exception(
                 $this->serviceName
-                .' already registered in registry but is '
-                ."no instance of {$this->serviceName}"
+                . ' already registered in registry but is '
+                . "no instance of {$this->serviceName}"
             );
         }
         return $cachedInstance;
@@ -52,7 +52,8 @@ abstract class Application_Factory_AbstractCreateService
      *
      * @param type $service
      */
-    private function shareInstanceOfService($service) {
+    private function shareInstanceOfService($service)
+    {
         Zend_Registry::set($this->serviceName, $service);
     }
 
@@ -61,7 +62,7 @@ abstract class Application_Factory_AbstractCreateService
      * by $this->serviceName
      *
      * @return mixed
-     * @throws Application_Repository_Exception
+     * @throws Application_Factory_Exception
      */
     public function createService()
     {

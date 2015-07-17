@@ -1,3 +1,5 @@
 <?php
+/* @var $this Zend_View */
+
 $this->headTitle($this->translate('Profile Edit'));
 echo $this->profileForm->setAction($this->url(['action' => 'edit', 'controller' => 'profile', 'module'=> 'default'],'default',true));

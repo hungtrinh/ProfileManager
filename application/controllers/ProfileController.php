@@ -87,12 +87,11 @@ class ProfileController extends Zend_Controller_Action
         $profileRepoFactory = new Application_Factory_ProfileRepository();
         $profileForm        = new Application_Form_Profile(['id' => 'edit-profile']);
 
-        $profileRepo   = $profileRepoFactory->createService();
-        /* @var $profileRepo Application_Repository_ProfileInterface */
-        $profileEntity = $profileRepo->findById($profileId);
-
-        $profileForm->bindFromProfile($profileEntity);
         $profileForm->submit->setLabel("Save");
+        
+        $profileRepo   = $profileRepoFactory->createService();
+        $profileEntity = $profileRepo->findById($profileId);
+        $profileForm->bindFromProfile($profileEntity);
 
         $this->view->profileForm = $profileForm;
     }

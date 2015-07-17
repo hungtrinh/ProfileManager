@@ -25,6 +25,13 @@ class ProfileEditPageIntergrateDbTest extends ControllerIntegrateDbTestCase
         $this->dispatch($editProfileUrl);
     }
 
+    private function submitProfileForm(array $profile)
+    {
+        $createProfileUrl = $this->url(['action' => 'edit', 'controller' => 'profile']);
+        $this->getRequest()->setMethod('POST')->setPost($profile);
+        $this->dispatch($createProfileUrl);
+    }
+
     public function testWhenVisitThenResponseSuccess()
     {
         $this->visitEditProfilePage(1);
@@ -66,5 +73,26 @@ class ProfileEditPageIntergrateDbTest extends ControllerIntegrateDbTestCase
         $this->assertQuery('input[name="dob"][type="text"]', $html);
         $this->assertQuery('input[name="email"][type="text"]', $html);
         $this->assertQuery('input[name="submit"][type="submit"][value="Save"]', $html);
+    }
+
+    public function testWhenPostInvalidProfileThenRepesenterProfileFormWithErrorMessage()
+    {
+        $invalidProfile = [
+            'id' => 1,
+            'fullname' => $invalidFullname='$#!',
+            'dob' => $invalidDob='four',
+            'email' => $invalidEmail='email',
+        ];
+
+        $this->submitProfileForm($invalidProfile);
+        $body = $this->getResponse()->getBody();
+        
+        $editProfileUrl = $this->url(['action' => 'edit', 'controller' => 'profile']);
+        $this->assertQuery("form[method='post'][action='$editProfileUrl']", $body);
+        $this->assertQuery('input[name="id"][type="hidden"]', $body);
+        $this->assertQuery("input[name='fullname'][type='text'][value='$invalidFullname']", $body);
+        $this->assertQuery("input[name='dob'][type='text'][value='$invalidDob']", $body);
+        $this->assertQuery("input[name='email'][type='text'][value='$invalidEmail']", $body);
+        $this->assertQuery('input[name="submit"][type="submit"][value="submit"]', $body);
     }
 }

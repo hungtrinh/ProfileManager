@@ -44,6 +44,7 @@
         - [Write specification submit bad profile to 'create-profile-page'](#write-specification-submit-bad-profile-to-create-profile-page)
         - [Write inject invalid profile form Then isValid() return false](#write-inject-invalid-profile-form-then-isvalid-return-false)
         - [Write inject invalid profile form Then getMessages() return all invalid message](#write-inject-invalid-profile-form-then-getmessages-return-all-invalid-message)
+- [Phrase edit profile](#phrase-edit-profile)
 
 <!-- /MarkdownTOC -->
 
@@ -164,7 +165,7 @@ add html layout
 
 ### Run unit-test again
 
-# Phrase create profile 
+# Phrase create profile
 
 ## Customer
 
@@ -186,7 +187,7 @@ add html layout
     + Text field name=age with value blank
     + Text field name=email with value blank
 
-#### Run Unit-test 
+#### Run Unit-test
 
 ***expected test failed***
 
@@ -196,22 +197,22 @@ add html layout
 2. create file view/scripts/profile/create.phtml
 3. make html form in file view/scripts/profile/create.phtml
 
-#### Run Unit-test again 
+#### Run Unit-test again
 
 ***expected test success***
 
 ### Refactoring code
 
-#### Run Unit-test again 
+#### Run Unit-test again
 
 ***expected test success***
 
 ## Customer
-    
+
 ### User submit invalid profile to system
 
-When user submit invalid profile  
-Then re populate profile form 
+When user submit invalid profile
+Then re populate profile form
 And show error message
 
 Profile form validation requirement
@@ -222,7 +223,7 @@ Profile form validation requirement
 ### User submit valid profile to system
 
 When user submit valid profile
-Then system persist profile 
+Then system persist profile
 And system redirect to list profile page
 
 ## Developer
@@ -235,4 +236,6 @@ And system redirect to list profile page
 
 ### Write inject invalid profile form Then isValid() return false
 ### Write inject invalid profile form Then getMessages() return all invalid message
-    
+
+# Phrase edit profile
+Stop write step by step here :D ()

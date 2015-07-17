@@ -3,7 +3,7 @@
  * Specification for Application_Factory_ProfileRepository
  *
  */
-class ProfileRepositoryTest extends PHPUnit_Framework_TestCase
+class Application_Factory_ProfileRepositoryTest extends PHPUnit_Framework_TestCase
 {
     /**
      *

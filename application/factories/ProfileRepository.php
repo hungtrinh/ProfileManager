@@ -3,18 +3,21 @@
 /**
  * Create an instance of Application_Repository_Interface
  *
+ * @method Application_Repository_ProfileInterface createService() create instance of Application_Repository_ProfileInterface
  */
-class Application_Factory_ProfileRepository
+class Application_Factory_ProfileRepository extends Application_Factory_AbstractCreateService
 {
-
-    public function createService()
+    protected $serviceName = Application_Factory_ServiceName::PROFILE_REPOSITORY;
+    
+    /**
+     * 
+     * @return Application_Repository_ProfileInterface
+     */
+    protected function newInstanceOfService()
     {
-        if (!Zend_Registry::isRegistered('Application_Repository_ProfileInterface')) {
-            $profileRepo = new Application_Repository_Profile(
-                new Application_Model_DbTable_Profile()
-            );
-            Zend_Registry::set('Application_Repository_ProfileInterface', $profileRepo);
-        }
-        return Zend_Registry::get('Application_Repository_ProfileInterface');
+        $profileMapperFactory = new Application_Factory_ProfileMapper();
+        return new Application_Repository_Profile(
+            $profileMapperFactory->createService()
+        );
     }
 }

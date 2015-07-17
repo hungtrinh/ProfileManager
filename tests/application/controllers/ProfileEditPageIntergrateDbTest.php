@@ -93,6 +93,6 @@ class ProfileEditPageIntergrateDbTest extends ControllerIntegrateDbTestCase
         $this->assertQuery("input[name='fullname'][type='text'][value='$invalidFullname']", $body);
         $this->assertQuery("input[name='dob'][type='text'][value='$invalidDob']", $body);
         $this->assertQuery("input[name='email'][type='text'][value='$invalidEmail']", $body);
-        $this->assertQuery('input[name="submit"][type="submit"][value="submit"]', $body);
+        $this->assertQuery('input[name="submit"][type="submit"][value="Save"]', $body);
     }
 }

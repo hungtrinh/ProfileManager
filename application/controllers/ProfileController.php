@@ -11,6 +11,7 @@
  */
 class ProfileController extends Zend_Controller_Action
 {
+
     /**
      * Page paginator profile
      *
@@ -42,9 +43,9 @@ class ProfileController extends Zend_Controller_Action
      */
     public function createAction()
     {
-        $profileForm = new Application_Form_Profile(['id' => 'create-profile']);
-        $this->view->profileForm    = $profileForm;
-        
+        $profileForm             = new Application_Form_Profile(['id' => 'create-profile']);
+        $this->view->profileForm = $profileForm;
+
         /**
          * GET handler request
          */
@@ -52,7 +53,7 @@ class ProfileController extends Zend_Controller_Action
         if ($requestShowProfileFormOnly) {
             return; //show profile form now
         }
-       
+
         /**
          * POST handler request
          */
@@ -64,9 +65,9 @@ class ProfileController extends Zend_Controller_Action
         /**
          * Persit valid profile after filtered
          */
-        $profileRepoFactory = new Application_Factory_ProfileRepository();
+        $profileRepoFactory  = new Application_Factory_ProfileRepository();
         $profileModelFactory = new Application_Factory_ProfileModel();
-        
+
         $profileEntity = $profileModelFactory->createService($profileForm->getValues());
         $profileRepo   = $profileRepoFactory->createService();
         $profileRepo->save($profileEntity);
@@ -83,16 +84,30 @@ class ProfileController extends Zend_Controller_Action
      */
     public function editAction()
     {
-        $profileId          = (int) $this->getParam('id', 0);
         $profileRepoFactory = new Application_Factory_ProfileRepository();
+        $profileRepo        = $profileRepoFactory->createService();
         $profileForm        = new Application_Form_Profile(['id' => 'edit-profile']);
-
         $profileForm->submit->setLabel("Save");
-        
-        $profileRepo   = $profileRepoFactory->createService();
-        $profileEntity = $profileRepo->findById($profileId);
-        $profileForm->bindFromProfile($profileEntity);
 
         $this->view->profileForm = $profileForm;
+
+        //GET request handler
+        $visitEditProfilePage    = !$this->getRequest()->isPost();
+        if ($visitEditProfilePage) {
+            $profileId     = (int) $this->getParam('id', 0);
+            $profileEntity = $profileRepo->findById($profileId);
+            $profileForm->bindFromProfile($profileEntity);
+            return; //render edit profile form
+        }
+
+        //POST request handler
+        $postInvalidProfile = $profileForm->isValid($this->getRequest()->getPost());
+        if ($postInvalidProfile) {
+            return; //represent profile form with error messages
+        }
+
+        //TODO: persit filtered profile to persistent
+        
+
     }
 }

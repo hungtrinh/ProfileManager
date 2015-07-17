@@ -101,7 +101,7 @@ class ProfileController extends Zend_Controller_Action
         }
 
         //POST request handler
-        $postInvalidProfile = $profileForm->isValid($this->getRequest()->getPost());
+        $postInvalidProfile = !$profileForm->isValid($this->getRequest()->getPost());
         if ($postInvalidProfile) {
             return; //represent profile form with error messages
         }

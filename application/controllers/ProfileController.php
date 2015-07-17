@@ -24,16 +24,6 @@ class ProfileController extends Zend_Controller_Action
     }
 
     /**
-     * Create form profile
-     *
-     * @return \Application_Form_Profile
-     */
-    private function factoryProfileForm($formOptions = ['id' => 'create-profile'])
-    {
-        return new Application_Form_Profile($formOptions);
-    }
-
-    /**
      * Page paginator profile
      *
      * Handler GET request only
@@ -64,17 +54,16 @@ class ProfileController extends Zend_Controller_Action
      */
     public function createAction()
     {
-        $profileForm = $this->factoryProfileForm();
+        $profileForm = new Application_Form_Profile(['id' => 'create-profile']);
 
+        $this->view->profileForm    = $profileForm;
         /**
          * GET handler request
          */
         $requestShowProfileFormOnly = !$this->getRequest()->isPost();
         if ($requestShowProfileFormOnly) {
-            $this->view->profileForm = $profileForm;
             return; //show profile form now
         }
-
         /**
          * POST handler request
          */
@@ -82,17 +71,15 @@ class ProfileController extends Zend_Controller_Action
                 $this->getRequest()->getPost()
         );
         if ($invalidProfileSubmited) {
-            $this->view->profileForm = $profileForm;
             return; //show profile form with errors messages
         }
 
+        $profileRepoFactory = new Application_Factory_ProfileRepository();
         /**
          * Persit valid profile after filtered
          */
         $profileEntity = $this->factoryProfileEntity($profileForm->getValues());
-
-        $profileRepoFactory = new Application_Factory_ProfileRepository();
-        $profileRepo        = $profileRepoFactory->createService();
+        $profileRepo   = $profileRepoFactory->createService();
         $profileRepo->save($profileEntity);
 
         return $this->_helper->redirector('index', 'profile', 'default');
@@ -109,10 +96,11 @@ class ProfileController extends Zend_Controller_Action
     {
         $profileId          = (int) $this->getParam('id', 0);
         $profileRepoFactory = new Application_Factory_ProfileRepository();
-        $profileRepo        = $profileRepoFactory->createService();
-        $profileEntity      = $profileRepo->findById($profileId);
+        $profileForm        = new Application_Form_Profile(['id' => 'edit-profile']);
 
-        $profileForm = $this->factoryProfileForm(['id' => 'edit-profile']);
+        $profileRepo   = $profileRepoFactory->createService();
+        $profileEntity = $profileRepo->findById($profileId);
+
         $profileForm->bindFromProfile($profileEntity);
         $profileForm->submit->setLabel("Save");
 

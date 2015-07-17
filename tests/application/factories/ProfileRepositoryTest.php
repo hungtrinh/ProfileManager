@@ -35,4 +35,13 @@ class Application_Factory_ProfileRepositoryTest extends PHPUnit_Framework_TestCa
         $this->assertSame($profileRepo, $profileRepoFactory->createService());
     }
 
+    public function testCreateServiceWillThrowExceptionWhenGetUnwantedInstanceType()
+    {
+        $serviceName = Application_Factory_ServiceName::PROFILE_REPOSITORY;
+        $exceptionMessage = "$serviceName already registered in registry but is no instance of $serviceName";
+        $this->setExpectedException("Application_Factory_Exception", $exceptionMessage);
+        
+        Zend_Registry::set(Application_Factory_ServiceName::PROFILE_REPOSITORY, new stdClass());
+        $this->factory->createService();
+    }
 }

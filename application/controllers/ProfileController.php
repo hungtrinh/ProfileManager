@@ -24,11 +24,11 @@ class ProfileController extends Zend_Controller_Action
      */
     public function indexAction()
     {
-        $page = (int) $this->getParam('page', 1);
+        $page     = (int) $this->getParam('page', 1);
         $pageSize = (int) $this->getParam('size', 25);
 
         $profileRepoFactory = new Application_Factory_ProfileRepository();
-        $profileRepo = $profileRepoFactory->createService();
+        $profileRepo        = $profileRepoFactory->createService();
 
         $this->view->profiles = $profileRepo->paginator($page, $pageSize);
     }
@@ -43,7 +43,7 @@ class ProfileController extends Zend_Controller_Action
      */
     public function createAction()
     {
-        $profileForm = new Application_Form_Profile(['id' => 'create-profile']);
+        $profileForm             = new Application_Form_Profile(['id' => 'create-profile']);
         $this->view->profileForm = $profileForm;
 
         /**
@@ -65,11 +65,11 @@ class ProfileController extends Zend_Controller_Action
         /**
          * Persit valid profile after filtered
          */
-        $profileRepoFactory = new Application_Factory_ProfileRepository();
+        $profileRepoFactory  = new Application_Factory_ProfileRepository();
         $profileModelFactory = new Application_Factory_ProfileModel();
 
         $profileEntity = $profileModelFactory->createService($profileForm->getValues());
-        $profileRepo = $profileRepoFactory->createService();
+        $profileRepo   = $profileRepoFactory->createService();
         $profileRepo->save($profileEntity);
 
         return $this->_helper->redirector('index', 'profile', 'default');
@@ -84,9 +84,9 @@ class ProfileController extends Zend_Controller_Action
      */
     public function editAction()
     {
-        $profileRepoFactory = new Application_Factory_ProfileRepository();
+        $profileRepoFactory  = new Application_Factory_ProfileRepository();
         $profileModelFactory = new Application_Factory_ProfileModel();
-        $profileForm = new Application_Form_Profile(['id' => 'edit-profile']);
+        $profileForm         = new Application_Form_Profile(['id' => 'edit-profile']);
 
         $profileForm->submit->setLabel("Save");
         $profileRepo = $profileRepoFactory->createService();
@@ -96,7 +96,7 @@ class ProfileController extends Zend_Controller_Action
         //GET request handler
         $visitEditProfilePage = !$this->getRequest()->isPost();
         if ($visitEditProfilePage) {
-            $profileId = (int) $this->getParam('id', 0);
+            $profileId     = (int) $this->getParam('id', 0);
             $profileEntity = $profileRepo->findById($profileId);
             $profileForm->bindFromProfile($profileEntity);
             return; //render edit profile form
@@ -111,6 +111,5 @@ class ProfileController extends Zend_Controller_Action
         //Persit filtered profile to persistent
         $profileRepo->save($profileModelFactory->createService($profileForm->getValues()));
         $this->_helper->redirector('index', 'profile', 'default');
-
     }
 }

@@ -33,10 +33,19 @@ abstract class Application_Factory_AbstractCreateService
      * Retrieve service from shared store
      *
      * @return Application_Repository_ProfileInterface
+     * @throws Application_Repository_Exception
      */
     private function getSharedInstanceOfService()
     {
-        return Zend_Registry::get($this->serviceName);
+        $cachedInstance = Zend_Registry::get($this->serviceName);
+        if (!$cachedInstance instanceof $this->serviceName) {
+            throw new Application_Repository_Exception(
+                $this->serviceName
+                .' already registered in registry but is '
+                ."no instance of {$this->serviceName}"
+            );
+        }
+        return $cachedInstance;
     }
 
     /**
@@ -52,6 +61,7 @@ abstract class Application_Factory_AbstractCreateService
      * by $this->serviceName
      *
      * @return mixed
+     * @throws Application_Repository_Exception
      */
     public function createService()
     {

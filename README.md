@@ -239,3 +239,5 @@ And system redirect to list profile page
 
 # Phrase edit profile
 Stop write step by step here :D ()
+
+# Phrase delete profile

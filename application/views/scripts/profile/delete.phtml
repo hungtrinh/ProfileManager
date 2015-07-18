@@ -9,7 +9,7 @@ if ($this->profileNotFound) {
 
 $profile = $this->profile;
 $deleteProfileUrl = $this->url(['action'=>'delete','controller'=>'profile','module'=>'default'], 'default', true);
-echo $this->translate("Are you sure that you want to delete"), "account name {$profile->getFullname()}";
+echo $this->translate("Are you sure that you want to delete"), "account name ", "{$profile->getFullname()}";
 echo $this->form('delete-profile', ['method'=>'post','action'=> $deleteProfileUrl]);
 echo $this->formHidden('id',$profile->getId());
 echo $this->formSubmit('del', "Yes",['id'=>'Yes']);

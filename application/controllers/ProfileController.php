@@ -8,7 +8,9 @@
  * - add new profile
  * - edit exist profile
  * - delete exist profile
+ *
  */
+
 class ProfileController extends Zend_Controller_Action
 {
 
@@ -21,6 +23,7 @@ class ProfileController extends Zend_Controller_Action
      *
      * @param int $page page number
      * @param int $size item per page
+     *
      */
     public function indexAction()
     {
@@ -40,6 +43,7 @@ class ProfileController extends Zend_Controller_Action
      * Handler GET, POST request
      * @link GET /profile/create display form profile
      * @link POST /profile/create persit profile
+     *
      */
     public function createAction()
     {
@@ -81,6 +85,7 @@ class ProfileController extends Zend_Controller_Action
      * Handler GET, POST request
      * @link GET /profile/edit/:id display form profile populated
      * @link POST /profile/edit persit profile
+     *
      */
     public function editAction()
     {
@@ -112,4 +117,10 @@ class ProfileController extends Zend_Controller_Action
         $profileRepo->save($profileModelFactory->createService($profileForm->getValues()));
         $this->_helper->redirector('index', 'profile', 'default');
     }
+
+    public function deleteAction()
+    {
+        // action body
+    }
 }
+

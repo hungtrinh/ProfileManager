@@ -74,7 +74,7 @@ class Application_Repository_ProfileDiscoveryMapperApiTest extends PHPUnit_Frame
 //        $this->assertNotEmpty($profile->getId());
     }
 
-    public function testFindByIdWillDeleteCallToMapperProfileMapperInterface()
+    public function testFindByIdWillDelegateCallToMapperProfileMapperInterface()
     {
         $profile = new Application_Model_Profile(['data' => [
                 'id' => $profileId = 1,
@@ -105,5 +105,21 @@ class Application_Repository_ProfileDiscoveryMapperApiTest extends PHPUnit_Frame
 
         $profileActual = $this->profileRepo->findById($profileId);
         $this->assertSame($profile, $profileActual);
+    }
+
+    public function testDeleteWillDelegateCallToMapperProfileMapperInterface()
+    {
+        $profileId = 1 ;
+        $this->profileMapperMock->expects($this->once())
+            ->method('deleteProfile')
+            ->with($profileId);
+
+        $this->profileRepo->delete($profileId);
+    }
+
+    public function testDeleteWillThrowExceptionWhenInjectAlpha()
+    {
+        $this->setExpectedException('InvalidArgumentException',"Profile id or Application_Model_ProfileInterface instance required");
+        $this->profileRepo->delete('abc');
     }
 }

@@ -2,6 +2,9 @@
 
 class Application_Form_Profile extends Zend_Form
 {
+    /**
+     * Element name constant
+     */
     const ELEMENT_ID       = 'id';
     const ELEMENT_FULLNAME = 'fullname';
     const ELEMENT_DOB      = 'dob';
@@ -19,6 +22,7 @@ class Application_Form_Profile extends Zend_Form
             'name' => self::ELEMENT_FULLNAME,
             'type' => 'text',
             'options' => [
+                'label' => 'Fullname',
                 'validators' => [
                     [
                         'validator' => 'Regex',
@@ -40,14 +44,15 @@ class Application_Form_Profile extends Zend_Form
      */
     private function factoryDateOfBirthElement()
     {
-        return $this->createElement('text', self::ELEMENT_DOB,
+        return $this->createElement('text', self::ELEMENT_DOB,[
+            'label' => 'Birthday',
+            'placeholder' => "2018-01-30",
+            'validators' => [
                 [
-                'validators' => [
-                    [
-                        'validator' => 'Date',
-                        'breakChainOnFailure' => false,
-                    ], //Zend_Validate_Date
-                ]
+                    'validator' => 'Date',
+                    'breakChainOnFailure' => false,
+                ], //Zend_Validate_Date
+            ]
         ]);
     }
 
@@ -62,6 +67,7 @@ class Application_Form_Profile extends Zend_Form
             'name' => self::ELEMENT_EMAIL,
             'type' => 'text',
             'options' => [
+                'label' => 'Email',
                 'validators' => [
                     ['validator' => 'EmailAddress', 'breakChainOnFailure' => false,], //Zend_Validate_EmailAddress
                 ]
@@ -91,7 +97,10 @@ class Application_Form_Profile extends Zend_Form
     {
         return [
             'name' => self::ELEMENT_SUBMIT,
-            'type' => 'submit'
+            'type' => 'submit',
+            'options' => [
+                'label' => 'Add'
+            ]
         ];
     }
 

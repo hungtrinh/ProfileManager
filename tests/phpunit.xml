@@ -1,4 +1,4 @@
-<phpunit 
+<phpunit
     bootstrap="./bootstrap.php"
     colors="true"
     convertErrorsToExceptions="true"
@@ -10,14 +10,14 @@
     stopOnIncomplete="false"
     stopOnSkipped="false"
     verbose="false">
-    
+
     <testsuite name="Application Test Suite">
         <directory>./application</directory>
     </testsuite>
     <testsuite name="Library Test Suite">
         <directory>./library</directory>
     </testsuite>
-    
+
     <filter>
         <blacklist>
             <directory>../vendor</directory>
@@ -32,8 +32,8 @@
             </exclude>
         </whitelist>
     </filter>
-    
-    <logging>
+
+     <logging>
         <log type="coverage-html" target="log/report" lowUpperBound="35"
              highLowerBound="70"/>
         <log type="coverage-clover" target="log/coverage.xml"/>
@@ -44,5 +44,5 @@
         <log type="junit" target="log/logfile.xml" logIncompleteSkipped="false"/>
         <log type="testdox-html" target="log/testdox.html"/>
         <log type="testdox-text" target="log/testdox.txt"/>
-    </logging>
+    </logging> 
 </phpunit>

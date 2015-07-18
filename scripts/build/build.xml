@@ -41,13 +41,28 @@
         <exec command="${project.basedir}/vendor/bin/phinx migrate -c  ${project.basedir}/scripts/build/phinx.yml -e development" passthru="true"  />
     </target>
     
+    <!-- ============================================  -->
+    <!-- Target: clean temp folde                      -->
+    <!-- ============================================  -->
     <target name="clean"
             description="Clean temp folder">
         <delete dir="${project.basedir}/tests/log/"/>
     </target>
     
+    <!-- ============================================  -->
+    <!-- Target: prepaire temp folder                  -->
+    <!-- ============================================  -->
     <target name="prepaire" 
             description="Prepaire folder for build">
         <mkdir dir="${project.basedir}/tests/log/" />
     </target>
+    
+    <!-- ============================================  -->
+    <!-- Target: open app in browser - MAC OS only     -->
+    <!-- ============================================  -->
+    <target name="open-app"
+        description="(MAC OS only) - Open app in web browser with enviroment 'development'.Please manual run target 'web-server' before running this target">
+        <exec command="open http://127.0.0.1:8888/profile" passthru="true"  />
+    </target>
+
 </project>

@@ -29,4 +29,11 @@ interface Application_Model_Mapper_ProfileInterface
      * @return Application_Model_ProfileInterface
      */
     public function findById($profileId);
+
+    /**
+     * Find profile by profile id
+     *
+     * @param int | Application_Model_ProfileInterface $profile profile id or profile entity
+     */
+    public function deleteProfile($profile);
 }

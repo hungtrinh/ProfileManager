@@ -157,4 +157,37 @@ class Application_Model_DbTable_ProfileTest extends Zend_Test_PHPUnit_DatabaseTe
         ]);
 
     }
+
+    public function testDeleteProfileByProfileIdSuccess()
+    {
+        $this->profileTable->deleteProfile(1);
+
+        $currentDate = new DateTime('2015-07-16');
+        $current     = $currentDate->format('Y-m-d');
+        $expected = $this->createArrayDataSet(['profile' => [
+            ['id' => 2, 'fullname' => 'Quang B', 'dob' => $current, 'email' => 'b@mail.com'],
+            ['id' => 3, 'fullname' => 'Quang C', 'dob' => $current, 'email' => 'c@mail.com']
+        ]]);
+        $ds         = new Zend_Test_PHPUnit_Db_DataSet_QueryDataSet($this->getConnection());
+        $ds->addTable('profile', "SELECT * FROM PROFILE");
+        $this->assertDataSetsEqual($expected, $ds);
+    }
+
+    public function testDeleteProfileByProfileSuccess()
+    {
+        $profileFactory = new Application_Factory_ProfileModel();
+        $this->profileTable->deleteProfile($profileFactory->createService([
+            'id' => 1
+        ]));
+
+        $currentDate = new DateTime('2015-07-16');
+        $current     = $currentDate->format('Y-m-d');
+        $expected = $this->createArrayDataSet(['profile' => [
+            ['id' => 2, 'fullname' => 'Quang B', 'dob' => $current, 'email' => 'b@mail.com'],
+            ['id' => 3, 'fullname' => 'Quang C', 'dob' => $current, 'email' => 'c@mail.com']
+        ]]);
+        $ds         = new Zend_Test_PHPUnit_Db_DataSet_QueryDataSet($this->getConnection());
+        $ds->addTable('profile', "SELECT * FROM PROFILE");
+        $this->assertDataSetsEqual($expected, $ds);
+    }
 }

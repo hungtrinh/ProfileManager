@@ -72,4 +72,20 @@ class ProfileDeletePageIntergrateDbTest extends ControllerIntegrateDbTestCase
         $this->assertRedirect($body);
         $this->assertRedirectTo($profileListUrl, $body);
     }
+
+    public function testWhenUserConfirmNoDeleteProfileThenSystemRedirectToProfileList()
+    {
+        $this->getRequest()->setMethod('post')->setPost(['id'=>$existingProfile=1,'del'=>'No']);
+        $this->dispatch($this->url(['action'=>'delete','controller'=>'profile','module'=>'default'],'default',true));
+
+        $body = $this->getResponse()->getBody();
+        $profileListUrl = $this->url(['action'=>'index','controller'=>'profile','module'=>'default'],'default',true);
+        $this->assertRedirect($body);
+        $this->assertRedirectTo($profileListUrl, $body);
+        
+        $this->resetRequest()->resetResponse();
+        $this->getRequest()->setMethod('get')->setPost([]);
+        $this->dispatch($this->url(['action'=>'index','controller'=>'profile','module'=>'default'],'default',true));
+        $this->assertNotQueryContentContains("body", "Empty profile list", $this->getResponse()->getBody());
+    }
 }

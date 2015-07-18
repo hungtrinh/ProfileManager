@@ -122,7 +122,7 @@ class ProfileController extends Zend_Controller_Action
      *
      * Handler GET, POST request
      * @link GET /profile/delete/:id display form confirm delete profile
-     * @link POST /profile/delete persit profile
+     * @link POST /profile/delete delete profile from persistent
      */
     public function deleteAction()
     {
@@ -130,9 +130,13 @@ class ProfileController extends Zend_Controller_Action
         $profileRepoFactory = new Application_Factory_ProfileRepository();
         $profileRepo        = $profileRepoFactory->createService(); /* @var $profileRepo Application_Repository_ProfileInterface */
 
-        if ($request->isPost() && 'yes' == strtolower($request->getPost('del'))) {
+        if ($request->isPost()) {
             $profileId = (int) $request->getPost('id');
-            $profileRepo->delete($profileId);
+
+            if ('yes' == strtolower($request->getPost('del'))) {
+                $profileRepo->delete($profileId);
+            }
+            
             $this->_helper->redirector('index', 'profile', 'default');
             return;
         }

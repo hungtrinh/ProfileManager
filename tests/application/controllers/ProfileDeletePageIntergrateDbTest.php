@@ -30,10 +30,46 @@ class ProfileDeletePageIntergrateDbTest extends ControllerIntegrateDbTestCase
         $this->assertController('profile');
         $this->assertModule('default');
     }
+    
     public function testVisitWillDisplayErrorWhenNotFoundProfile()
     {
-        $this->visitDeleteProfilePage(2);
+        $this->visitDeleteProfilePage($unknowProfile=2);
 
         $this->assertQueryContentContains('body', 'Profile not found' );
+        $this->assertNotQuery("form[id='delete-profile']");
+    }
+
+    public function testVisitWillDisplayConfirmDeleteForm()
+    {
+        $this->visitDeleteProfilePage($existingProfile=1);
+        $body = $this->getResponse()->getBody();
+        $deleteUrl = $this->url(['action'=>'delete','controller' => 'profile', 'module' => 'default'], 'default',true);
+        
+        $this->assertQuery("form[action='$deleteUrl'][id='delete-profile'][method='post']", $body);
+        $this->assertQuery("input[type='hidden'][name='id'][value='$existingProfile']", $body);
+        $this->assertQuery("input[type='submit'][name='del'][value='Yes']", $body);
+        $this->assertQuery("input[type='submit'][name='del'][value='No']", $body);
+    }
+
+    public function testWhenUserConfirmYesSystemWillDeletedProfile()
+    {
+        $this->getRequest()->setMethod('post')->setPost(['id'=>$existingProfile=1,'del'=>'Yes']);
+        $this->dispatch($this->url(['action'=>'delete','controller'=>'profile','module'=>'default'],'default',true));
+
+        $this->resetRequest()->resetResponse();
+        $this->getRequest()->setMethod('get')->setPost([]);
+        $this->dispatch($this->url(['action'=>'index','controller'=>'profile','module'=>'default'],'default',true));
+        $this->assertQueryContentContains("body", "Empty profile list", $this->getResponse()->getBody());
+    }
+
+    public function testWhenProfileDeletedSuccessThenSystemWillRedirectToProfileList()
+    {
+        $this->getRequest()->setMethod('post')->setPost(['id'=>$existingProfile=1,'del'=>'Yes']);
+        $this->dispatch($this->url(['action'=>'delete','controller'=>'profile','module'=>'default'],'default',true));
+
+        $body = $this->getResponse()->getBody();
+        $profileListUrl = $this->url(['action'=>'index','controller'=>'profile','module'=>'default'],'default',true);
+        $this->assertRedirect($body);
+        $this->assertRedirectTo($profileListUrl, $body);
     }
 }

@@ -10,7 +10,6 @@
  * - delete exist profile
  *
  */
-
 class ProfileController extends Zend_Controller_Action
 {
 
@@ -118,9 +117,34 @@ class ProfileController extends Zend_Controller_Action
         $this->_helper->redirector('index', 'profile', 'default');
     }
 
+    /**
+     * Delete existed profile
+     *
+     * Handler GET, POST request
+     * @link GET /profile/delete/:id display form confirm delete profile
+     * @link POST /profile/delete persit profile
+     */
     public function deleteAction()
     {
-        // action body
+        $request            = $this->getRequest(); /* @var $request Zend_Controller_Request_Http */
+        $profileRepoFactory = new Application_Factory_ProfileRepository();
+        $profileRepo        = $profileRepoFactory->createService(); /* @var $profileRepo Application_Repository_ProfileInterface */
+
+        $profileId = (int)$request->getParam('id');
+
+        if ($request->isPost() && 'yes' == strtolower($request->getPost('del'))) {
+            $profileRepo->delete($profileId);
+            $this->_helper->redirector('index','profile','default');
+            return;
+        }
+        
+        try {
+            $id                  = (int) $this->getParam('id', 0);
+            $this->view->profile = $profileRepo->findById($id);
+        } catch (Application_Repository_Exception $e) {
+            if (404 === $e->getCode()) {
+                $this->view->profileNotFound = true;
+            }
+        }
     }
 }
-

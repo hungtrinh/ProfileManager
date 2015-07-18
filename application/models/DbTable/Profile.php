@@ -94,4 +94,15 @@ class Application_Model_DbTable_Profile extends Zend_Db_Table_Abstract implement
         }
         return $profilePersit;
     }
+
+    /**
+     * Find profile by profile id
+     *
+     * @param int | Application_Model_ProfileInterface $profile profile id or profile entity
+     */
+    public function deleteProfile($profile)
+    {
+        $profileId = is_numeric($profile) ? (int)$profile : $profile->getId();
+        $this->delete(['id=?'=>$profileId]);
+    }
 }

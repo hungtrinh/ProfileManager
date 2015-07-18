@@ -33,4 +33,11 @@ interface Application_Repository_ProfileInterface
      * @throw Application_Repository_NotFoundException
      */
     public function findById($profileId);
+
+    /**
+     * Find profile by profile id
+     *
+     * @param int | Application_Model_ProfileInterface $profile profile id or profile entity
+     */
+    public function delete($profile);
 }

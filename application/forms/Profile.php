@@ -2,6 +2,9 @@
 
 class Application_Form_Profile extends Zend_Form
 {
+    /**
+     * Element name constant
+     */
     const ELEMENT_ID       = 'id';
     const ELEMENT_FULLNAME = 'fullname';
     const ELEMENT_DOB      = 'dob';

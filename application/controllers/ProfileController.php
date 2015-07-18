@@ -130,17 +130,16 @@ class ProfileController extends Zend_Controller_Action
         $profileRepoFactory = new Application_Factory_ProfileRepository();
         $profileRepo        = $profileRepoFactory->createService(); /* @var $profileRepo Application_Repository_ProfileInterface */
 
-        $profileId = (int)$request->getParam('id');
-
         if ($request->isPost() && 'yes' == strtolower($request->getPost('del'))) {
+            $profileId = (int) $request->getPost('id');
             $profileRepo->delete($profileId);
-            $this->_helper->redirector('index','profile','default');
+            $this->_helper->redirector('index', 'profile', 'default');
             return;
         }
-        
+
         try {
-            $id                  = (int) $this->getParam('id', 0);
-            $this->view->profile = $profileRepo->findById($id);
+            $profileId           = (int) $this->getParam('id', 0);
+            $this->view->profile = $profileRepo->findById($profileId);
         } catch (Application_Repository_Exception $e) {
             if (404 === $e->getCode()) {
                 $this->view->profileNotFound = true;

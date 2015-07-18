@@ -8,6 +8,7 @@
  * - add new profile
  * - edit exist profile
  * - delete exist profile
+ *
  */
 class ProfileController extends Zend_Controller_Action
 {
@@ -21,6 +22,7 @@ class ProfileController extends Zend_Controller_Action
      *
      * @param int $page page number
      * @param int $size item per page
+     *
      */
     public function indexAction()
     {
@@ -40,6 +42,7 @@ class ProfileController extends Zend_Controller_Action
      * Handler GET, POST request
      * @link GET /profile/create display form profile
      * @link POST /profile/create persit profile
+     *
      */
     public function createAction()
     {
@@ -79,21 +82,23 @@ class ProfileController extends Zend_Controller_Action
      * Edit existed profile
      *
      * Handler GET, POST request
-     * @link GET /profile/edit/:id display form profile populated 
+     * @link GET /profile/edit/:id display form profile populated
      * @link POST /profile/edit persit profile
+     *
      */
     public function editAction()
     {
-        $profileRepoFactory = new Application_Factory_ProfileRepository();
+        $profileRepoFactory  = new Application_Factory_ProfileRepository();
         $profileModelFactory = new Application_Factory_ProfileModel();
-        $profileRepo        = $profileRepoFactory->createService();
-        $profileForm        = new Application_Form_Profile(['id' => 'edit-profile']);
+        $profileForm         = new Application_Form_Profile(['id' => 'edit-profile']);
+
         $profileForm->submit->setLabel("Save");
+        $profileRepo = $profileRepoFactory->createService();
 
         $this->view->profileForm = $profileForm;
 
         //GET request handler
-        $visitEditProfilePage    = !$this->getRequest()->isPost();
+        $visitEditProfilePage = !$this->getRequest()->isPost();
         if ($visitEditProfilePage) {
             $profileId     = (int) $this->getParam('id', 0);
             $profileEntity = $profileRepo->findById($profileId);
@@ -107,9 +112,42 @@ class ProfileController extends Zend_Controller_Action
             return; //represent profile form with error messages
         }
 
-        //TODO: persit filtered profile to persistent
+        //Persit filtered profile to persistent
         $profileRepo->save($profileModelFactory->createService($profileForm->getValues()));
-        $this->_helper->redirector('index','profile','default');
+        $this->_helper->redirector('index', 'profile', 'default');
+    }
 
+    /**
+     * Delete existed profile
+     *
+     * Handler GET, POST request
+     * @link GET /profile/delete/:id display form confirm delete profile
+     * @link POST /profile/delete delete profile from persistent
+     */
+    public function deleteAction()
+    {
+        $request            = $this->getRequest(); /* @var $request Zend_Controller_Request_Http */
+        $profileRepoFactory = new Application_Factory_ProfileRepository();
+        $profileRepo        = $profileRepoFactory->createService(); /* @var $profileRepo Application_Repository_ProfileInterface */
+
+        if ($request->isPost()) {
+            $profileId = (int) $request->getPost('id');
+
+            if ('yes' == strtolower($request->getPost('del'))) {
+                $profileRepo->delete($profileId);
+            }
+            
+            $this->_helper->redirector('index', 'profile', 'default');
+            return;
+        }
+
+        try {
+            $profileId           = (int) $this->getParam('id', 0);
+            $this->view->profile = $profileRepo->findById($profileId);
+        } catch (Application_Repository_Exception $e) {
+            if (404 === $e->getCode()) {
+                $this->view->profileNotFound = true;
+            }
+        }
     }
 }

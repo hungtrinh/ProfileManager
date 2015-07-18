@@ -1,0 +1,18 @@
+<?php
+/* @var $this Zend_View */
+/* @var $profile Application_Model_ProfileInterface */
+
+if ($this->profileNotFound) {
+    echo $this->translate('Profile not found');
+    return;
+}
+
+$profile = $this->profile;
+$deleteProfileUrl = $this->url(['action'=>'delete','controller'=>'profile','module'=>'default'], 'default', true);
+echo $this->translate("Are you sure that you want to delete"), "account name ", "{$profile->getFullname()}";
+echo $this->form('delete-profile', ['method'=>'post','action'=> $deleteProfileUrl]);
+echo $this->formHidden('id',$profile->getId());
+echo $this->formSubmit('del', "Yes",['id'=>'Yes']);
+echo $this->formSubmit('del', "No",['id'=>'No']);
+echo "</form>";
+

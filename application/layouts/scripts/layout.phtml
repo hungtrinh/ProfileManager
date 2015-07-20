@@ -1,17 +1,23 @@
 <?php
 /* @var $this Zend_View */
 
-$profileListUrl = $this->url(['action' => 'index', 'controller' => 'profile', 'module' => 'default'],'default',true);
+$jsOnly = ZendX_JQuery::RENDER_LIBRARY |
+    ZendX_JQuery::RENDER_SOURCES |
+    ZendX_JQuery::RENDER_JAVASCRIPT |
+    ZendX_JQuery::RENDER_JQUERY_ON_LOAD;
+
+$profileListUrl = $this->url(['action' => 'index', 'controller' => 'profile', 'module' => 'default'],
+    'default', true);
 $this->headLink()
-        ->headLink([
-            'type'=>'image/x-icon',
-            'rel' => 'icon',
-            'href' => $this->baseUrl("/favicon.ico")
+    ->headLink([
+        'type' => 'image/x-icon',
+        'rel' => 'icon',
+        'href' => $this->baseUrl("/favicon.ico")
         ], Zend_View_Helper_Placeholder_Container_Abstract::PREPEND)
-        ->headLink([
-            'type'=>'image/x-icon',
-            'rel' => 'shortcut icon',
-            'href' => $this->baseUrl("/favicon.ico")
+    ->headLink([
+        'type' => 'image/x-icon',
+        'rel' => 'shortcut icon',
+        'href' => $this->baseUrl("/favicon.ico")
         ], Zend_View_Helper_Placeholder_Container_Abstract::PREPEND);
 
 
@@ -21,14 +27,18 @@ echo $this->docType(), PHP_EOL;
         <?php
         echo $this->headTitle(), PHP_EOL;
         echo $this->headMeta(), PHP_EOL;
+        echo $this->jQuery()->setRenderMode(ZendX_JQuery::RENDER_STYLESHEETS), PHP_EOL;
         echo $this->headLink(), PHP_EOL;
         echo $this->headStyle(), PHP_EOL;
         echo $this->headScript(), PHP_EOL;
         ?>
     </head>
     <body>
-        <nav><ul><li><a href="<?php echo $profileListUrl?>"><?php echo $this->translate('Profile');?></a></li></ul></nav>
-        <?php echo $this->layout()->content; ?>
-        <?php echo $this->inlineScript(), PHP_EOL; ?>
+        <nav><ul><li><a href="<?php echo $profileListUrl ?>"><?php echo $this->translate('Profile'); ?></a></li></ul></nav>
+        <?php
+        echo $this->layout()->content, PHP_EOL;
+        echo $this->jQuery()->setRenderMode($jsOnly), PHP_EOL;
+        echo $this->inlineScript(), PHP_EOL;
+        ?>
     </body>
 </html>

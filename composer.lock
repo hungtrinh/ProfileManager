@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "6161cfe3a4c092bf3d22bc7602154fa0",
+    "hash": "3477d18521152b7a0426136cae38201b",
     "packages": [
         {
             "name": "zendframework/zendframework1",
@@ -52,6 +52,50 @@
                 "framework"
             ],
             "time": "2015-07-11 07:48:50"
+        },
+        {
+            "name": "zendframework/zf1-extras",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/zendframework/zf1-extras.git",
+                "reference": "00f25a6e821439b9b9ba63efc5b86eae4e651a55"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/zendframework/zf1-extras/zipball/00f25a6e821439b9b9ba63efc5b86eae4e651a55",
+                "reference": "00f25a6e821439b9b9ba63efc5b86eae4e651a55",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.2.11",
+                "zendframework/zendframework1": "1.12.*"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.12.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-0": {
+                    "ZendX_": "library/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "include-path": [
+                "library/"
+            ],
+            "license": [
+                "BSD-3-Clause"
+            ],
+            "description": "Zend Framework 1 Extras",
+            "homepage": "http://framework.zend.com/",
+            "keywords": [
+                "ZF1",
+                "framework"
+            ],
+            "time": "2015-05-20 15:12:43"
         }
     ],
     "packages-dev": [
@@ -115,12 +159,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/phingofficial/phing.git",
-                "reference": "ef1be8b4d8a719b8d9d18191980a22828b14d57b"
+                "reference": "3ba1446055804bc50b29fb012a3d0395bd09ee51"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phingofficial/phing/zipball/ef1be8b4d8a719b8d9d18191980a22828b14d57b",
-                "reference": "ef1be8b4d8a719b8d9d18191980a22828b14d57b",
+                "url": "https://api.github.com/repos/phingofficial/phing/zipball/3ba1446055804bc50b29fb012a3d0395bd09ee51",
+                "reference": "3ba1446055804bc50b29fb012a3d0395bd09ee51",
                 "shasum": ""
             },
             "require": {
@@ -199,7 +243,7 @@
                 "task",
                 "tool"
             ],
-            "time": "2015-07-14 08:26:54"
+            "time": "2015-07-16 14:18:25"
         },
         {
             "name": "phpdocumentor/reflection-docblock",
@@ -851,12 +895,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/comparator.git",
-                "reference": "abd05e77d364138c0532a1b78a13c4d78311f546"
+                "reference": "dee3fd1828677b2182c076ad2caecbb5c7bdbf1c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/comparator/zipball/abd05e77d364138c0532a1b78a13c4d78311f546",
-                "reference": "abd05e77d364138c0532a1b78a13c4d78311f546",
+                "url": "https://api.github.com/repos/sebastianbergmann/comparator/zipball/dee3fd1828677b2182c076ad2caecbb5c7bdbf1c",
+                "reference": "dee3fd1828677b2182c076ad2caecbb5c7bdbf1c",
                 "shasum": ""
             },
             "require": {
@@ -907,7 +951,7 @@
                 "compare",
                 "equality"
             ],
-            "time": "2015-06-21 07:54:35"
+            "time": "2015-07-19 12:54:49"
         },
         {
             "name": "sebastian/diff",
@@ -1272,12 +1316,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/Console.git",
-                "reference": "ac8bf5eb095525c4de4a52f245c42d468c5c243c"
+                "reference": "fd85e7517e79a2bceafcee8f7e8b7bbd0919a90a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/Console/zipball/ac8bf5eb095525c4de4a52f245c42d468c5c243c",
-                "reference": "ac8bf5eb095525c4de4a52f245c42d468c5c243c",
+                "url": "https://api.github.com/repos/symfony/Console/zipball/fd85e7517e79a2bceafcee8f7e8b7bbd0919a90a",
+                "reference": "fd85e7517e79a2bceafcee8f7e8b7bbd0919a90a",
                 "shasum": ""
             },
             "require": {
@@ -1321,7 +1365,7 @@
             ],
             "description": "Symfony Console Component",
             "homepage": "https://symfony.com",
-            "time": "2015-07-09 16:11:14"
+            "time": "2015-07-16 12:22:14"
         },
         {
             "name": "symfony/filesystem",
@@ -1425,6 +1469,8 @@
     "aliases": [],
     "minimum-stability": "dev",
     "stability-flags": {
+        "zendframework/zendframework1": 20,
+        "zendframework/zf1-extras": 20,
         "phing/phing": 20,
         "robmorgan/phinx": 20
     },

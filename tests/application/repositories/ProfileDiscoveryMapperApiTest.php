@@ -2,7 +2,7 @@
 
 /**
  * Discovery api of lower layer using by Application_Repository_Profile
- * 
+ *
  * @group discovery-mapper-api
  * @coversDefaultClass Application_Repository_Profile
  */
@@ -10,7 +10,7 @@ class Application_Repository_ProfileDiscoveryMapperApiTest extends PHPUnit_Frame
 {
     /**
      *
-     * @var Application_Repository_Profile 
+     * @var Application_Repository_Profile
      */
     private $profileRepo;
 
@@ -95,8 +95,8 @@ class Application_Repository_ProfileDiscoveryMapperApiTest extends PHPUnit_Frame
 
     public function testFindByIdWillThrowExceptionWhenNotFoundProfile()
     {
-        $this->setExpectedException('Application_Repository_Exception', 'Not found profile', 404);
-        
+        $this->setExpectedException('Application_Repository_Exception_NotFound', 'Not found profile', 404);
+
         $profileId = 1 ;
         $this->profileMapperMock->expects($this->once())
             ->method('findById')

@@ -42,7 +42,7 @@ class Application_Repository_Profile implements Application_Repository_ProfileIn
      * Find profile by profile id
      *
      * @param int $profileId profile id
-     * @throw Application_Repository_Exception
+     * @throw Application_Repository_Exception_NotFound
      */
     public function findById($profileId)
     {
@@ -50,7 +50,7 @@ class Application_Repository_Profile implements Application_Repository_ProfileIn
         if ($profile) {
             return $profile;
         }
-        throw new Application_Repository_Exception('Not found profile', 404);
+        throw new Application_Repository_Exception_NotFound('Not found profile', 404);
     }
 
     /**

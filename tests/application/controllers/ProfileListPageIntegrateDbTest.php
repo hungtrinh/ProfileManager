@@ -34,16 +34,18 @@ class ProfileListPageIntegrateDbTest extends ControllerIntegrateDbTestCase
      */
     public function visitThenContentContainsTableProfiles()
     {
-        $this->visitListProfilePage();
+        $this->visitListProfilePage(1,25);
+        $body = $this->getResponse()->getBody();
 
-        $this->assertQuery('#table-list-profile');
-        $this->assertQuery('#table-list-profile-head');
-        $this->assertQuery('#table-list-profile-body');
+        $this->assertQuery('#table-list-profile',  $body);
+        $this->assertQuery('#table-list-profile-head',  $body);
+        $this->assertQuery('#table-list-profile-body',  $body);
 
-        $this->assertQueryContentContains('#table-list-profile-head th', 'id');
-        $this->assertQueryContentContains('#table-list-profile-head th', 'fullname');
-        $this->assertQueryContentContains('#table-list-profile-head th', 'age');
-        $this->assertQueryContentContains('#table-list-profile-head th', 'email');
+        $this->assertQueryContentContains('#table-list-profile-head th', 'id',  $body);
+        $this->assertQueryContentContains('#table-list-profile-head th', 'fullname',  $body);
+        $this->assertQueryContentContains('#table-list-profile-head th', 'age', $body);
+        $this->assertQueryContentContains('#table-list-profile-head th', 'email', $body);
+        $this->assertQueryContentContains('#table-list-profile-head th', 'Action', $body);
 
         $this->assertQueryCount('#table-list-profile-body > tr', 3);
 
@@ -52,10 +54,14 @@ class ProfileListPageIntegrateDbTest extends ControllerIntegrateDbTestCase
             ['id' => 2, 'fullname' => 'Trinh An Binh', 'age' => 25, 'email' => 'binh@gmail.com'],
             ['id' => 3, 'fullname' => 'Trinh An Thai', 'age' => 24, 'email' => 'thai@gmail.com'],
         ] as $profile) {
-            $this->assertQueryContentContains('#table-list-profile-body td', $profile['id']);
-            $this->assertQueryContentContains('#table-list-profile-body td', $profile['fullname']);
-            $this->assertQueryContentContains('#table-list-profile-body td', $profile['age']);
-            $this->assertQueryContentContains('#table-list-profile-body td', $profile['email']);
+            $editLink = $this->url((['id' => $profile['id'], 'action'=>'edit','controller'=>'profile']),'default',true);
+            $deleteLink = $this->url((['id' => $profile['id'], 'action'=>'delete','controller'=>'profile']),'default',true);
+            $this->assertQueryContentContains('#table-list-profile-body td', $profile['id'],  $body);
+            $this->assertQueryContentContains('#table-list-profile-body td', $profile['fullname'],  $body);
+            $this->assertQueryContentContains('#table-list-profile-body td', $profile['age'],  $body);
+            $this->assertQueryContentContains('#table-list-profile-body td', $profile['email'],  $body);
+            $this->assertQuery("#table-list-profile-body td a[href='$editLink']", $body);
+            $this->assertQuery("#table-list-profile-body td a[href='$deleteLink']", $body);
         }
     }
 

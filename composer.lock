@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "3477d18521152b7a0426136cae38201b",
+    "hash": "ee1c37df6420a5a291be908da96f1a41",
     "packages": [
         {
             "name": "zendframework/zendframework1",
@@ -96,6 +96,50 @@
                 "framework"
             ],
             "time": "2015-05-20 15:12:43"
+        },
+        {
+            "name": "zfbase/zend1-bootstrap3",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/zfbase/zend1-bootstrap3.git",
+                "reference": "187cabcb2b9230db55cd9a50ef74911b62568f98"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/zfbase/zend1-bootstrap3/zipball/187cabcb2b9230db55cd9a50ef74911b62568f98",
+                "reference": "187cabcb2b9230db55cd9a50ef74911b62568f98",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.0",
+                "zendframework/zendframework1": "~1"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "Twitter_Bootstrap3_": "library/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "include-path": [
+                "library/"
+            ],
+            "license": [
+                "MIT"
+            ],
+            "description": "Twitter Bootstrap v.3 Forms for Zend Framework v.1",
+            "keywords": [
+                "ZF1",
+                "bootstrap",
+                "form",
+                "twitter",
+                "twitter bootstrap",
+                "zend",
+                "zend form",
+                "zend form decorators"
+            ],
+            "time": "2015-06-02 14:46:47"
         }
     ],
     "packages-dev": [
@@ -1471,6 +1515,7 @@
     "stability-flags": {
         "zendframework/zendframework1": 20,
         "zendframework/zf1-extras": 20,
+        "zfbase/zend1-bootstrap3": 20,
         "phing/phing": 20,
         "robmorgan/phinx": 20
     },

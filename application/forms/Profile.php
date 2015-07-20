@@ -1,6 +1,6 @@
 <?php
 
-class Application_Form_Profile extends Zend_Form
+class Application_Form_Profile extends Twitter_Bootstrap3_Form_Horizontal
 {
     /**
      * Element name constant

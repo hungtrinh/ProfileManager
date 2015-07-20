@@ -12,7 +12,8 @@
     "minimum-stability": "dev",
     "require": {
         "zendframework/zendframework1": "^1.12@dev",
-        "zendframework/zf1-extras": "^1.12@dev"
+        "zendframework/zf1-extras": "^1.12@dev",
+        "zfbase/zend1-bootstrap3": "dev-master"
     },
     "require-dev": {
         "phpunit/phpunit": "4.7.*",

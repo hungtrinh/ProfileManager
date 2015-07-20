@@ -3,8 +3,16 @@
 
 $profileListUrl = $this->url(['action' => 'index', 'controller' => 'profile', 'module' => 'default'],'default',true);
 $this->headLink()
-        ->headLink(['type'=>'image/x-icon', 'rel' => 'icon', 'href' => $this->baseUrl("/favicon.ico")], Zend_View_Helper_Placeholder_Container_Abstract::PREPEND)
-        ->headLink(['type'=>'image/x-icon', 'rel' => 'shortcut icon', 'href' => $this->baseUrl("/favicon.ico")], Zend_View_Helper_Placeholder_Container_Abstract::PREPEND);
+        ->headLink([
+            'type'=>'image/x-icon',
+            'rel' => 'icon',
+            'href' => $this->baseUrl("/favicon.ico")
+        ], Zend_View_Helper_Placeholder_Container_Abstract::PREPEND)
+        ->headLink([
+            'type'=>'image/x-icon',
+            'rel' => 'shortcut icon',
+            'href' => $this->baseUrl("/favicon.ico")
+        ], Zend_View_Helper_Placeholder_Container_Abstract::PREPEND);
 
 
 echo $this->docType(), PHP_EOL;

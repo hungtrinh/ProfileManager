@@ -23,6 +23,7 @@ class Application_Form_Profile extends Twitter_Bootstrap3_Form_Horizontal
             'type' => 'text',
             'options' => [
                 'label' => 'Fullname',
+                'required' => true,
                 'validators' => [
                     [
                         'validator' => 'Regex',
@@ -46,6 +47,7 @@ class Application_Form_Profile extends Twitter_Bootstrap3_Form_Horizontal
     {
         return $this->createElement('text', self::ELEMENT_DOB,[
             'label' => 'Birthday',
+            'required' => true,
             'placeholder' => "2018-01-30",
             'validators' => [
                 [
@@ -67,6 +69,7 @@ class Application_Form_Profile extends Twitter_Bootstrap3_Form_Horizontal
             'name' => self::ELEMENT_EMAIL,
             'type' => 'text',
             'options' => [
+                'required' => true,
                 'label' => 'Email',
                 'validators' => [
                     ['validator' => 'EmailAddress', 'breakChainOnFailure' => false,], //Zend_Validate_EmailAddress

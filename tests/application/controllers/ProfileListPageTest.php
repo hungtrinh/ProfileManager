@@ -18,20 +18,16 @@ class ProfileListPageTest extends Zend_Test_PHPUnit_ControllerTestCase
         $this->dispatch($listProfileUrl);
     }
 
-    /**
-     * @test
-     */
-    public function visitThenLoadPageSuccess()
+    public function testVisitThenLoadPageSuccess()
     {
         $this->visitListProfilePage();
         $this->assertResponseCode(200);
     }
 
     /**
-     * @test
-     * @depends visitThenLoadPageSuccess
+     * @depends testVisitThenLoadPageSuccess
      */
-    public function visitThenRequestHandlerByIndexActionInProfileController()
+    public function testVisitThenRequestHandlerByIndexActionInProfileController()
     {
         $this->visitListProfilePage();
 
@@ -41,22 +37,29 @@ class ProfileListPageTest extends Zend_Test_PHPUnit_ControllerTestCase
     }
 
     /**
-     * @test
-     * @depends visitThenRequestHandlerByIndexActionInProfileController
+     * @depends testVisitThenRequestHandlerByIndexActionInProfileController
      */
-    public function visitThenShowPageTitleEqualsProfileList()
+    public function testVisitThenShowPageTitleEqualsProfileList()
     {
         $this->visitListProfilePage();
         $this->assertQueryContentContains('title', "Profile list");
     }
 
     /**
-     * @test
-     * @depends visitThenShowPageTitleEqualsProfileList
+     * @depends testVisitThenShowPageTitleEqualsProfileList
      */
-    public function visitWithEmptyProfileListThenShowContentEmptyProfileList()
+    public function testVisitWithEmptyProfileListThenShowContentEmptyProfileList()
     {
         $this->visitListProfilePage();
         $this->assertQueryContentContains('body', "Empty profile list");
+    }
+
+    public function testVisitThenContentContainsCreateProfileLink()
+    {
+        $this->visitListProfilePage();
+        $body = $this->getResponse()->getBody();
+
+        $createProfileUrl = $this->url(['action'=> 'create', 'controller'=> 'profile', 'module' => 'default']);
+        $this->assertQuery("body a[href='$createProfileUrl']", $body);
     }
 }

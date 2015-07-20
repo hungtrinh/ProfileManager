@@ -45,6 +45,7 @@
         - [Write inject invalid profile form Then isValid() return false](#write-inject-invalid-profile-form-then-isvalid-return-false)
         - [Write inject invalid profile form Then getMessages() return all invalid message](#write-inject-invalid-profile-form-then-getmessages-return-all-invalid-message)
 - [Phrase edit profile](#phrase-edit-profile)
+- [Phrase delete profile](#phrase-delete-profile)
 
 <!-- /MarkdownTOC -->
 

@@ -133,10 +133,10 @@ class ProfileController extends Zend_Controller_Action
         if ($request->isPost()) {
             $profileId = (int) $request->getPost('id');
 
-            if ('yes' == strtolower($request->getPost('del'))) {
+            if ('yes' === strtolower($request->getPost('del'))) {
                 $profileRepo->delete($profileId);
             }
-            
+
             $this->_helper->redirector('index', 'profile', 'default');
             return;
         }
@@ -144,10 +144,8 @@ class ProfileController extends Zend_Controller_Action
         try {
             $profileId           = (int) $this->getParam('id', 0);
             $this->view->profile = $profileRepo->findById($profileId);
-        } catch (Application_Repository_Exception $e) {
-            if (404 === $e->getCode()) {
-                $this->view->profileNotFound = true;
-            }
+        } catch (Application_Repository_Exception_NotFound $e) {
+            $this->view->profileNotFound = true;
         }
     }
 }

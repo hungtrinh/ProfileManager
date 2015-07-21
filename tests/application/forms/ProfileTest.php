@@ -30,10 +30,25 @@ class Application_Form_ProfileTest extends PHPUnit_Framework_TestCase
     public function invalidProfileProvider()
     {
         return [
-            [['fullname' => '$#!', 'dob' => 'four', 'email' => 'email']],
-            [['fullname' => '$#!']],
-            [['dob' => 'four']],
-            [['email' => 'email']],
+            [[]], //all field required
+
+            [['fullname'=>'Trinh Duc Hung']], //input only one field valid
+            [['dob'=>'2018-12-18']], //input only one field valid
+            [['email'=>'trinhnhauyen@gmail.com']], //input only one field valid
+            
+            [['fullname'=>'Trinh Duc Hung', 'dob'=>'2018-12-18']], //input only two field valid
+            [['fullname'=>'Trinh Duc Hung', 'email'=>'trinhnhauyen@gmail.com']], //input only two field valid
+            [['dob'=>'2018-12-18', 'email'=>'trinhnhauyen@gmail.com']], //input only two field valid
+
+            [['fullname' => '$#!']], //input one field invalid
+            [['dob' => 'four']], //input one field invalid
+            [['email' => 'email']], //input one field invalid
+
+            [['fullname' => '$#!', 'dob' => 'four']], //input two field invalid
+            [['fullname' => '$#!', 'email' => 'email']], //input two field invalid
+            [['dob' => 'four', 'email' => 'email']], //input two field invalid
+            
+            [['fullname' => '$#!', 'dob' => 'four', 'email' => 'email']], //input all field invalid
         ];
     }
 
@@ -79,10 +94,10 @@ class Application_Form_ProfileTest extends PHPUnit_Framework_TestCase
         $this->assertEquals($expectedErrorMessage, $this->form->getMessages());
     }
 
-    public function testIsValidWillReturnTrueWhenInjectValidDobFormat()
+    public function testisValidPartialWillReturnTrueWhenInjectValidDobFormat()
     {
         $this->assertTrue(
-            $this->form->isValid(['dob' => '2015-01-30']),
+            $this->form->isValidPartial(['dob' => '2015-01-30']),
             print_r($this->form->getMessages('dob'),true)
         );
     }

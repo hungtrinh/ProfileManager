@@ -69,14 +69,16 @@ echo $this->docType(), PHP_EOL;
         </nav>
 
         <div class="container">
-            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-                <?php echo $this->navigation()->breadcrumbs()->setLinkLast(true)->setPartial(['partial/breadcrumbs.phtml',
-                    'default']); ?>
-                
-                <?php
-                echo $this->layout()->content, PHP_EOL;
-                ?>
-            </div><!-- /.jumbotron -->
+            <div class="row">
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                    <?php echo $this->navigation()->breadcrumbs()->setLinkLast(true)->setPartial(['partial/breadcrumbs.phtml',
+                        'default']); ?>
+
+                    <?php
+                    echo $this->layout()->content, PHP_EOL;
+                    ?>
+                </div>
+            </div> <!-- /.row -->
         </div> <!-- /.container -->
 
         <?php

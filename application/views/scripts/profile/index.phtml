@@ -15,55 +15,56 @@ if (0 == $profileCollection->count()):
     return;
 endif; //if (0==$profileCollection->count())
 ?>
-
-<table id="table-list-profile">
-    <thead id="table-list-profile-head">
-        <tr>
-            <th>
-                <?php echo $this->translate('id'); ?>
-            </th>
-            <th>
-                <?php echo $this->translate('fullname'); ?>
-            </th>
-            <th>
-                <?php echo $this->translate('age'); ?>
-            </th>
-            <th>
-                <?php echo $this->translate('email'); ?>
-            </th>
-            <th>
-                <?php echo $this->translate('Action'); ?>
-            </th>
-        </tr>
-    </thead>
-
-    <tbody id="table-list-profile-body">
-        <?php
-        /* @var $profile Application_Model_ProfileInterface */
-        foreach ($profileCollection as $profile):
-            $id       = $this->escape($profile->getId());
-            $fullname = $this->escape($profile->getFullname());
-            $age      = $this->escape($profile->getAge());
-            $email    = $this->escape($profile->getEmail());
-            $editProfileUrl = $this->url(['id' => $id, 'action' => 'edit', 'controller' => 'profile'],'default',true);
-            $deleteProfileUrl = $this->url(['id' => $id, 'action' => 'delete', 'controller' => 'profile'],'default',true);
-            ?>
+<div class="table-responsive">
+    <table class="table table-bordered" id="table-list-profile">
+        <thead id="table-list-profile-head">
             <tr>
-                <td><?php echo $id; ?></td>
-                <td><?php echo $fullname; ?></td>
-                <td><?php echo $age; ?></td>
-                <td><?php echo $email; ?></td>
-                <td>
-                    <a href="<?php echo $editProfileUrl; ?>"><?php echo $this->translate('Edit');?></a> |
-                    <a href="<?php echo $deleteProfileUrl; ?>"><?php echo $this->translate('Delete');?></a>
-                </td>
+                <th>
+                    <?php echo $this->translate('id'); ?>
+                </th>
+                <th>
+                    <?php echo $this->translate('fullname'); ?>
+                </th>
+                <th>
+                    <?php echo $this->translate('age'); ?>
+                </th>
+                <th>
+                    <?php echo $this->translate('email'); ?>
+                </th>
+                <th>
+                    <?php echo $this->translate('Action'); ?>
+                </th>
             </tr>
-        <?php endforeach; ?>
-    </tbody>
-</table>
+        </thead>
 
-<?php
-echo $this->paginationControl(
-    $profileCollection, 'Sliding', 'partial/search-pagination.phtml'
-);
+        <tbody id="table-list-profile-body">
+            <?php
+            /* @var $profile Application_Model_ProfileInterface */
+            foreach ($profileCollection as $profile):
+                $id       = $this->escape($profile->getId());
+                $fullname = $this->escape($profile->getFullname());
+                $age      = $this->escape($profile->getAge());
+                $email    = $this->escape($profile->getEmail());
+                $editProfileUrl = $this->url(['id' => $id, 'action' => 'edit', 'controller' => 'profile'],'default',true);
+                $deleteProfileUrl = $this->url(['id' => $id, 'action' => 'delete', 'controller' => 'profile'],'default',true);
+                ?>
+                <tr>
+                    <td><?php echo $id; ?></td>
+                    <td><?php echo $fullname; ?></td>
+                    <td><?php echo $age; ?></td>
+                    <td><?php echo $email; ?></td>
+                    <td>
+                        <a href="<?php echo $editProfileUrl; ?>"><?php echo $this->translate('Edit');?></a> |
+                        <a href="<?php echo $deleteProfileUrl; ?>"><?php echo $this->translate('Delete');?></a>
+                    </td>
+                </tr>
+            <?php endforeach; ?>
+        </tbody>
+    </table>
+    <?php
+    echo $this->paginationControl(
+        $profileCollection, 'Sliding', 'partial/search-pagination.phtml'
+    );?>
+</div>
+
 

@@ -75,10 +75,10 @@ echo $this->docType(), PHP_EOL;
         </nav>
 
         <div class="container">
+            <?php echo $this->navigation()->breadcrumbs()->setLinkLast(false)->setPartial(['partial/breadcrumbs.phtml',
+                    'default']); ?>
             <div class="jumbotron">
                 <?php
-                echo $this->navigation()->breadcrumbs()->setLinkLast(false)->setPartial(['partial/breadcrumbs.phtml',
-                    'default']);
                 echo $this->layout()->content, PHP_EOL;
                 ?>
             </div><!-- /.jumbotron -->

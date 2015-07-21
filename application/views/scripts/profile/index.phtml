@@ -7,7 +7,7 @@ $profileCreateUrl = $this->url(['action' => 'create', 'controller' => 'profile',
 $profileCollection = $this->profiles;
 ?>
 
-<p><a href='<?php echo $profileCreateUrl; ?>'><?php echo $this->translate('Create profile');?></a></p>
+<p><a class="btn btn-xs btn-success" href='<?php echo $profileCreateUrl; ?>'><?php echo $this->translate('Create profile');?></a></p>
 
 <?php
 if (0 == $profileCollection->count()):
@@ -65,6 +65,6 @@ endif; //if (0==$profileCollection->count())
     echo $this->paginationControl(
         $profileCollection, 'Sliding', 'partial/search-pagination.phtml'
     );?>
-</div>
+</div><!-- /.table-responsive -->
 
 

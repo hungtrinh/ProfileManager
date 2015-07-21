@@ -61,9 +61,10 @@ endif; //if (0==$profileCollection->count())
             <?php endforeach; ?>
         </tbody>
     </table>
+    <?php
+    echo $this->paginationControl(
+        $profileCollection, 'Sliding', 'partial/search-pagination.phtml'
+    );?>
 </div>
-<?php
-echo $this->paginationControl(
-    $profileCollection, 'Sliding', 'partial/search-pagination.phtml'
-);
+
 

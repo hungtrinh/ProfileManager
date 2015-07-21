@@ -1,7 +1,7 @@
 <!-- MarkdownTOC -->
 
 - [Profile manager](#profile-manager)
-- [Phrase 'ListEmptyProfile'](#phrase-listemptyprofile)
+- [Phase 'ListEmptyProfile'](#phase-listemptyprofile)
     - [Customer](#customer)
         - [Given list profile empty](#given-list-profile-empty)
             - [When visit list profile page then](#when-visit-list-profile-page-then)
@@ -13,7 +13,7 @@
         - [Run unit-test](#run-unit-test-1)
         - [Refactoring code](#refactoring-code)
         - [Run unit-test again](#run-unit-test-again)
-- [Phrase 'ListNonEmptyProfile'](#phrase-listnonemptyprofile)
+- [Phase 'ListNonEmptyProfile'](#phase-listnonemptyprofile)
     - [Customer](#customer-1)
         - [Given list profile not empty](#given-list-profile-not-empty)
             - [Profile info need display](#profile-info-need-display)
@@ -44,17 +44,16 @@
         - [Write specification submit bad profile to 'create-profile-page'](#write-specification-submit-bad-profile-to-create-profile-page)
         - [Write inject invalid profile form Then isValid() return false](#write-inject-invalid-profile-form-then-isvalid-return-false)
         - [Write inject invalid profile form Then getMessages() return all invalid message](#write-inject-invalid-profile-form-then-getmessages-return-all-invalid-message)
-- [Phrase edit profile](#phrase-edit-profile)
-- [Phrase delete profile](#phrase-delete-profile)
+- [Phase edit profile](#phase-edit-profile)
+- [Phase delete profile](#phase-delete-profile)
 
 <!-- /MarkdownTOC -->
-
 Profile manager
 ===============
 
 Practical TDD - git flow - markdown
 
-# Phrase 'ListEmptyProfile'
+# Phase 'ListEmptyProfile'
 
 ## Customer
 
@@ -113,7 +112,7 @@ add html layout
 
 ***expected test success***
 
-# Phrase 'ListNonEmptyProfile'
+# Phase 'ListNonEmptyProfile'
 
 ## Customer
 
@@ -238,7 +237,7 @@ And system redirect to list profile page
 ### Write inject invalid profile form Then isValid() return false
 ### Write inject invalid profile form Then getMessages() return all invalid message
 
-# Phrase edit profile
+# Phase edit profile
 Stop write step by step here :D ()
 
-# Phrase delete profile
+# Phase delete profile

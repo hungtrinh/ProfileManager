@@ -2,13 +2,17 @@
 /* @var $this Zend_View */
 /* @var $profile Application_Model_ProfileInterface */
 
-if ($this->profileNotFound) {
-    echo $this->translate('Profile not found');
-    return;
-}
-
-$profile = $this->profile;
-$deleteProfileUrl = $this->url(['action'=>'delete','controller'=>'profile','module'=>'default'], 'default', true);
+if ($this->profileNotFound):
+    ?>
+    <div class="alert alert-warning" role="alert">
+        <?php echo $this->translate('Profile not found'); ?>
+    </div>
+    <?php
+endif;
+return;
+$profile          = $this->profile;
+$deleteProfileUrl = $this->url(['action' => 'delete', 'controller' => 'profile',
+    'module' => 'default'], 'default', true);
 ?>
 <p>
     <?php
@@ -16,8 +20,12 @@ $deleteProfileUrl = $this->url(['action'=>'delete','controller'=>'profile','modu
     ?>
 </p>
 <?php
-echo $this->form('delete-profile', ['method'=>'post','action'=> $deleteProfileUrl, "class"=>"form-inline"]);
-echo $this->formHidden('id',$profile->getId());
-echo $this->formSubmit('del', "Yes",['id'=>'Yes','class'=>"btn btn-danger"]), PHP_EOL;
-echo $this->formSubmit('del', "No",['id'=>'No','class'=>"btn btn-default"]);
+echo $this->form('delete-profile',
+    ['method' => 'post',
+    'action' => $deleteProfileUrl,
+    "class" => "form-inline"]);
+echo $this->formHidden('id', $profile->getId());
+echo $this->formSubmit('del', "Yes",
+    ['id' => 'Yes', 'class' => "btn btn-danger"]), PHP_EOL;
+echo $this->formSubmit('del', "No", ['id' => 'No', 'class' => "btn btn-default"]);
 echo "</form>";

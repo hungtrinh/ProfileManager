@@ -1,0 +1,94 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Profile Manager\n"
+"POT-Creation-Date: 2015-07-22 12:24+0700\n"
+"PO-Revision-Date: 2015-07-22 14:45+0700\n"
+"Last-Translator: trinh duc hung <trinhduchung@gmail.com>\n"
+"Language-Team: delta <trinhduchung@gmail.com>\n"
+"Language: vi_VN\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 1.8.2\n"
+"X-Poedit-Basepath: ../../../..\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"X-Poedit-KeywordsList: translate;_;setLabel;set­Value;setMes­sage;setLe­gend;"
+"_refresh;append;prepend;$_messageTemplates\n"
+"X-Poedit-SearchPath-0: data/locales/vi_VN/LC_MESSAGES\n"
+"X-Poedit-SearchPath-1: application\n"
+"X-Poedit-SearchPath-2: vendor/zendframework/zendframework1/library/Zend/"
+"Validate\n"
+
+#: application/controllers/ProfileController.php:95
+msgid "Save"
+msgstr "Lưu"
+
+#: application/layouts/scripts/layout.phtml:61
+msgid "Profile Manager"
+msgstr "Quản lý hồ sơ"
+
+#: application/views/scripts/index/index.phtml:2
+msgid "DDD & TDD & Markdown in Practice"
+msgstr "Thực hành DDD & TDD & Markdown"
+
+#: application/views/scripts/partial/search-pagination.phtml:10
+msgid "Previous"
+msgstr "Trước"
+
+#: application/views/scripts/partial/search-pagination.phtml:11
+msgid "Next"
+msgstr "Sau"
+
+#: application/views/scripts/profile/create.phtml:4
+#: application/views/scripts/profile/index.phtml:10
+msgid "Create profile"
+msgstr "Tạo hồ sơ"
+
+#: application/views/scripts/profile/delete.phtml:8
+msgid "Profile not found"
+msgstr "Hồ sơ không tìm thấy"
+
+#: application/views/scripts/profile/delete.phtml:19
+msgid "Are you sure that you want to delete"
+msgstr "Bạn có chắc chắn muốn xóa ?"
+
+#: application/views/scripts/profile/edit.phtml:4
+msgid "Profile Edit"
+msgstr "Chỉnh sửa hồ sơ"
+
+#: application/views/scripts/profile/index.phtml:5
+msgid "Profile list"
+msgstr "Danh sách hồ sơ"
+
+#: application/views/scripts/profile/index.phtml:14
+msgid "Empty profile list"
+msgstr "Danh sách hồ sơ rỗng"
+
+#: application/views/scripts/profile/index.phtml:23
+msgid "id"
+msgstr "Mã"
+
+#: application/views/scripts/profile/index.phtml:26
+msgid "fullname"
+msgstr "Họ và tên"
+
+#: application/views/scripts/profile/index.phtml:29
+msgid "age"
+msgstr "Tuổi"
+
+#: application/views/scripts/profile/index.phtml:32
+msgid "email"
+msgstr "Thư điện tử "
+
+#: application/views/scripts/profile/index.phtml:35
+msgid "Action"
+msgstr "Chức năng"
+
+#: application/views/scripts/profile/index.phtml:57
+msgid "Edit"
+msgstr "Chỉnh "
+
+#: application/views/scripts/profile/index.phtml:58
+msgid "Delete"
+msgstr "Xoá"

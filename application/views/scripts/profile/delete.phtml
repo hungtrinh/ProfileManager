@@ -8,8 +8,8 @@ if ($this->profileNotFound):
         <?php echo $this->translate('Profile not found'); ?>
     </div>
     <?php
+    return;
 endif;
-return;
 $profile          = $this->profile;
 $deleteProfileUrl = $this->url(['action' => 'delete', 'controller' => 'profile',
     'module' => 'default'], 'default', true);

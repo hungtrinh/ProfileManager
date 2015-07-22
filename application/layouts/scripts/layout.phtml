@@ -71,7 +71,7 @@ echo $this->docType(), PHP_EOL;
         <div class="container">
             <div class="row">
                 <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-                    <?php echo $this->navigation()->breadcrumbs()->setLinkLast(true)->setPartial(['partial/breadcrumbs.phtml',
+                    <?php echo $this->navigation()->breadcrumbs()->setLinkLast(false)->setPartial(['partial/breadcrumbs.phtml',
                         'default']); ?>
 
                     <?php

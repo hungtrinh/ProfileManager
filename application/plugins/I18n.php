@@ -64,14 +64,13 @@ class Application_Plugin_I18n extends Zend_Controller_Plugin_Abstract
      */
     protected function notifyTranslatorUsingLocale(Zend_Locale $locale)
     {
-        /* @var $sharedTranslator Zend_Translate */
-        $sharedTranslator = Zend_Registry::get(Zend_Application_Resource_Translate::DEFAULT_REGISTRY_KEY) ?: null;
-
+        $notFoundsharedTranslator = !Zend_Registry::isRegistered(Zend_Application_Resource_Translate::DEFAULT_REGISTRY_KEY);
         // If no translator found, assuming notify process has failed
-        if ( ! $sharedTranslator) {
+        if ($notFoundsharedTranslator) {
             return false;
         }
 
+        $sharedTranslator = Zend_Registry::get(Zend_Application_Resource_Translate::DEFAULT_REGISTRY_KEY);
         $sharedTranslator->getAdapter()->setLocale($locale);
 
         return true;

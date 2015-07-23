@@ -19,32 +19,54 @@ class Application_Plugin_I18n extends Zend_Controller_Plugin_Abstract
      */
     public function routeShutdown(Zend_Controller_Request_Abstract $request)
     {
-        $languageWantTranslateTo = $request->getParam('lang',$request->getCookie('lang'));
-        // Not indicate language want translate then nothing to do
-        if (!$languageWantTranslateTo) {
+        $languageWantTranslateTo = $request->getParam('lang', $request->getCookie('lang'));
+
+        $locale = $this->resolveLocale($languageWantTranslateTo);
+
+        if ( ! $locale)
+        {
             return;
         }
 
-        $languageNotExistInTheWorld = !Zend_Locale::isLocale($languageWantTranslateTo);
-        if ($languageNotExistInTheWorld) {
-            return;
-        }
-
-        /* @var $sharedTranslater Zend_Translate */
-        $sharedTranslaterName = Zend_Application_Resource_Translate::DEFAULT_REGISTRY_KEY;
-        $sharedTranslater     = Zend_Registry::get($sharedTranslaterName);
+        $sharedTranslator = $this->resolveTranslator();
 
         // Not found translater then nothing to do
-        if (!$sharedTranslater) {
+        if ( ! $sharedTranslator)
+        {
             return;
         }
 
-        // Language valid then switch translator to locale indicate by language
-        $locale = new Zend_Locale($languageWantTranslateTo);
-        $sharedTranslater->getAdapter()->setLocale($locale);
+        $sharedTranslator->getAdapter()
 
+    }
+
+    protected function resolveLocale($languageWantTranslateTo)
+    {
+        // Not indicate language want translate then nothing to do
+        if ( ! $languageWantTranslateTo)
+        {
+            return null;
+        }
+
+        if ( ! Zend_Locale::isLocale($languageWantTranslateTo))
+        {
+            return null;
+        }
+
+        return new Zend_Locale($languageWantTranslateTo);
+    }
+
+    protected function resolveTranslator()
+    {
+        /* @var $sharedTranslater Zend_Translate */
+        return Zend_Registry::get(Zend_Application_Resource_Translate::DEFAULT_REGISTRY_KEY) ?: null;
+    }
+
+    protected function nofifyBrowser (Zend_Locale $locale)
+    {
         // Notify browser set cookie 'lang', keep track lastest request language want translate
         $cookieWriter = new Zend_Http_Header_SetCookie('lang', (string)$locale);
         $this->getResponse()->setRawHeader($cookieWriter);
     }
+
 }

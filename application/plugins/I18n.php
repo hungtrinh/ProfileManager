@@ -1,14 +1,15 @@
 <?php
 
 /**
- * Switch language want to translate on zend_translate
- * base on current use request language or lastest request language
+ * Switch translater (Zend_Translate) use new language
+ * When use changing display language
  *
  * @package Application
  * @subpackage Application_Plugin
  */
 class Application_Plugin_I18n extends Zend_Controller_Plugin_Abstract
 {
+
     /**
      * Finish routing request
      * Then change language want to translate and keep track lastest language want translate
@@ -18,24 +19,26 @@ class Application_Plugin_I18n extends Zend_Controller_Plugin_Abstract
      */
     public function routeShutdown(Zend_Controller_Request_Abstract $request)
     {
-        $languageWantTranslateTo = $request->getParam('lang', $request->getCookie('lang'));
+        $rememberLanguage = $request->getCookie('lang');
+        $languageSwitchTo = $request->getParam('lang', $rememberLanguage);
 
-        // Not indicate language want translate then nothing to do
-        if ( ! $languageWantTranslateTo) {
+        if (!$languageSwitchTo) {
+            // Not indicate language want translate then nothing to do
             return;
         }
 
-        $locale = $this->resolveLocale($languageWantTranslateTo);
-        if ( ! $locale) {
+        $locale = $this->findLocaleRelative($languageSwitchTo);
+        if (!$locale) {
+            //language is invalid or not supported in this system
             return;
         }
 
-        $success = $this->notifyTranslatorUsingLocale($locale);
-        if ( ! $success) {
+        if (!$this->switchTranslateToNewLanguage($locale)) {
+            //Setting translator translate new language indicate by locale failed
             return;
         }
 
-        $this->notifyBrowserUsingLocale($locale);
+        $this->doRememberLanguage($locale);
     }
 
     /**
@@ -45,16 +48,15 @@ class Application_Plugin_I18n extends Zend_Controller_Plugin_Abstract
      * @param string $languageWantTranslateTo The language that you want to translate to
      * @return  Zend_Locale|null
      */
-    protected function resolveLocale($languageWantTranslateTo)
+    protected function findLocaleRelative($languageWantTranslateTo)
     {
         // If the locale is not existed, then returning null
-        if ( ! Zend_Locale::isLocale($languageWantTranslateTo)) {
+        if (!Zend_Locale::isLocale($languageWantTranslateTo)) {
             return null;
         }
 
         return new Zend_Locale($languageWantTranslateTo);
     }
-
 
     /**
      * Notify the translator using the resolved locale.
@@ -62,10 +64,10 @@ class Application_Plugin_I18n extends Zend_Controller_Plugin_Abstract
      * @param Zend_Locale $locale The resolved locale
      * @return  bool
      */
-    protected function notifyTranslatorUsingLocale(Zend_Locale $locale)
+    protected function switchTranslateToNewLanguage(Zend_Locale $locale)
     {
         $notFoundsharedTranslator = !Zend_Registry::isRegistered(Zend_Application_Resource_Translate::DEFAULT_REGISTRY_KEY);
-        // If no translator found, assuming notify process has failed
+
         if ($notFoundsharedTranslator) {
             return false;
         }
@@ -81,12 +83,11 @@ class Application_Plugin_I18n extends Zend_Controller_Plugin_Abstract
      *
      * @param Zend_Locale $locale The resolved locale
      */
-    protected function notifyBrowserUsingLocale(Zend_Locale $locale)
+    protected function doRememberLanguage(Zend_Locale $locale)
     {
         // Notify browser set cookie 'lang', keep track lastest request language want translate
-        $cookieWriter = new Zend_Http_Header_SetCookie('lang', (string)$locale);
+        $cookieWriter = new Zend_Http_Header_SetCookie('lang', (string) $locale);
 
         $this->getResponse()->setRawHeader($cookieWriter);
     }
-
 }

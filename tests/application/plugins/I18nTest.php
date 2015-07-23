@@ -70,6 +70,6 @@ class Application_Plugin_I18nTest extends PHPUnit_Framework_TestCase
         $this->plugin->routeShutdown($this->request);
 
         $headers = $this->plugin->getResponse()->getRawHeaders();
-        $this->assertEquals('Set-Cookie: lang=vi_VN; HttpOnly', $headers[0]);
+        $this->assertEquals('Set-Cookie: lang=vi_VN', $headers[0]);
     }
 }

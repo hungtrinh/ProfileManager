@@ -1,0 +1,162 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Zend_Validate\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2015-07-22 14:24+0700\n"
+"PO-Revision-Date: 2015-07-24 14:13+0700\n"
+"Last-Translator: trinh duc hung <trinhduchung@gmail.com>\n"
+"Language-Team: alpha <trinhduchung@gmail.com>\n"
+"Language: vi_VN\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 1.8.2\n"
+"X-Poedit-Basepath: ../../../../vendor/zendframework/zendframework1/library/"
+"Zend/Validate\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"X-Poedit-SearchPath-0: .\n"
+
+msgid "Value is required and can't be empty"
+msgstr "Vui lòng nhập liệu và không để trống"
+
+msgid "'%value%' is an empty string"
+msgstr ""
+
+# Alnum
+msgid "'%value%' has not only alphabetic and digit characters"
+msgstr ""
+
+# Alpha
+msgid "'%value%' has not only alphabetic characters"
+msgstr ""
+
+# Between
+msgid "'%value%' is not between '%min%' and '%max%', inclusively"
+msgstr ""
+
+msgid "'%value%' is not strictly between '%min%' and '%max%'"
+msgstr ""
+
+# Ccnum
+msgid "'%value%' must contain between 13 and 19 digits"
+msgstr ""
+
+msgid "Luhn algorithm (mod-10 checksum) failed on '%value%'"
+msgstr ""
+
+# Date
+msgid "'%value%' is not of the format YYYY-MM-DD"
+msgstr ""
+
+msgid "'%value%' does not appear to be a valid date"
+msgstr ""
+
+msgid "'%value%' does not fit given date format"
+msgstr ""
+
+# Digit
+msgid "'%value%' contains not only digit characters"
+msgstr ""
+
+# EmailAddress
+msgid ""
+"'%value%' is not a valid email address in the basic format local-"
+"part@hostname"
+msgstr ""
+
+msgid "'%hostname%' is not a valid hostname for email address '%value%'"
+msgstr ""
+
+msgid ""
+"'%hostname%' does not appear to have a valid MX record for the email address "
+"'%value%'"
+msgstr ""
+
+msgid "'%localPart%' not matched against dot-atom format"
+msgstr ""
+
+msgid "'%localPart%' not matched against quoted-string format"
+msgstr ""
+
+msgid "'%localPart%' is not a valid local part for email address '%value%'"
+msgstr ""
+
+# Float
+msgid "'%value%' does not appear to be a float"
+msgstr ""
+
+# GraterThan
+msgid "'%value%' is not greater than '%min%'"
+msgstr ""
+
+# Hex
+msgid "'%value%' has not only hexadecimal digit characters"
+msgstr ""
+
+# Hostname
+msgid "'%value%' appears to be an IP address, but IP addresses are not allowed"
+msgstr ""
+
+msgid ""
+"'%value%' appears to be a DNS hostname but cannot match TLD against known "
+"list"
+msgstr ""
+
+msgid ""
+"'%value%' appears to be a DNS hostname but contains a dash (-) in an invalid "
+"position"
+msgstr ""
+
+msgid ""
+"'%value%' appears to be a DNS hostname but cannot match against hostname "
+"schema for TLD '%tld%'"
+msgstr ""
+
+msgid "'%value%' appears to be a DNS hostname but cannot extract TLD part"
+msgstr ""
+
+msgid "'%value%' does not match the expected structure for a DNS hostname"
+msgstr ""
+
+msgid "'%value%' does not appear to be a valid local network name"
+msgstr ""
+
+msgid ""
+"'%value%' appears to be a local network name but local network names are not "
+"allowed"
+msgstr ""
+
+# Identical
+msgid "Tokens do not match"
+msgstr ""
+
+msgid "No token was provided to match against"
+msgstr ""
+
+# InArray
+msgid "'%value%' was not found in the haystack"
+msgstr ""
+
+# Int
+msgid "'%value' does not appear to be an integer"
+msgstr ""
+
+# Ip
+msgid "'%value%' does not appear to be a valid IP address"
+msgstr ""
+
+# LessThan
+msgid "'%value%' is not less than '%max%'"
+msgstr ""
+
+# Regex
+msgid "'%value%' does not match against pattern '%pattern%'"
+msgstr ""
+
+# StringLength
+msgid "'%value%' is less than %min% characters long"
+msgstr ""
+
+msgid "'%value%' is greater than %max% characters long"
+msgstr ""

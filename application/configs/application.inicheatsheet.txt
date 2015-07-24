@@ -47,7 +47,7 @@
 ; autoloaderNamespaces[] = "ZendX_"
 ;
 ; Set a specific version of the Zend Framework, see 
-; http://framework.zend.com/manual/1.10/en/zend.loader.autoloader.html#zend.loader.autoloader.zf-version
+; http://framework.zend.com/manual/1.12/en/zend.loader.autoloader.html#zend.loader.autoloader.zf-version
 ; autoloaderzfpath = path
 ; autoloaderzfversion = version ["latest"]
 
@@ -77,8 +77,8 @@
 ;
 ; Define cache templates for Zend_Cache_Manager. 
 ;
-; http://framework.zend.com/manual/en/zend.application.available-resources.html#zend.application.available-resources.cachemanager
-; http://framework.zend.com/manual/en/zend.cache.cache.manager.html
+; http://framework.zend.com/manual/1.12/en/zend.application.available-resources.html#zend.application.available-resources.cachemanager
+; http://framework.zend.com/manual/1.12/en/zend.cache.cache.manager.html
 ;
 ; resources.cachemanager.<NAME>.<OPTION> = <VALUE>
 ;
@@ -93,11 +93,11 @@
 ;
 ; Cache Frontends
 ;
-; http://framework.zend.com/manual/en/zend.cache.frontends.html
+; http://framework.zend.com/manual/1.12/en/zend.cache.frontends.html
 ;
 ; Zend_Cache_Core
 ;
-; http://framework.zend.com/manual/en/zend.cache.frontends.html#zend.cache.frontends.core
+; http://framework.zend.com/manual/1.12/en/zend.cache.frontends.html#zend.cache.frontends.core
 ;
 ; resources.cachemanager.<NAME>.frontend.name = Core
 ; resources.cachemanager.<NAME>.frontend.options.caching = true
@@ -113,13 +113,13 @@
 ;
 ; Zend_Cache_Frontend_Output
 ;
-; http://framework.zend.com/manual/en/zend.cache.frontends.html#zend.cache.frontends.output
+; http://framework.zend.com/manual/1.12/en/zend.cache.frontends.html#zend.cache.frontends.output
 ;
 ; resources.cachemanager.<NAME>.frontend.name = Output
 ;
 ; Zend_Cache_Frontend_Function
 ;
-; http://framework.zend.com/manual/en/zend.cache.frontends.html#zend.cache.frontends.function
+; http://framework.zend.com/manual/1.12/en/zend.cache.frontends.html#zend.cache.frontends.function
 ;
 ; resources.cachemanager.<NAME>.frontend.name = Function
 ; resources.cachemanager.<NAME>.frontend.options.cache_by_default = true
@@ -128,7 +128,7 @@
 ;
 ; Zend_Cache_Frontend_Class
 ;
-; http://framework.zend.com/manual/en/zend.cache.frontends.html#zend.cache.frontends.class
+; http://framework.zend.com/manual/1.12/en/zend.cache.frontends.html#zend.cache.frontends.class
 ;
 ; resources.cachemanager.<NAME>.frontend.name = Class
 ; resources.cachemanager.<NAME>.frontend.options.cached_entity = <VALUE> REQUIRED! 
@@ -138,7 +138,7 @@
 ;
 ; Zend_Cache_Frontend_File
 ;
-; http://framework.zend.com/manual/en/zend.cache.frontends.html#zend.cache.frontends.file
+; http://framework.zend.com/manual/1.12/en/zend.cache.frontends.html#zend.cache.frontends.file
 ;
 ; resources.cachemanager.<NAME>.frontend.name = File
 ; resources.cachemanager.<NAME>.frontend.options.master_files[] = "path/to/file"
@@ -147,7 +147,7 @@
 ;
 ; Zend_Cache_Frontend_Page
 ;
-; http://framework.zend.com/manual/en/zend.cache.frontends.html#zend.cache.frontends.page
+; http://framework.zend.com/manual/1.12/en/zend.cache.frontends.html#zend.cache.frontends.page
 ;
 ; resources.cachemanager.<NAME>.frontend.name = Page
 ; resources.cachemanager.<NAME>.frontend.options.http_conditional = false
@@ -171,11 +171,11 @@
 ;
 ; Cache Backends
 ;
-; http://framework.zend.com/manual/en/zend.cache.backends.html
+; http://framework.zend.com/manual/1.12/en/zend.cache.backends.html
 ;
 ; Zend_Cache_Backend_File
 ;
-; http://framework.zend.com/manual/en/zend.cache.backends.html#zend.cache.backends.file
+; http://framework.zend.com/manual/1.12/en/zend.cache.backends.html#zend.cache.backends.file
 ;
 ; resources.cachemanager.<NAME>.backend.name = File
 ; resources.cachemanager.<NAME>.backend.options.cache_dir = "/tmp/"
@@ -192,7 +192,7 @@
 ;
 ; Zend_Cache_Backend_Sqlite
 ;
-; http://framework.zend.com/manual/en/zend.cache.backends.html#zend.cache.backends.sqlite
+; http://framework.zend.com/manual/1.12/en/zend.cache.backends.html#zend.cache.backends.sqlite
 ;
 ; resources.cachemanager.<NAME>.backend.name = Sqlite
 ; resources.cachemanager.<NAME>.backend.options.cache_db_complete_path = "/path/to/database.sqlite" ;REQUIRED!
@@ -200,7 +200,7 @@
 ;
 ; Zend_Cache_Backend_Memcached
 ;
-; http://framework.zend.com/manual/en/zend.cache.backends.html#zend.cache.backends.memcached
+; http://framework.zend.com/manual/1.12/en/zend.cache.backends.html#zend.cache.backends.memcached
 ;
 ; resources.cachemanager.<NAME>.backend.name = Memcached
 ; resources.cachemanager.<NAME>.backend.options.servers.host = 'localhost'
@@ -216,13 +216,13 @@
 ;
 ; Zend_Cache_Backend_Apc
 ;
-; http://framework.zend.com/manual/en/zend.cache.backends.html#zend.cache.backends.apc
+; http://framework.zend.com/manual/1.12/en/zend.cache.backends.html#zend.cache.backends.apc
 ;
 ; resources.cachemanager.<NAME>.backend.name = Apc
 ;
 ; Zend_Cache_Backend_Xcache
 ;
-; http://framework.zend.com/manual/en/zend.cache.backends.html#zend.cache.backends.xcache
+; http://framework.zend.com/manual/1.12/en/zend.cache.backends.html#zend.cache.backends.xcache
 ; 
 ; resources.cachemanager.<NAME>.backend.name = Xcache
 ; resources.cachemanager.<NAME>.backend.options.user = NULL
@@ -230,13 +230,13 @@
 ;
 ; Zend_Cache_Backend_ZendPlatform
 ;
-; http://framework.zend.com/manual/en/zend.cache.backends.html#zend.cache.backends.platform
+; http://framework.zend.com/manual/1.12/en/zend.cache.backends.html#zend.cache.backends.platform
 ;
 ; resources.cachemanager.<NAME>.backend.name = "Zend Platform" 
 ;
 ; Zend_Cache_Backend_TwoLevels
 ;
-; http://framework.zend.com/manual/en/zend.cache.backends.html#zend.cache.backends.twolevels
+; http://framework.zend.com/manual/1.12/en/zend.cache.backends.html#zend.cache.backends.twolevels
 ;
 ; resources.cachemanager.<NAME>.backend.name = "Two Levels"
 ; resources.cachemanager.<NAME>.backend.options.slow_backend = "File"
@@ -254,11 +254,11 @@
 ; Zend_Cache_Backend_ZendServer_ShMem
 ;
 ; See documentation!
-; http://framework.zend.com/manual/en/zend.cache.backends.html#zend.cache.backends.zendserver
+; http://framework.zend.com/manual/1.12/en/zend.cache.backends.html#zend.cache.backends.zendserver
 ;
 ; Zend_Cache_Backend_Static
 ;
-; http://framework.zend.com/manual/en/zend.cache.backends.html#zend.cache.backends.static
+; http://framework.zend.com/manual/1.12/en/zend.cache.backends.html#zend.cache.backends.static
 ;
 ; resources.cachemanager.<NAME>.backend.name = "Two Levels"
 ; resources.cachemanager.<NAME>.backend.options.public_dir = NULL
@@ -281,8 +281,8 @@
 ;
 ; Some options are adapter specific.
 ;
-; http://framework.zend.com/manual/en/zend.application.available-resources.html#zend.application.available-resources.db
-; http://framework.zend.com/manual/en/zend.db.adapter.html
+; http://framework.zend.com/manual/1.12/en/zend.application.available-resources.html#zend.application.available-resources.db
+; http://framework.zend.com/manual/1.12/en/zend.db.adapter.html
 ;
 ; resources.db.adapter = <ADAPTER_NAME>
 ; resources.db.isDefaultTableAdapter = true
@@ -314,7 +314,7 @@
 ;
 ; Enables and configures the dojo view helper.
 ;
-; http://framework.zend.com/manual/en/zend.dojo.view.html
+; http://framework.zend.com/manual/1.12/en/zend.dojo.view.html
 ;
 ; resources.dojo.requiremodules[] = <MODULE>
 ; resources.dojo.modulepaths.<MODULE_NAME> = '/path/to/module'
@@ -334,8 +334,8 @@
 ;
 ; Configuration for the frontcontroller.
 ;
-; http://framework.zend.com/manual/en/zend.application.available-resources.html#zend.application.available-resources.frontcontroller
-; http://framework.zend.com/manual/en/zend.controller.front.html
+; http://framework.zend.com/manual/1.12/en/zend.application.available-resources.html#zend.application.available-resources.frontcontroller
+; http://framework.zend.com/manual/1.12/en/zend.controller.front.html
 ;
 ; resources.frontController.controllerDirectory = <CONTROLLER_DIR>
 ; resources.frontController.modulecontrollerdirectoryname = <NAME>
@@ -377,8 +377,8 @@
 ;
 ; Enables and configures Zend_Layout.
 ;
-; http://framework.zend.com/manual/en/zend.application.available-resources.html#zend.application.available-resources.layout
-; http://framework.zend.com/manual/en/zend.layout.options.html
+; http://framework.zend.com/manual/1.12/en/zend.application.available-resources.html#zend.application.available-resources.layout
+; http://framework.zend.com/manual/1.12/en/zend.layout.options.html
 ;
 ; resources.layout.layout = "layout"
 ; resources.layout.layoutPath = <LAYOUT_PATH>
@@ -393,8 +393,8 @@
 ;
 ; Configuration for Zend_Locale.
 ;
-; http://framework.zend.com/manual/en/zend.application.available-resources.html#zend.application.available-resources.locale
-; 
+; http://framework.zend.com/manual/1.12/en/zend.application.available-resources.html#zend.application.available-resources.locale
+
 ; resources.locale.default = <DEFAULT_LOCALE>
 ; resources.locale.force = false
 ; resources.locale.registry_key = "Zend_Locale"
@@ -408,8 +408,8 @@
 ;
 ; Configure one or more logger(s). Only one filter per logger is supported.
 ;
-; http://framework.zend.com/manual/en/zend.application.available-resources.html#zend.application.available-resources.log
-; http://framework.zend.com/manual/en/zend.log.factory.html
+; http://framework.zend.com/manual/1.12/en/zend.application.available-resources.html#zend.application.available-resources.log
+; http://framework.zend.com/manual/1.12/en/zend.log.factory.html
 ;
 ; A single logger:
 ; resources.log.writerName = <WRITER>
@@ -485,8 +485,8 @@
 ;
 ; Configure default mail transport and addresses.
 ;
-; http://framework.zend.com/manual/en/zend.application.available-resources.html#zend.application.available-resources.mail
-; http://framework.zend.com/manual/en/zend.mail.html
+; http://framework.zend.com/manual/1.12/en/zend.application.available-resources.html#zend.application.available-resources.mail
+; http://framework.zend.com/manual/1.12/en/zend.mail.html
 ;
 ; resources.mail.transport.register = true
 ; resources.mail.defaultfrom.email = <EMAIL>
@@ -519,7 +519,7 @@
 ;
 ; Initialize application module bootstrapping.
 ;
-; http://framework.zend.com/manual/en/zend.application.available-resources.html#zend.application.available-resources.modules
+; http://framework.zend.com/manual/1.12/en/zend.application.available-resources.html#zend.application.available-resources.modules
 ;
 ; No options, enable resource by creating an empty array:
 ; resources.modules[] =
@@ -530,7 +530,7 @@
 ;
 ; Configure multiple database connections.
 ;
-; http://framework.zend.com/manual/en/zend.application.available-resources.html#zend.application.available-resources.multidb
+; http://framework.zend.com/manual/1.12/en/zend.application.available-resources.html#zend.application.available-resources.multidb
 ;
 ; resources.multidb.<DBNAME>.default = true ; Set the adapter as default adapter 
 ; resources.multidb.<DBNAME>.adapter = <ADAPTER_NAME>
@@ -551,7 +551,7 @@
 ;
 ; Configure the navigation for the project.
 ;
-; http://framework.zend.com/manual/en/zend.application.available-resources.html#zend.application.available-resources.navigation
+; http://framework.zend.com/manual/1.12/en/zend.application.available-resources.html#zend.application.available-resources.navigation
 ;
 ; Set the navigation structure of the project per configuration.
 ; resources.navigation.pages = <ARRAY>
@@ -581,9 +581,9 @@
 ;
 ; Configures the standard router (Zend_Controller_Router_Rewrite) for the application.
 ;
-; http://framework.zend.com/manual/en/zend.application.available-resources.html#zend.application.available-resources.router
-; http://framework.zend.com/manual/en/zend.controller.router.html#zend.controller.router.routes.standard
-; http://framework.zend.com/manual/en/zend.controller.router.html#zend.controller.router.routes.chain.config
+; http://framework.zend.com/manual/1.12/en/zend.application.available-resources.html#zend.application.available-resources.router
+; http://framework.zend.com/manual/1.12/en/zend.controller.router.html#zend.controller.router.routes.standard
+; http://framework.zend.com/manual/1.12/en/zend.controller.router.html#zend.controller.router.routes.chain.config
 ;
 ; Examples:
 ; resources.router.routes.login.route = "login"
@@ -609,8 +609,8 @@
 ;
 ; Configure Zend_Session.
 ;
-; http://framework.zend.com/manual/en/zend.application.available-resources.html#zend.application.available-resources.session
-; http://framework.zend.com/manual/en/zend.session.global_session_management.html
+; http://framework.zend.com/manual/1.12/en/zend.application.available-resources.html#zend.application.available-resources.session
+; http://framework.zend.com/manual/1.12/en/zend.session.global_session_management.html
 ;
 ; Options that will be set via ini_set:
 ; resources.session.save_path
@@ -670,8 +670,8 @@
 ;
 ; Configure Zend_Translate.
 ;
-; http://framework.zend.com/manual/en/zend.application.available-resources.html#zend.application.available-resources.translate
-; http://framework.zend.com/manual/en/zend.translate.additional.html
+; http://framework.zend.com/manual/1.12/en/zend.application.available-resources.html#zend.application.available-resources.translate
+; http://framework.zend.com/manual/1.12/en/zend.translate.additional.html
 ;
 ; Set the translate adapter
 ; resources.translate.adapter = "Array"
@@ -716,8 +716,8 @@
 ;
 ; Configure useragent detection.
 ;
-; http://framework.zend.com/manual/en/zend.application.available-resources.html#zend.application.available-resources.useragent
-; http://framework.zend.com/manual/en/zend.http.user-agent.html#zend.http.user-agent.options
+; http://framework.zend.com/manual/1.12/en/zend.application.available-resources.html#zend.application.available-resources.useragent
+; http://framework.zend.com/manual/1.12/en/zend.http.user-agent.html#zend.http.user-agent.options
 ;
 ; Configuration options
 ; resources.useragent.browser_type =
@@ -754,8 +754,8 @@
 ;
 ; Configure Zend_View for the application
 ;
-; http://framework.zend.com/manual/en/zend.application.available-resources.html#zend.application.available-resources.view
-; http://framework.zend.com/manual/en/zend.view.introduction.html#zend.view.introduction.options
+; http://framework.zend.com/manual/1.12/en/zend.application.available-resources.html#zend.application.available-resources.view
+; http://framework.zend.com/manual/1.12/en/zend.view.introduction.html#zend.view.introduction.options
 ;
 ; Set the doctype for the view
 ; resources.view.doctype =

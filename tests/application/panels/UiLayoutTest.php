@@ -21,4 +21,15 @@ class UiLayoutTest extends Zend_Test_PHPUnit_ControllerTestCase
         $listProfileUrl = $this->url(['action'=>'index', 'controller'=> 'profile', 'module' => 'default'],'default',true);
         $this->assertQuery("nav a[href='$listProfileUrl']",$body);
     }
+
+    public function testHeaderHasSwitcherLanguage()
+    {
+        $this->dispatch($this->url(['action'=>'index', 'controller'=> 'index', 'module' => 'default'],'default',true));
+        $body = $this->getResponse()->getBody();
+
+        $changeDisplayVietnameseLink = $this->url(['lang'=> 'vi_VN'],'default',true);
+        $changeDisplayUsLink = $this->url(['lang'=> 'en_US'],'default',true);
+        $this->assertQuery("nav a[href='$changeDisplayVietnameseLink']",$body);
+        $this->assertQuery("nav a[href='$changeDisplayUsLink']",$body);
+    }
 }

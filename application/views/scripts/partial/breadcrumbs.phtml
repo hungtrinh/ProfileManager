@@ -8,7 +8,10 @@ if (!$active = $this->breadcrumbs()->findActive($this->container)) {
     return '';
 }
 
-$active = $active['page']; /* @var $active Zend_Navigation_Page */
+/* @var $active Zend_Navigation_Page */
+/* @var $this Zend_View_Helper_Navigation_Breadcrumbs */
+
+$active = $active['page']; 
 $activeClassCss = 'active';
 
 

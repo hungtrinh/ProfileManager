@@ -1,8 +1,8 @@
 <?php
 
 /**
- * Switch translater (Zend_Translate) use new language
- * When use changing display language
+ * Change language used in application (Zend_Translate::setLocale(newLanguage))
+ * when use changing display language
  *
  * @package Application
  * @subpackage Application_Plugin
@@ -19,75 +19,62 @@ class Application_Plugin_I18n extends Zend_Controller_Plugin_Abstract
      */
     public function routeShutdown(Zend_Controller_Request_Abstract $request)
     {
-        $rememberLanguage = $request->getCookie('lang');
-        $languageSwitchTo = $request->getParam('lang', $rememberLanguage);
+        $rememberLanguage                = $request->getCookie('lang');
+        $languageWantTranslateTo         = $request->getParam('lang',$rememberLanguage);
+        $notFoundRequestChangingLanguage = !$languageWantTranslateTo;
 
-        if (!$languageSwitchTo) {
-            // Not indicate language want translate then nothing to do
+        if ($notFoundRequestChangingLanguage
+            || $this->systemNotSupported($languageWantTranslateTo)
+            || $this->notFoundSharedTranslator()) {
             return;
         }
 
-        $locale = $this->findLocaleRelative($languageSwitchTo);
-        if (!$locale) {
-            //language is invalid or not supported in this system
-            return;
-        }
-
-        if (!$this->switchTranslateToNewLanguage($locale)) {
-            //Setting translator translate new language indicate by locale failed
-            return;
-        }
-
-        $this->doRememberLanguage($locale);
-    }
-
-    /**
-     * Resolve the locale by language that you want translate to.
-     * If the locale is not existed in the world, we'll return null
-     *
-     * @param string $languageWantTranslateTo The language that you want to translate to
-     * @return  Zend_Locale|null
-     */
-    private function findLocaleRelative($languageWantTranslateTo)
-    {
-        // If the locale is not existed, then returning null
-        if (!Zend_Locale::isLocale($languageWantTranslateTo)) {
-            return null;
-        }
-
-        return new Zend_Locale($languageWantTranslateTo);
+        $this->changeLanguageUsedInApplication($languageWantTranslateTo);
+        $this->remember($languageWantTranslateTo);
     }
 
     /**
      * Notify the translator using the resolved locale.
      *
-     * @param Zend_Locale $locale The resolved locale
-     * @return  bool
+     * @param Zend_Locale | string $locale 
+     * @return  void
      */
-    private function switchTranslateToNewLanguage(Zend_Locale $locale)
+    private function changeLanguageUsedInApplication($locale)
     {
-        $notFoundsharedTranslator = !Zend_Registry::isRegistered(Zend_Application_Resource_Translate::DEFAULT_REGISTRY_KEY);
-
-        if ($notFoundsharedTranslator) {
-            return false;
-        }
-
         $sharedTranslator = Zend_Registry::get(Zend_Application_Resource_Translate::DEFAULT_REGISTRY_KEY);
         $sharedTranslator->getAdapter()->setLocale($locale);
-
-        return true;
     }
 
     /**
-     * Notify the browser to "understand" the locale that we resolved.
+     * Notify the browser to keeptrack lastest language use changing
      *
-     * @param Zend_Locale $locale The resolved locale
+     * @param Zend_Locale | string $languageWantTranslateTo locale or language
      */
-    private function doRememberLanguage(Zend_Locale $locale)
+    private function remember($languageWantTranslateTo)
     {
         // Notify browser set cookie 'lang', keep track lastest request language want translate
-        $cookieWriter = new Zend_Http_Header_SetCookie('lang', (string) $locale);
+        $cookieWriter = new Zend_Http_Header_SetCookie('lang', (string) $languageWantTranslateTo);
 
         $this->getResponse()->setRawHeader($cookieWriter);
+    }
+
+    /**
+     * Indicate system not support this $languageWantTranslateTo
+     * 
+     * @param string $languageWantTranslateTo
+     * @return boolean
+     */
+    private function systemNotSupported($languageWantTranslateTo)
+    {
+        return !Zend_Locale::isLocale($languageWantTranslateTo);
+    }
+
+    /**
+     * Indicate not found shared translator
+     * @return boolean
+     */
+    private function notFoundSharedTranslator()
+    {
+        return !Zend_Registry::isRegistered(Zend_Application_Resource_Translate::DEFAULT_REGISTRY_KEY);
     }
 }

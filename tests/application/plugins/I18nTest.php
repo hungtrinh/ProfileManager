@@ -6,7 +6,6 @@
  * @category   Application
  * @package    Application_Plugin
  * @subpackage UnitTests
- * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @group      Application_Plugin
  */
 class Application_Plugin_I18nTest extends PHPUnit_Framework_TestCase
@@ -86,7 +85,7 @@ class Application_Plugin_I18nTest extends PHPUnit_Framework_TestCase
         return $translater;
     }
 
-    public function testWhenUseNotChooseLanguageAndSystemNotRememberLastLanguageUseChooseThenPluginI18nNoThingTodo()
+    public function testWhenRequestChangeDisplayLanguageNotFoundThenThePluginI18nDoNothing()
     {
         $translater = $this->prepaireSharedTranslaterForTestContext();
 
@@ -102,7 +101,7 @@ class Application_Plugin_I18nTest extends PHPUnit_Framework_TestCase
         $this->assertEmpty($this->response->getRawHeaders());
     }
 
-    public function testWhenSystemNotPredefinedTranslatorSharedResourceThenPluginI18nNoThingTodo()
+    public function testWhenSystemDoesNotHaveSharedTranslatorThenThePluginI18nDoNothing()
     {
         $this->request->setQuery('lang', 'vi_VN');
         $this->plugin->routeShutdown($this->request);
@@ -110,7 +109,7 @@ class Application_Plugin_I18nTest extends PHPUnit_Framework_TestCase
     }
 
 
-    public function testWhenUseSwitchLocaleThenSystemDoChangeLanguageOnTranslatorShared()
+    public function testWhenUseSwitchLanguageSuccessThenSystemChangeTheUsedLanguageInApplication()
     {
         $this->prepaireSharedTranslaterForTestContext();
 
@@ -122,7 +121,7 @@ class Application_Plugin_I18nTest extends PHPUnit_Framework_TestCase
         $this->assertEquals('vi_VN', (string)$trans->getAdapter()->getLocale());
     }
 
-    public function testWhenUseSwitchLocaleThenSystemNotifyRememberLanguage()
+    public function testWhenUseSwitchLanguageSuccessThenSystemRememberTheSwitchedLangauge()
     {
         $this->prepaireSharedTranslaterForTestContext();
         $this->request->setQuery('lang', 'vi_VN');

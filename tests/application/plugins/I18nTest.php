@@ -12,13 +12,13 @@ class Application_Plugin_I18nTest extends PHPUnit_Framework_TestCase
 {
     /**
      * Request object
-     * @var Zend_Controller_Request_Http
+     * @var Zend_Controller_Request_HttpTestCase
      */
     private $request;
 
     /**
      * Response object
-     * @var Zend_Controller_Response_Http
+     * @var Zend_Controller_Response_HttpTestCase
      */
     private $response;
 
@@ -42,7 +42,7 @@ class Application_Plugin_I18nTest extends PHPUnit_Framework_TestCase
         $app = new Zend_Application(APPLICATION_ENV, APPLICATION_PATH . "/configs/application.ini");
         $app->getBootstrap()->getResourceLoader();  //trigger default autoload module resource only
 
-        $this->request  = new Zend_Controller_Request_Http();
+        $this->request  = new Zend_Controller_Request_HttpTestCase();
         $this->response = new Zend_Controller_Response_HttpTestCase();
         $this->plugin   = new Application_Plugin_I18n();
         $this->plugin->setRequest($this->request);
@@ -59,6 +59,9 @@ class Application_Plugin_I18nTest extends PHPUnit_Framework_TestCase
     {
         //destroy dirty singleton instance
         Zend_Registry::_unsetInstance();
+        $this->request = null;
+        $this->response = null;
+        $this->plugin = null;
         parent::tearDown();
     }
 
@@ -129,5 +132,18 @@ class Application_Plugin_I18nTest extends PHPUnit_Framework_TestCase
 
         $headers = $this->plugin->getResponse()->getRawHeaders();
         $this->assertContains('Set-Cookie: lang=vi_VN', $headers, print_r($headers,true));
+    }
+
+    public function testWhenGetRememberedLanguageSuccessThenSystemChangeTheUsedLanguageInApplication()
+    {
+        $this->prepaireSharedTranslaterForTestContext();
+
+        $this->request->setCookie('lang', 'vi_VN');
+        $this->plugin->routeShutdown($this->request);
+
+        /* @var $trans Zend_Translate */
+        $trans = Zend_Registry::get(Zend_Application_Resource_Translate::DEFAULT_REGISTRY_KEY);
+        $this->assertEquals('vi_VN', (string)$trans->getAdapter()->getLocale());
+
     }
 }

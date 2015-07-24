@@ -16,7 +16,7 @@ $deleteProfileUrl = $this->url(['action' => 'delete', 'controller' => 'profile',
 ?>
 <p>
     <?php
-    echo $this->translate("Are you sure that you want to delete"), " account name '{$profile->getFullname()}'";
+    echo $this->translate("Are you sure that you want to delete")," ",$this->translate("account name")," '{$profile->getFullname()}'";
     ?>
 </p>
 <?php

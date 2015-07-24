@@ -20,11 +20,11 @@ class Application_Plugin_I18n extends Zend_Controller_Plugin_Abstract
     public function routeShutdown(Zend_Controller_Request_Abstract $request)
     {
         $rememberLanguage                = $request->getCookie('lang');
-        $languageWantTranslateTo         = $request->getParam('lang',$rememberLanguage);
-        $notFoundRequestChangingLanguage = !$languageWantTranslateTo;
+        $languageWantTranslateTo         = $request->getParam('lang',
+            $rememberLanguage);
+        $notFoundRequestChangingLanguage = empty($languageWantTranslateTo);
 
-        if ($notFoundRequestChangingLanguage
-            || $this->systemNotSupported($languageWantTranslateTo)
+        if ($notFoundRequestChangingLanguage || $this->systemNotSupported($languageWantTranslateTo)
             || $this->notFoundSharedTranslator()) {
             return;
         }
@@ -53,8 +53,13 @@ class Application_Plugin_I18n extends Zend_Controller_Plugin_Abstract
     private function remember($languageWantTranslateTo)
     {
         // Notify browser set cookie 'lang', keep track lastest request language want translate
-        $cookieWriter = new Zend_Http_Header_SetCookie('lang', (string) $languageWantTranslateTo);
-
+        $tenDayLastest = new DateTime("+10 days");
+        $cookieWriter  = new Zend_Http_Header_SetCookie();
+        $cookieWriter->setName('lang')
+            ->setExpires($tenDayLastest->getTimestamp())
+            ->setValue((string) $languageWantTranslateTo)
+            ->setPath('/');
+        
         $this->getResponse()->setRawHeader($cookieWriter);
     }
 

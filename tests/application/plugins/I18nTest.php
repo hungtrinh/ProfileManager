@@ -130,8 +130,7 @@ class Application_Plugin_I18nTest extends PHPUnit_Framework_TestCase
         $this->request->setQuery('lang', 'vi_VN');
         $this->plugin->routeShutdown($this->request);
 
-        $headers = $this->plugin->getResponse()->getRawHeaders();
-        $this->assertContains('Set-Cookie: lang=vi_VN', $headers, print_r($headers,true));
+        $this->assertPluginI18nSetCookieRightWay();
     }
 
     public function testWhenGetRememberedLanguageSuccessThenSystemChangeTheUsedLanguageInApplication()
@@ -145,5 +144,31 @@ class Application_Plugin_I18nTest extends PHPUnit_Framework_TestCase
         $trans = Zend_Registry::get(Zend_Application_Resource_Translate::DEFAULT_REGISTRY_KEY);
         $this->assertEquals('vi_VN', (string)$trans->getAdapter()->getLocale());
 
+    }
+
+    public function testWhenGetRememberedLanguageSuccessThenSystemRememberTheSwitchedLangauge()
+    {
+        $this->prepaireSharedTranslaterForTestContext();
+        $this->request->setCookie('lang', 'vi_VN');
+        $this->plugin->routeShutdown($this->request);
+
+        $this->assertPluginI18nSetCookieRightWay();
+    }
+
+    protected function assertPluginI18nSetCookieRightWay()
+    {
+        $headers = $this->response->getRawHeaders();
+        $this->assertNotEmpty($headers);
+
+        /* @var $setCookie Zend_Http_Header_SetCookie */
+        $setCookie = Zend_Http_Header_SetCookie::fromString($headers[0]);
+        $dateAHead = new DateTime($setCookie->getExpires());
+        $dayAHeadExpireCookie = $dateAHead->diff(new DateTime())->days;
+
+        $this->assertEquals('lang', $setCookie->getName(), print_r($setCookie,true));
+        $this->assertEquals('vi_VN', $setCookie->getValue(), print_r($setCookie,true));
+        $this->assertEquals('/', $setCookie->getPath(), print_r($setCookie,true));
+        $this->assertNull($setCookie->getDomain(), print_r($setCookie,true));
+        $this->assertEquals(10, $dayAHeadExpireCookie);
     }
 }

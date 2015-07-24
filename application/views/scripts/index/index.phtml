@@ -1,4 +1,8 @@
 <h2>
-<?php echo $this->translate('DDD & TDD & Markdown in Practice');?>
+<?php
+echo $this->translate('DDD & TDD & Markdown in Practice');
+?>
 </h2>
-<h3>Click <a href="<?php echo $this->url(['action'=> 'index', 'controller'=> 'profile']);?>">Profile</a> to start</h3>
+<h3>
+    <?php echo sprintf($this->translate("Click %s to start"), "<a href='{$this->url(['action'=> 'index', 'controller'=> 'profile'])}'>{$this->translate('Profile')}</a>");?>
+</h3>
